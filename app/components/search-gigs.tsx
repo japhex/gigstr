@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react'
+import { KeyboardEvent, useContext, useState } from 'react'
 
 import { useLazyQuery } from '@apollo/react-hooks'
-import { Box, Button, Center, Flex, FormControl, Grid, Input, InputRightElement, InputGroup } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, FormControl, Grid, Input, InputRightElement, InputGroup, Fade } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { MdSearch } from 'react-icons/md'
 
@@ -12,7 +12,7 @@ import GigResult from './search-result'
 
 const Search = () => {
   const { searchActive, setSearchActive } = useContext(AppContext)
-  const { register, handleSubmit, getValues } = useForm()
+  const { register, handleSubmit, getValues, setValue } = useForm()
   const [pastGig, setPastGig] = useState<boolean>(false)
   const [searchGigAction, { data, loading }] = useLazyQuery<SearchGigQuery>(SearchGigDocument)
 
@@ -23,8 +23,11 @@ const Search = () => {
     setSearchActive(true)
   }
 
-  const onKeyup = e => {
-    if (e.target.value === '') {
+  const onKeyup = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Escape') {
+      setValue('artist','')
+    }
+    if ((e.target as HTMLInputElement).value === '') {
       setSearchActive(false)
     }
   }
@@ -55,14 +58,16 @@ const Search = () => {
         </Flex>
       </form>
       {data && !loading && searchActive && (
-        <Box bg="GREY4">
-          <Grid templateColumns="1fr 1fr 1fr" gap={4} py={4}>
-            {data?.searchGig?.map((gig: Gig) => (
-              <GigResult gig={gig} key={gig.id} />
-            ))}
-            {!data.searchGig && <>No gigs found for {getValues('artist')}! Maybe they're taking a break!?</>}
-          </Grid>
-        </Box>
+        <Fade in={data && !loading && searchActive}>
+          <Box bg="GREY4">
+            <Grid templateColumns="1fr 1fr 1fr" gap={4} py={4}>
+              {data?.searchGig?.map((gig: Gig) => (
+                <GigResult gig={gig} key={gig.id} />
+              ))}
+              {!data.searchGig && <>No gigs found for {getValues('artist')}! Maybe they're taking a break!?</>}
+            </Grid>
+          </Box>
+        </Fade>
       )}
     </Box>
   )

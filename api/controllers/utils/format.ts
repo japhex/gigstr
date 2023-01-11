@@ -24,6 +24,7 @@ export const formatBandsInTownGigData = (artist, event) => ({
 
 export const formatTicketmasterGigData = (artist, event) => ({
   id: event?.id,
+  ticketmasterId: event?.id,
   artist,
   date: {
     start: event?.dates?.start?.localDate || event?.dates?.start?.dateTime,

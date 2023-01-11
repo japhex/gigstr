@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 const SchemaTypes = mongoose.Schema.Types
 
 const gigSchema = new Schema({
+  ticketmasterId: { type: String },
   artist: {
     name: { type: String },
     image: { type: String },

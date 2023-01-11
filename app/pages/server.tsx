@@ -9,7 +9,7 @@ export default function ServerSidePage({ session }: { session: Session }) {
   // As this page uses Server Side Rendering, the `session` will be already
   // populated on render without needing to go through a loading stage.
   return (
-    <Layout>
+    <>
       <h1>Server Side Rendering</h1>
       <p>
         This page uses the <strong>unstable_getServerSession()</strong> method
@@ -29,7 +29,7 @@ export default function ServerSidePage({ session }: { session: Session }) {
         render.
       </p>
       <pre>{JSON.stringify(session, null, 2)}</pre>
-    </Layout>
+    </>
   )
 }
 

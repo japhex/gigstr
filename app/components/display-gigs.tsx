@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import { MdOutlineFestival } from 'react-icons/md'
 
 import { GigsDocument, GigsQuery } from '../gql/graphql'
+import { SHADOWS } from '../theme/shadows'
 
 import Genres from './gig/genres'
 import Info from './gig/info'
@@ -21,7 +22,7 @@ const Gigs = () => {
     <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr 1fr' }} gridGap={6} w="100%">
       {gigs.map(({ id, artist, date, venue, lineup, festival, info }) => (
         <Flex key={id} gap={2}>
-          <Flex direction="column" w="100%" color="#cecece" bg="GREYGRAD">
+          <Flex direction="column" w="100%" color="#cecece" bg="GREYGRAD" boxShadow={SHADOWS.default}>
             <Box h="150px" w="100%" bgImg={artist.image} bgSize="cover" bgPosition="top" />
             <Box p={4}>
               <Box py={2} pb={0}>

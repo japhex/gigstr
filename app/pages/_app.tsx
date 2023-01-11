@@ -7,6 +7,7 @@ import type { AppProps } from 'next/app'
 import client from '../apollo-client'
 import AppProvider from '../context/app/context'
 import { theme } from '../theme'
+import Layout from "../components/layout";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
   return (
@@ -14,7 +15,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <SessionProvider session={session}>
         <ChakraProvider theme={theme}>
           <AppProvider>
-            <Component {...pageProps} />
+            <Layout><Component {...pageProps} /></Layout>
           </AppProvider>
         </ChakraProvider>
       </SessionProvider>

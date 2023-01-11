@@ -72,10 +72,10 @@ export const apiDeleteGig = async ({ id }, user) => {
 
 export const apiSearchGig = async ({ artist, type = 'Ticketmaster', date }) => {
   if (type === API.TICKET_MASTER) {
-    return await apiSearchGigTicketmaster({ artist })
+    return apiSearchGigTicketmaster({ artist })
   }
   if (type === API.BANDS_IN_TOWN) {
-    return await apiSearchGigBandsInTown({ artist, date })
+    return apiSearchGigBandsInTown({ artist, date })
   }
 }
 

@@ -8,8 +8,8 @@ export default function MePage() {
   console.log(data)
 
   return (
-    <Layout>
+    <>
       <pre>{JSON.stringify(data, null, 2)}</pre>
-    </Layout>
+    </>
   )
 }

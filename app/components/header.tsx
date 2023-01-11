@@ -1,18 +1,18 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import {Avatar, Box, Flex, Image, Text} from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
 
 export default function Header() {
   const {
-    data: { user },
+    data,
   } = useSession()
 
   return (
     <Box mt="auto">
-      {user && (
+      {data?.user && (
         <Flex gap={4}>
-          {user.image && <Image alt={user.name} src={user.image} borderRadius={6} w="60px" />}
+          {data?.user.image && <Avatar src={data?.user.image} borderRadius={6} w="60px" />}
           <Flex direction="column" justify="center">
-            <Text size="sm">{user.name || user.email}</Text>
+            <Text size="sm">{data?.user.name || data?.user.email}</Text>
             <Box
               onClick={async () => {
                 await signOut()

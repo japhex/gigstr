@@ -6,7 +6,6 @@ import Head from 'next/head'
 
 import DisplayGigs from '../components/display-gigs'
 import PastGigs from '../components/display-past-gigs'
-import Layout from '../components/layout'
 import SearchGigs from '../components/search-gigs'
 import { AppContext } from '../context/app/context'
 
@@ -14,7 +13,7 @@ export default function IndexPage() {
   const { searchActive } = useContext(AppContext)
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>Gigstr</title>
       </Head>
@@ -42,7 +41,7 @@ export default function IndexPage() {
           </>
         )}
       </Flex>
-    </Layout>
+    </>
   )
 }
 
