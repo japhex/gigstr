@@ -24,7 +24,7 @@ const schemaString = `
   }
   
   type Gig {
-    id: ID!
+    _id: ID
     ticketmasterId: String
     artist: JSONObject
     date: JSONObject
@@ -33,6 +33,7 @@ const schemaString = `
     lineup: [JSONObject]
     festival: JSONObject
     userId: String
+    ratings: [JSONObject]
   }
   
   type Query {
@@ -54,7 +55,6 @@ const schemaString = `
     signup(username: String!, password: String!): String
     login(username: String!, password: String!): String
     createGig(id: String!, ticketmasterId: String! artist: JSONObject, info: String, date: JSONObject, venue: JSONObject, lineup: [JSONObject], festival: JSONObject): Gig!
-    deleteGig(id: ID!): [Gig]
     rateGig(id: ID!, rating: Int!): Int
   }
 `

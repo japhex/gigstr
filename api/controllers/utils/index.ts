@@ -3,10 +3,10 @@ import getYear from 'date-fns/getYear'
 import parseIso from 'date-fns/parseISO'
 
 import { Gig } from '../../models/gig'
-import { UserGigs } from '../../models/user-gigs'
 
 export const returnGigs = async (user, options = {}) => {
-  const userGigs = await UserGigs.find({ user: user.id })
+  const userGigs = [] // await UserGigs.find({ user: user.id })
+  console.log(user)
   const gigs = await Gig.find({
     _id: { $in: userGigs.map(gig => gig.gig) },
     ...options,

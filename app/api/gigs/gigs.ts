@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 export const getGigs = gql`
   query gigs($past: Boolean) {
     gigs(past: $past) {
-      id
+      _id
       artist
       date
       info
@@ -36,7 +36,7 @@ export const createGigMutation = gql`
       lineup: $lineup
       festival: $festival
     ) {
-      id
+      _id
       artist
       date
       info
@@ -53,54 +53,54 @@ export const searchGigQuery = gql`
   }
 `
 
-export const getGigsFilteredByFestival = gql`
-  query gigsFestivalFilter {
-    gigsFestivalFilter {
-      id
-      artist
-      date
-      venue
-      lineup
-      festival
-    }
-  }
-`
-
-export const getGigsFilteredByMonth = gql`
-  query gigsMonthFilter($month: Int!) {
-    gigsMonthFilter(month: $month) {
-      id
-      artist
-      date
-      venue
-      lineup
-      festival
-    }
-  }
-`
-
-export const getGigsFilteredByYear = gql`
-  query gigsYearFilter($year: Int!) {
-    gigsYearFilter(year: $year) {
-      id
-      artist
-      date
-      venue
-      lineup
-      festival
-    }
-  }
-`
-
-export const getGigsUnfiltered = gql`
-  query gigsUnfiltered {
-    gigsUnfiltered {
-      id
-      artist
-      date
-      venue
-      lineup
-      festival
-    }
-  }
-`
+// export const getGigsFilteredByFestival = gql`
+//   query gigsFestivalFilter {
+//     gigsFestivalFilter {
+//       id
+//       artist
+//       date
+//       venue
+//       lineup
+//       festival
+//     }
+//   }
+// `
+//
+// export const getGigsFilteredByMonth = gql`
+//   query gigsMonthFilter($month: Int!) {
+//     gigsMonthFilter(month: $month) {
+//       id
+//       artist
+//       date
+//       venue
+//       lineup
+//       festival
+//     }
+//   }
+// `
+//
+// export const getGigsFilteredByYear = gql`
+//   query gigsYearFilter($year: Int!) {
+//     gigsYearFilter(year: $year) {
+//       id
+//       artist
+//       date
+//       venue
+//       lineup
+//       festival
+//     }
+//   }
+// `
+//
+// export const getGigsUnfiltered = gql`
+//   query gigsUnfiltered {
+//     gigsUnfiltered {
+//       id
+//       artist
+//       date
+//       venue
+//       lineup
+//       festival
+//     }
+//   }
+// `

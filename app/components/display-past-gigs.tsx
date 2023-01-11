@@ -21,8 +21,8 @@ const PastGigs = () => {
   return (
     <Box w="100%" overflowX="scroll">
       <Flex gap={4} w="100%">
-        {gigs.map(({ id, artist, date, venue, lineup, festival, ratings }) => (
-          <Flex key={id} gap={2} bg="GREYGRAD" flex="0 0 calc(400px + 16px)" h="150px" boxShadow={SHADOWS.default}>
+        {gigs.map(({ _id, artist, date, venue, lineup, festival, ratings }) => (
+          <Flex key={_id} gap={2} bg="GREYGRAD" flex="0 0 calc(400px + 16px)" h="150px" boxShadow={SHADOWS.default}>
             <Box h="100%" w="200px" bgImg={artist.image} bgSize="cover" bgPosition="top" filter="grayscale(80%)" />
             <Flex direction="column" w="100%" color="#cecece" p={4}>
               <Box>
@@ -45,7 +45,7 @@ const PastGigs = () => {
                         {date?.end && date?.start !== date?.end && `- ${format(new Date(date?.end), 'MMM do yyyy')}`}
                       </Text>
                     </Box>
-                    <Rating id={id} ratings={ratings} />
+                    <Rating id={_id} ratings={ratings} />
                   </Flex>
                 </Box>
                 <Location venue={venue} />

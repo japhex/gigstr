@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { format } from 'date-fns'
+import mongoose from 'mongoose'
 
 import { Gig } from '../models/gig'
-import { UserGigs } from '../models/user-gigs'
+import { User } from '../models/user'
 import { API } from '../types'
 
 import { getFilteredByFestivalGigs, getFilteredByMonthGigs, getFilteredByYearGigs } from './utils'
@@ -13,12 +14,28 @@ export const apiGetGigs = async ({ past = false }, user) => {
   const today = new Date()
   const dateFormatted = format(today, 'yyyy-MM-dd')
   const filter = past ? { $lt: dateFormatted } : { $gte: dateFormatted }
+  const gigstrUser = await User.findOne({ providerId: user.id })
 
   try {
-    return await Gig.find({
-      userId: user.id,
-      'date.start': filter,
-    }).sort('date')
+    return await Gig.aggregate([
+      { $match: { 'date.start': filter, userId: user.id } },
+      {
+        $lookup: {
+          from: 'ratings',
+          localField: '_id',
+          foreignField: 'gigId',
+          pipeline: [
+            {
+              $match: {
+                $and: [{ userId: { $eq: mongoose.Types.ObjectId(gigstrUser.id) } }],
+              },
+            },
+          ],
+          as: 'ratings',
+        },
+      },
+      { $sort: { date: 1 } },
+    ])
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }
@@ -61,14 +78,14 @@ export const apiCreateGig = async (gig, user) => {
 }
 
 // Delete gig
-export const apiDeleteGig = async ({ id }, user) => {
-  try {
-    await UserGigs.deleteOne({ user: user.id, gig: id })
-    return { success: true }
-  } catch (err) {
-    throw new Error(`Error: ${err}`)
-  }
-}
+// export const apiDeleteGig = async ({ id }, user) => {
+//   try {
+//     await UserGigs.deleteOne({ user: user.id, gig: id })
+//     return { success: true }
+//   } catch (err) {
+//     throw new Error(`Error: ${err}`)
+//   }
+// }
 
 export const apiSearchGig = async ({ artist, type = 'Ticketmaster', date }) => {
   if (type === API.TICKET_MASTER) {
