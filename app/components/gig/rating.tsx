@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useMutation } from '@apollo/client'
 import { Flex, Icon } from '@chakra-ui/react'
@@ -8,9 +8,10 @@ import { rateGigMutation } from '../../api/ratings/ratings'
 
 interface Props {
   id: string
+  ratings: Record<string, any>
 }
 
-const Rating = ({ id }: Props) => {
+const Rating = ({ id, ratings }: Props) => {
   const [rating, setRating] = useState<number>(0)
   const [rateGig] = useMutation(rateGigMutation)
 
@@ -18,6 +19,10 @@ const Rating = ({ id }: Props) => {
     setRating(value)
     await rateGig({ variables: { id, rating: value } })
   }
+
+  useEffect(() => {
+    setRating(ratings[0].rating)
+  }, [ratings])
 
   return (
     <Flex gap={2}>

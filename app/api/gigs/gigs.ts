@@ -10,6 +10,7 @@ export const getGigs = gql`
       venue
       lineup
       festival
+      ratings
     }
   }
 `
@@ -39,19 +40,6 @@ export const createGigMutation = gql`
       artist
       date
       info
-      venue
-      lineup
-      festival
-    }
-  }
-`
-
-export const deleteGigMutation = gql`
-  mutation deleteGig($id: ID!) {
-    deleteGig(id: $id) {
-      id
-      artist
-      date
       venue
       lineup
       festival

@@ -13,9 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-    "\n  query gigs($past: Boolean) {\n    gigs(past: $past) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n    }\n  }\n": types.GigsDocument,
+    "\n  query gigs($past: Boolean) {\n    gigs(past: $past) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n      ratings\n    }\n  }\n": types.GigsDocument,
     "\n  mutation createGig(\n    $id: String!\n    $ticketmasterId: String!\n    $artist: JSONObject\n    $date: JSONObject\n    $info: String\n    $venue: JSONObject\n    $lineup: [JSONObject]\n    $festival: JSONObject\n  ) {\n    createGig(\n      id: $id\n      ticketmasterId: $ticketmasterId\n      artist: $artist\n      date: $date\n      info: $info\n      venue: $venue\n      lineup: $lineup\n      festival: $festival\n    ) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n    }\n  }\n": types.CreateGigDocument,
-    "\n  mutation deleteGig($id: ID!) {\n    deleteGig(id: $id) {\n      id\n      artist\n      date\n      venue\n      lineup\n      festival\n    }\n  }\n": types.DeleteGigDocument,
     "\n  query searchGig($artist: String!, $date: String) {\n    searchGig(artist: $artist, date: $date)\n  }\n": types.SearchGigDocument,
     "\n  query gigsFestivalFilter {\n    gigsFestivalFilter {\n      id\n      artist\n      date\n      venue\n      lineup\n      festival\n    }\n  }\n": types.GigsFestivalFilterDocument,
     "\n  query gigsMonthFilter($month: Int!) {\n    gigsMonthFilter(month: $month) {\n      id\n      artist\n      date\n      venue\n      lineup\n      festival\n    }\n  }\n": types.GigsMonthFilterDocument,
@@ -41,15 +40,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query gigs($past: Boolean) {\n    gigs(past: $past) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n    }\n  }\n"): (typeof documents)["\n  query gigs($past: Boolean) {\n    gigs(past: $past) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n    }\n  }\n"];
+export function graphql(source: "\n  query gigs($past: Boolean) {\n    gigs(past: $past) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n      ratings\n    }\n  }\n"): (typeof documents)["\n  query gigs($past: Boolean) {\n    gigs(past: $past) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n      ratings\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation createGig(\n    $id: String!\n    $ticketmasterId: String!\n    $artist: JSONObject\n    $date: JSONObject\n    $info: String\n    $venue: JSONObject\n    $lineup: [JSONObject]\n    $festival: JSONObject\n  ) {\n    createGig(\n      id: $id\n      ticketmasterId: $ticketmasterId\n      artist: $artist\n      date: $date\n      info: $info\n      venue: $venue\n      lineup: $lineup\n      festival: $festival\n    ) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n    }\n  }\n"): (typeof documents)["\n  mutation createGig(\n    $id: String!\n    $ticketmasterId: String!\n    $artist: JSONObject\n    $date: JSONObject\n    $info: String\n    $venue: JSONObject\n    $lineup: [JSONObject]\n    $festival: JSONObject\n  ) {\n    createGig(\n      id: $id\n      ticketmasterId: $ticketmasterId\n      artist: $artist\n      date: $date\n      info: $info\n      venue: $venue\n      lineup: $lineup\n      festival: $festival\n    ) {\n      id\n      artist\n      date\n      info\n      venue\n      lineup\n      festival\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  mutation deleteGig($id: ID!) {\n    deleteGig(id: $id) {\n      id\n      artist\n      date\n      venue\n      lineup\n      festival\n    }\n  }\n"): (typeof documents)["\n  mutation deleteGig($id: ID!) {\n    deleteGig(id: $id) {\n      id\n      artist\n      date\n      venue\n      lineup\n      festival\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
