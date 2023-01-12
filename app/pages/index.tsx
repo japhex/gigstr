@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 import { Flex, Text } from '@chakra-ui/react'
-import { getSession } from 'next-auth/react'
+import { getSession, GetSessionParams } from 'next-auth/react'
 import Head from 'next/head'
 
 import DisplayGigs from '../components/display-gigs'
@@ -45,7 +45,7 @@ export default function IndexPage() {
   )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetSessionParams) {
   const session = await getSession(context)
 
   if (!session) {

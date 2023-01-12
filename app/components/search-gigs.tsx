@@ -1,7 +1,18 @@
 import { KeyboardEvent, useContext, useState } from 'react'
 
 import { useLazyQuery } from '@apollo/react-hooks'
-import { Box, Button, Center, Flex, FormControl, Grid, Input, InputRightElement, InputGroup, Fade } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  FormControl,
+  Grid,
+  Input,
+  InputRightElement,
+  InputGroup,
+  Fade,
+} from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { MdSearch } from 'react-icons/md'
 
@@ -10,13 +21,17 @@ import { Gig, SearchGigDocument, SearchGigQuery } from '../gql/graphql'
 
 import GigResult from './search-result'
 
+type FormValues = {
+  artist: string
+}
+
 const Search = () => {
   const { searchActive, setSearchActive } = useContext(AppContext)
-  const { register, handleSubmit, getValues, setValue } = useForm()
+  const { register, handleSubmit, getValues, setValue } = useForm<FormValues>()
   const [pastGig, setPastGig] = useState<boolean>(false)
   const [searchGigAction, { data, loading }] = useLazyQuery<SearchGigQuery>(SearchGigDocument)
 
-  const onSubmit = async variables => {
+  const onSubmit = async (variables: FormValues) => {
     await searchGigAction({
       variables: { ...variables, type: 'Ticketmaster', ...(pastGig && { date: 'past' }) },
     })
@@ -25,7 +40,7 @@ const Search = () => {
 
   const onKeyup = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Escape') {
-      setValue('artist','')
+      setValue('artist', '')
     }
     if ((e.target as HTMLInputElement).value === '') {
       setSearchActive(false)
@@ -62,7 +77,7 @@ const Search = () => {
           <Box bg="GREY4">
             <Grid templateColumns="1fr 1fr 1fr" gap={4} py={4}>
               {data?.searchGig?.map((gig: Gig) => (
-                <GigResult gig={gig} key={gig.id} />
+                <GigResult gig={gig} key={gig._id} />
               ))}
               {!data.searchGig && <>No gigs found for {getValues('artist')}! Maybe they're taking a break!?</>}
             </Grid>

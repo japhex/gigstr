@@ -1,7 +1,11 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react'
 import { MdInfoOutline } from 'react-icons/md'
 
-const Info = ({ info }) => {
+interface Props {
+  info: string
+}
+
+const Info = ({ info }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return info?.length > 1 ? (

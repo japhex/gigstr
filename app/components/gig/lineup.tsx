@@ -18,7 +18,7 @@ const Lineup = ({ lineup }: Props) => {
         <PopoverBody>
           <Flex gap={2} wrap="wrap">
             {/* needs typing properly in api response */}
-            {lineup.map(band => (
+            {lineup.map((band: Record<string, string>) => (
               <Badge colorScheme="orange" key={band.name}>
                 {band.name}
               </Badge>
