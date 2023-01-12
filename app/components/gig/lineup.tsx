@@ -1,4 +1,6 @@
-import { Badge, Button, Flex, Popover, PopoverBody, PopoverContent, PopoverTrigger } from '@chakra-ui/react'
+import { Badge, Button, Flex, Icon, Popover, PopoverBody, PopoverContent, PopoverTrigger } from '@chakra-ui/react'
+
+import { LineupIcon } from '../../theme/icons'
 
 interface Props {
   lineup: Record<string, any>
@@ -8,8 +10,8 @@ const Lineup = ({ lineup }: Props) => {
   return lineup?.length > 1 ? (
     <Popover>
       <PopoverTrigger>
-        <Button size="sm" variant="outline" colorScheme="gray">
-          lineup
+        <Button size="sm">
+          <Icon as={LineupIcon} color="#fff" />
         </Button>
       </PopoverTrigger>
       <PopoverContent>

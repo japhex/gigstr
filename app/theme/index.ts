@@ -62,9 +62,7 @@ export const theme = extendTheme({
   components: {
     Tag: tagTheme,
     Button: {
-      baseStyle: {
-        fontWeight: 'bold',
-      },
+      baseStyle: {},
       sizes: {
         xl: {
           h: '56px',
@@ -76,29 +74,22 @@ export const theme = extendTheme({
         'with-input': {
           padding: 0,
         },
-        'with-shadow': {
-          bg: 'red.400',
-          boxShadow: '0 0 2px 2px #efdfde',
-        },
         solid: (props: StyleFunctionProps) => ({
           bg: props.colorMode === 'dark' ? 'red.300' : 'red.500',
         }),
         primary: {
-          bg: 'RED3',
-          paddingX: 12,
+          bg: '#000',
+          border: '1px solid #000',
           fontSize: 'md',
           color: 'WHITE',
-        },
-        secondary: {
-          bg: 'BLACK',
-          paddingX: 12,
-          fontSize: 'md',
-          color: 'WHITE',
+          _hover: {
+            background: '#111',
+          },
         },
       },
       defaultProps: {
         size: 'lg',
-        variant: 'sm',
+        variant: 'primary',
         colorScheme: 'green',
       },
     },

@@ -1,22 +1,13 @@
-import {
-  Button,
-  Icon,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react'
-import { MdOutlineInfo } from 'react-icons/md'
+import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react'
+import { MdInfoOutline } from 'react-icons/md'
 
 const Info = ({ info }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return info?.length > 1 ? (
     <>
-      <Button size="sm" leftIcon={<Icon boxSize={5} as={MdOutlineInfo} />} onClick={onOpen} variant="outline">
-        info
+      <Button size="sm" onClick={onOpen} color="#fff">
+        <MdInfoOutline />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />

@@ -12,21 +12,27 @@ interface Props {
 }
 
 const Rating = ({ id, ratings }: Props) => {
-  const [rating, setRating] = useState<number>(ratings[0]?.rating || 0)
+  const [dbRating, setDbRating] = useState<number>(ratings[0]?.rating)
+  const [rating, setRating] = useState<number>(dbRating || 0)
   const [rateGig] = useMutation(rateGigMutation)
+  const ratingsSteps = [1, 2, 3, 4, 5]
 
   const rate = async (value: number) => {
-    setRating(value)
     await rateGig({ variables: { id, rating: value } })
+    setRating(value)
+    setDbRating(value)
   }
 
   return (
-    <Flex gap={2}>
-      <Icon as={rating >= 1 ? AiFillStar : AiOutlineStar} onClick={() => rate(1)} />
-      <Icon as={rating >= 2 ? AiFillStar : AiOutlineStar} onClick={() => rate(2)} />
-      <Icon as={rating >= 3 ? AiFillStar : AiOutlineStar} onClick={() => rate(3)} />
-      <Icon as={rating >= 4 ? AiFillStar : AiOutlineStar} onClick={() => rate(4)} />
-      <Icon as={rating === 5 ? AiFillStar : AiOutlineStar} onClick={() => rate(5)} />
+    <Flex cursor="pointer">
+      {ratingsSteps.map(step => (
+        <Icon
+          as={rating >= step ? AiFillStar : AiOutlineStar}
+          onClick={() => rate(step)}
+          onMouseEnter={() => setRating(step)}
+          onMouseLeave={() => setRating(dbRating)}
+        />
+      ))}
     </Flex>
   )
 }
