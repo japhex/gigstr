@@ -23,19 +23,22 @@ export const authOptions: NextAuthOptions = {
       allowDangerousEmailAccountLinking: true,
     }),
   ],
-  callbacks: {
-    async signIn({ user }) {
+  events: {
+    async session(message) {
+      // in session event update user after they initially auth for the first time and save their id
+      // for jwt linking through api
       const client = await clientPromise
       const usersCollection = client.db().collection('users')
 
       await usersCollection.updateOne(
-        { email: user.email },
+        { email: message.session.user.email },
         {
-          $set: { providerId: user.id },
+          $set: { providerId: message.token.id },
         }
       )
-      return true
     },
+  },
+  callbacks: {
     async redirect({ url, baseUrl }) {
       return baseUrl
     },
@@ -49,6 +52,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token, user }) {
       const encodedToken = jwt.sign(token, process.env.SECRET, { algorithm: 'HS256' })
+
       session.accessToken = token.accessToken
       session.user.id = token.sub
       session.user.providerId = token.sub
