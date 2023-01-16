@@ -18,7 +18,7 @@ export default {
     user: (_parent, { username }) => apiGetUserByUsername(username),
     userGigs: (_parent, { userId }) => apiGetGigsByUser(userId),
     searchUsers: (_parent, { username }) => apiSearchUsersByUsername(username),
-    searchGig: (_parent, args) => apiSearchGig(args),
+    searchGig: (_parent, args, { user }) => apiSearchGig(args, user),
     gigs: (_parent, args, { user }) => apiGetGigs(args, user),
     gigsUnfiltered: (_parent, args, { user }) => apiGetGigs(args, user),
     gigsFestivalFilter: (_parent, _args, { user }) => apiGetFestivalFilteredGigs(user),

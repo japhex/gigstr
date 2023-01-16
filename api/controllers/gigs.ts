@@ -27,7 +27,7 @@ export const apiGetGigs = async ({ past = false }, user) => {
           pipeline: [
             {
               $match: {
-                $and: [{ userId: { $eq: mongoose.Types.ObjectId(gigstrUser.id) } }],
+                $and: [{ userId: { $eq: new mongoose.Types.ObjectId(gigstrUser.id) } }],
               },
             },
           ],
@@ -87,9 +87,9 @@ export const apiCreateGig = async (gig, user) => {
 //   }
 // }
 
-export const apiSearchGig = async ({ artist, type = 'Ticketmaster', date }) => {
+export const apiSearchGig = async ({ artist, type = 'Ticketmaster', date }, user) => {
   if (type === API.TICKET_MASTER) {
-    return apiSearchGigTicketmaster({ artist })
+    return apiSearchGigTicketmaster({ artist }, user)
   }
   if (type === API.BANDS_IN_TOWN) {
     return apiSearchGigBandsInTown({ artist, date })
@@ -112,17 +112,23 @@ export const apiSearchGigBandsInTown = async ({ artist, date = 'upcoming' }) => 
   }
 }
 
-export const apiSearchGigTicketmaster = async ({ artist }) => {
+export const apiSearchGigTicketmaster = async ({ artist }, user) => {
   try {
+    const gigs = await Gig.find({ userId: user.id }, 'ticketmasterId -_id')
+    const gigIds = gigs.map(gig => gig.ticketmasterId || '').filter(gig => gig !== '')
+
+    // move to API function in 'third-parties'
     const { data } = await axios.get(
       `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.TICKET_MASTER_API_KEY}&locale=*&keyword=${artist}&segmentName=music`
     )
 
+    // move to format function
     const sortedImages =
       data?._embedded?.events[0]?.images?.sort((a, b) => {
         return a.width > b.width ? -1 : 1
       }) || []
 
+    // move to format function
     const apiArtist = {
       name: data?._embedded?.events[0]?.name,
       image: sortedImages[0]?.url,
@@ -136,7 +142,7 @@ export const apiSearchGigTicketmaster = async ({ artist }) => {
           : data?._embedded?.events[0]?.classifications[0]?.subGenre?.name,
     }
 
-    return data?._embedded?.events.map(event => formatTicketmasterGigData(apiArtist, event))
+    return data?._embedded?.events.map(event => formatTicketmasterGigData(apiArtist, event, gigIds))
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }

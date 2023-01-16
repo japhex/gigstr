@@ -29,4 +29,5 @@ export type Gig = {
     start_date: string
     end_date: string
   }
+  attending: boolean
 }

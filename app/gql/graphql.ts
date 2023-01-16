@@ -27,6 +27,7 @@ export type Gig = {
   __typename?: 'Gig';
   _id?: Maybe<Scalars['ID']>;
   artist?: Maybe<Scalars['JSONObject']>;
+  attending?: Maybe<Scalars['Boolean']>;
   date?: Maybe<Scalars['JSONObject']>;
   festival?: Maybe<Scalars['JSONObject']>;
   info?: Maybe<Scalars['String']>;

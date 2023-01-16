@@ -58,9 +58,15 @@ const GigResult = ({ gig }: Props) => {
           </Text>
         </Flex>
       </Flex>
-      <Button leftIcon={<MdAddCircleOutline />} onClick={saveGig} mt="auto" variant="primary">
-        Add gig
-      </Button>
+      {gig.attending ? (
+        <Button mt="auto" variant="primary" disabled>
+          You're already going!
+        </Button>
+      ) : (
+        <Button leftIcon={<MdAddCircleOutline />} onClick={saveGig} mt="auto" variant="primary">
+          Add gig
+        </Button>
+      )}
     </Flex>
   )
 }

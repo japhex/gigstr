@@ -34,6 +34,7 @@ const schemaString = `
     festival: JSONObject
     userId: String
     ratings: [JSONObject]
+    attending: Boolean
   }
   
   type Query {
