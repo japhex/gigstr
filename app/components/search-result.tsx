@@ -49,10 +49,12 @@ const GigResult = ({ gig }: Props) => {
                   {gig.date.end && `- ${format(parseISO(gig.date.end), 'MMMM do yyyy')}`}
                 </Box>
               </Flex>
-              <Flex gap={2} align="center">
-                <Icon as={MdOutlineLocationOn} boxSize={4} />
-                <Box>{gig.venue.name}</Box>
-              </Flex>
+              {gig.venue && (
+                <Flex gap={2} align="center">
+                  <Icon as={MdOutlineLocationOn} boxSize={4} />
+                  <Box>{gig.venue.name}</Box>
+                </Flex>
+              )}
             </Flex>
           </Text>
         </Flex>

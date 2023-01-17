@@ -1,8 +1,9 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, useDisclosure } from '@chakra-ui/react'
+import { Gig } from '@gql/graphql'
 import { MdInfoOutline } from 'react-icons/md'
 
 interface Props {
-  info: string
+  info: Pick<Gig, 'info'>
 }
 
 const Info = ({ info }: Props) => {

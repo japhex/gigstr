@@ -1,11 +1,11 @@
-import axios from 'axios'
 import { format } from 'date-fns'
 
+import { ticketmasterApi } from '../apis/ticketmaster'
 import { Gig } from '../models/gig'
 import { API } from '../types'
 
 import { getFilteredByFestivalGigs, getFilteredByMonthGigs, getFilteredByYearGigs } from './utils'
-import { formatBandsInTownGigData, formatTicketmasterGigData } from './utils/format'
+import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
 
 export const apiGetGigs = async ({ past = false }, user) => {
   const today = new Date()
@@ -79,28 +79,9 @@ export const apiDeleteGig = async ({ id }, user) => {
   }
 }
 
-export const apiSearchGig = async ({ artist, type = 'Ticketmaster', date }, user) => {
+export const apiSearchGig = async ({ artist, type = 'Ticketmaster' }, user) => {
   if (type === API.TICKET_MASTER) {
     return apiSearchGigTicketmaster({ artist }, user)
-  }
-  if (type === API.BANDS_IN_TOWN) {
-    return apiSearchGigBandsInTown({ artist, date })
-  }
-}
-
-export const apiSearchGigBandsInTown = async ({ artist, date = 'upcoming' }) => {
-  try {
-    const { data } = await axios.get(
-      `https://rest.bandsintown.com/artists/${artist}/events?app_id=${process.env.BANDS_IN_TOWN_API_KEY}&date=${date}`
-    )
-    const apiArtist = {
-      name: data[0].artist.name,
-      image: data[0].artist.image_url,
-    }
-
-    return data.map(event => formatBandsInTownGigData(apiArtist, event))
-  } catch (err) {
-    throw new Error(`Error: ${err}`)
   }
 }
 
@@ -108,35 +89,10 @@ export const apiSearchGigTicketmaster = async ({ artist }, user) => {
   try {
     const gigs = await Gig.find({ userId: user.id }, 'ticketmasterId -_id')
     const gigIds = gigs.map(gig => gig.ticketmasterId || '').filter(gig => gig !== '')
+    const { data } = await ticketmasterApi.eventSearch(artist)
+    const apiArtist = await formatTicketmasterArtistData(data)
 
-    console.log(gigIds)
-
-    // move to API function in 'third-parties'
-    const { data } = await axios.get(
-      `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.TICKET_MASTER_API_KEY}&locale=*&keyword=${artist}&segmentName=music`
-    )
-
-    // move to format function
-    const sortedImages =
-      data?._embedded?.events[0]?.images?.sort((a, b) => {
-        return a.width > b.width ? -1 : 1
-      }) || []
-
-    // move to format function
-    const apiArtist = {
-      name: data?._embedded?.events[0]?.name,
-      image: sortedImages[0]?.url,
-      genre:
-        data?._embedded?.events[0]?.classifications[0]?.genre?.name === 'Undefined'
-          ? ''
-          : data?._embedded?.events[0]?.classifications[0]?.genre?.name,
-      subGenre:
-        data?._embedded?.events[0]?.classifications[0]?.subGenre?.name === 'Undefined'
-          ? ''
-          : data?._embedded?.events[0]?.classifications[0]?.subGenre?.name,
-    }
-
-    return data?._embedded?.events.map(event => formatTicketmasterGigData(apiArtist, event, gigIds))
+    return data?._embedded?.events?.map(event => formatTicketmasterGigData(apiArtist, event, gigIds))
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }

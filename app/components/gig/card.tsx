@@ -43,7 +43,7 @@ const Card = ({ gig }: Props) => {
               {date?.end && date?.start !== date?.end && `- ${format(new Date(date?.end), 'MMM do yyyy')}`}
             </Text>
           </Box>
-          <Location venue={venue} />
+          {venue && <Location venue={venue} />}
         </Box>
         <Box p={4} mt="auto">
           <Genres artist={artist} />
