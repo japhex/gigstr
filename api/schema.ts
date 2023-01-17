@@ -1,5 +1,5 @@
+import { makeExecutableSchema } from '@graphql-tools/schema'
 import { GraphQLDate } from 'graphql-iso-date'
-import { makeExecutableSchema } from 'graphql-tools'
 import { GraphQLJSONObject } from 'graphql-type-json'
 
 const resolveFunctions = {

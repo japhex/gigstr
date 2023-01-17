@@ -9,6 +9,7 @@
     "postinstall": "rm -r node_modules/apollo-language-server/node_modules/graphql"
   },
   "dependencies": {
+	"@graphql-tools/schema": "^9.0.13",
     "apollo": "2.34.0",
     "apollo-codegen-core": "0.40.3",
     "apollo-language-server": "1.26.3",
