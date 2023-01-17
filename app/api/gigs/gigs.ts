@@ -4,12 +4,27 @@ export const getGigs = gql`
   query gigs($past: Boolean) {
     gigs(past: $past) {
       _id
-      artist
+      artist {
+        name
+        image
+        genre
+        subGenre
+      }
       date
       info
-      venue
+      venue {
+        location
+        name
+        latitude
+        longitude
+        city
+        country
+      }
       lineup
-      festival
+      festival {
+        start_date
+        end_date
+      }
       ratings
     }
   }
@@ -37,12 +52,27 @@ export const createGigMutation = gql`
       festival: $festival
     ) {
       _id
-      artist
+      artist {
+        name
+        image
+        genre
+        subGenre
+      }
       date
       info
-      venue
+      venue {
+        location
+        name
+        latitude
+        longitude
+        city
+        country
+      }
       lineup
-      festival
+      festival {
+        start_date
+        end_date
+      }
     }
   }
 `
