@@ -1,9 +1,7 @@
 import axios from 'axios'
 import { format } from 'date-fns'
-import mongoose from 'mongoose'
 
 import { Gig } from '../models/gig'
-import { User } from '../models/user'
 import { API } from '../types'
 
 import { getFilteredByFestivalGigs, getFilteredByMonthGigs, getFilteredByYearGigs } from './utils'
@@ -14,7 +12,7 @@ export const apiGetGigs = async ({ past = false }, user) => {
   const today = new Date()
   const dateFormatted = format(today, 'yyyy-MM-dd')
   const filter = past ? { $lt: dateFormatted } : { $gte: dateFormatted }
-  const gigstrUser = await User.findOne({ providerId: user.id })
+  // const gigstrUser = await User.findOne({ providerId: user.id })
 
   try {
     return await Gig.aggregate([
@@ -27,7 +25,8 @@ export const apiGetGigs = async ({ past = false }, user) => {
           pipeline: [
             {
               $match: {
-                $and: [{ userId: { $eq: new mongoose.Types.ObjectId(gigstrUser.id) } }],
+                // $and: [{ userId: { $eq: new mongoose.Types.ObjectId(gigstrUser.id) } }],
+                $and: [{ userId: { $eq: user.id } }],
               },
             },
           ],
@@ -116,6 +115,8 @@ export const apiSearchGigTicketmaster = async ({ artist }, user) => {
   try {
     const gigs = await Gig.find({ userId: user.id }, 'ticketmasterId -_id')
     const gigIds = gigs.map(gig => gig.ticketmasterId || '').filter(gig => gig !== '')
+
+    console.log(gigIds)
 
     // move to API function in 'third-parties'
     const { data } = await axios.get(

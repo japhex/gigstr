@@ -11,6 +11,7 @@ import Info from './gig/info'
 import Lineup from './gig/lineup'
 import Location from './gig/location'
 import QueryHandler from './query-handler'
+import { gigStartDate } from '../utils/gigs'
 
 const Gigs = () => {
   const { loading, error, data } = useQuery<GigsQuery>(GigsDocument)
@@ -41,7 +42,7 @@ const Gigs = () => {
               </Box>
               <Box pb={2}>
                 <Text fontSize="sm" color="#888">
-                  {date?.start && format(new Date(date?.start), 'MMM do yyyy')}{' '}
+                  {date?.start && gigStartDate(date)}{' '}
                   {date?.end && date?.start !== date?.end && `- ${format(new Date(date?.end), 'MMM do yyyy')}`}
                 </Text>
               </Box>

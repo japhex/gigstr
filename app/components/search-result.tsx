@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 import { useMutation } from '@apollo/react-hooks'
-import { Flex, Box, Text, Icon, Button } from '@chakra-ui/react'
+import { Flex, Box, Text, Icon, Button, Center } from '@chakra-ui/react'
 import { format, parseISO } from 'date-fns'
 import { MdAddCircleOutline, MdOutlineCalendarToday, MdOutlineLocationOn } from 'react-icons/md'
 
@@ -59,9 +59,7 @@ const GigResult = ({ gig }: Props) => {
         </Flex>
       </Flex>
       {gig.attending ? (
-        <Button mt="auto" variant="primary" disabled>
-          You're already going!
-        </Button>
+        <Center p={4}>You're already going!</Center>
       ) : (
         <Button leftIcon={<MdAddCircleOutline />} onClick={saveGig} mt="auto" variant="primary">
           Add gig

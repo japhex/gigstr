@@ -3,7 +3,8 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const ratingsSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: 'User' },
+  userId: String,
+  // userId: { type: Schema.Types.ObjectId, ref: 'User' },
   gigId: { type: Schema.Types.ObjectId, ref: 'Gig' },
   rating: Number,
 })
