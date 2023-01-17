@@ -27,7 +27,7 @@ const Card = ({ gig }: Props) => {
             <Lineup lineup={lineup} />
             <Delete id={id} />
           </Flex>
-          <Box py={2} pb={0}>
+          <Box py={2} pb={0} mt={4}>
             <Flex w="100%">
               <Box>
                 <Text fontSize="lg" noOfLines={1} color="#fff" fontWeight="bold">
@@ -45,7 +45,7 @@ const Card = ({ gig }: Props) => {
           </Box>
           <Location venue={venue} />
         </Box>
-        <Box p={4}>
+        <Box p={4} mt="auto">
           <Genres artist={artist} />
         </Box>
       </Flex>
