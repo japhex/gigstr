@@ -1,15 +1,14 @@
 import { ApolloServer, gql } from 'apollo-server-express'
+import * as dotenv from 'dotenv'
+import express from 'express'
+import jwt from 'express-jwt'
 import mongoose from 'mongoose'
 
 import resolvers from './resolvers'
 import typeDefs from './schema'
 import { RequestWithProps } from './types'
 
-require('dotenv').config()
-
-const express = require('express')
-const jwt = require('express-jwt')
-
+dotenv.config()
 const PORT = process.env.PORT || 3001
 const app = express()
 
