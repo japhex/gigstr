@@ -9,14 +9,13 @@ import {
   AlertDialogCloseButton,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Box,
   Button,
   useDisclosure,
   AlertDialogContent,
   Flex,
 } from '@chakra-ui/react'
 import { Gig } from '@gql/graphql'
-import { MdClose } from 'react-icons/md'
+import { MdOutlineDelete } from 'react-icons/md'
 
 interface Props {
   id: Pick<Gig, '_id'>
@@ -35,11 +34,9 @@ const Delete = ({ id }: Props) => {
 
   return (
     <>
-      <Box position="absolute" top={1} right={1} p={0}>
-        <Button variant="delete" onClick={onOpen}>
-          <MdClose />
-        </Button>
-      </Box>
+      <Button variant="iconButton" size="sm" onClick={onOpen}>
+        <MdOutlineDelete />
+      </Button>
       <AlertDialog
         motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
@@ -57,9 +54,7 @@ const Delete = ({ id }: Props) => {
               <Button ref={cancelRef} onClick={onClose}>
                 No
               </Button>
-              <Button colorScheme="red" onClick={() => handleDelete()}>
-                Yes
-              </Button>
+              <Button onClick={() => handleDelete()}>Yes</Button>
             </Flex>
           </AlertDialogFooter>
         </AlertDialogContent>

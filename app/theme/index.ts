@@ -39,6 +39,7 @@ export const theme = extendTheme({
     GREY2: '#AAAAAA',
     GREY3: '#181818',
     GREY4: '#121212',
+    GREY5: '#888888',
     GREYGRAD: 'linear-gradient(270deg, rgba(23,23,23,1) 0%, rgba(22,22,22,1) 35%, rgba(23,23,23,1) 100%);',
     RED: '#E53E3E',
   },
@@ -85,6 +86,18 @@ export const theme = extendTheme({
           color: 'WHITE',
           _hover: {
             background: '#111',
+          },
+        },
+        iconButton: {
+          bg: '#000',
+          border: '1px solid #000',
+          fontSize: 'md',
+          color: 'WHITE',
+          _disabled: {
+            background: 'GREY1',
+            color: 'GREY5',
+            opacity: 1,
+            border: 0,
           },
         },
         delete: {

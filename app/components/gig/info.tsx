@@ -8,9 +8,9 @@ interface Props {
 const Info = ({ info }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  return info?.length > 1 ? (
+  return (
     <>
-      <Button size="sm" onClick={onOpen} color="#fff">
+      <Button size="sm" variant="iconButton" onClick={onOpen} isDisabled={info === null}>
         <MdInfoOutline />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -21,7 +21,7 @@ const Info = ({ info }: Props) => {
         </ModalContent>
       </Modal>
     </>
-  ) : null
+  )
 }
 
 export default Info
