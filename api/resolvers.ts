@@ -1,5 +1,6 @@
 import {
   apiCreateGig,
+  apiDeleteGig,
   apiGetFestivalFilteredGigs,
   apiGetGigs,
   apiGetMonthFilteredGigs,
@@ -26,8 +27,8 @@ export default {
     gigsYearFilter: (_parent, { year }, { user }) => apiGetYearFilteredGigs(user, year),
   },
   Mutation: {
-    createGig: (_parent, gig, { user }) => apiCreateGig(gig, user),
-    // deleteGig: (_parent, gig, { user }) => apiDeleteGig(gig, user),
-    rateGig: (_parent, rating, { user }) => apiCreateGigRating(rating, user),
+    createGig: (_parent, args, { user }) => apiCreateGig(args, user),
+    deleteGig: (_parent, args, { user }) => apiDeleteGig(args, user),
+    rateGig: (_parent, args, { user }) => apiCreateGigRating(args, user),
   },
 }

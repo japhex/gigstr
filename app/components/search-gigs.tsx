@@ -1,4 +1,4 @@
-import { KeyboardEvent, useContext, useState } from 'react'
+import { KeyboardEvent, useContext } from 'react'
 
 import { useLazyQuery } from '@apollo/react-hooks'
 import {
@@ -28,12 +28,13 @@ type FormValues = {
 const Search = () => {
   const { searchActive, setSearchActive } = useContext(AppContext)
   const { register, handleSubmit, getValues, setValue } = useForm<FormValues>()
-  const [pastGig, setPastGig] = useState<boolean>(false)
+  // const [pastGig, setPastGig] = useState<boolean>(false)
   const [searchGigAction, { data, loading }] = useLazyQuery<SearchGigQuery>(SearchGigDocument)
 
   const onSubmit = async (variables: FormValues) => {
     await searchGigAction({
-      variables: { ...variables, type: 'Ticketmaster', ...(pastGig && { date: 'past' }) },
+      // variables: { ...variables, type: 'Ticketmaster', ...(pastGig && { date: 'past' }) },
+      variables: { ...variables, type: 'Ticketmaster' },
     })
     setSearchActive(true)
   }

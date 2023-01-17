@@ -7,7 +7,6 @@ import { API } from '../types'
 import { getFilteredByFestivalGigs, getFilteredByMonthGigs, getFilteredByYearGigs } from './utils'
 import { formatBandsInTownGigData, formatTicketmasterGigData } from './utils/format'
 
-// Get all gigs for user
 export const apiGetGigs = async ({ past = false }, user) => {
   const today = new Date()
   const dateFormatted = format(today, 'yyyy-MM-dd')
@@ -40,7 +39,6 @@ export const apiGetGigs = async ({ past = false }, user) => {
   }
 }
 
-// Get all gigs for user filtered by type=Festival
 export const apiGetFestivalFilteredGigs = async user => {
   try {
     return await getFilteredByFestivalGigs(user)
@@ -49,7 +47,6 @@ export const apiGetFestivalFilteredGigs = async user => {
   }
 }
 
-// Get all gigs for user filtered by month
 export const apiGetMonthFilteredGigs = async (user, month) => {
   try {
     return await getFilteredByMonthGigs(user, month)
@@ -58,7 +55,6 @@ export const apiGetMonthFilteredGigs = async (user, month) => {
   }
 }
 
-// Get all gigs for user filtered by year
 export const apiGetYearFilteredGigs = async (user, year) => {
   try {
     return await getFilteredByYearGigs(user, year)
@@ -67,7 +63,6 @@ export const apiGetYearFilteredGigs = async (user, year) => {
   }
 }
 
-// Create gig
 export const apiCreateGig = async (gig, user) => {
   try {
     return await Gig.create({ ...gig, userId: user.id, festival: gig.festival || {} })
@@ -76,15 +71,13 @@ export const apiCreateGig = async (gig, user) => {
   }
 }
 
-// Delete gig
-// export const apiDeleteGig = async ({ id }, user) => {
-//   try {
-//     await UserGigs.deleteOne({ user: user.id, gig: id })
-//     return { success: true }
-//   } catch (err) {
-//     throw new Error(`Error: ${err}`)
-//   }
-// }
+export const apiDeleteGig = async ({ id }, user) => {
+  try {
+    return await Gig.deleteOne({ userId: user.id, _id: id })
+  } catch (err) {
+    throw new Error(`Error: ${err}`)
+  }
+}
 
 export const apiSearchGig = async ({ artist, type = 'Ticketmaster', date }, user) => {
   if (type === API.TICKET_MASTER) {

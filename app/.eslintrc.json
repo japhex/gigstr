@@ -10,7 +10,7 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "import", "unused-imports"],
+  "plugins": [ "@typescript-eslint", "import", "unused-imports"],
   "rules": {
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-debugger": ["warn"],

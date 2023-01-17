@@ -82,12 +82,6 @@ module.exports = {
             group: 'external',
             position: 'before',
           },
-          {
-            pattern: '*.styled',
-            group: 'unknown',
-            patternOptions: { matchBase: true },
-            position: 'after',
-          },
         ],
         pathGroupsExcludedImportTypes: ['react'],
       },

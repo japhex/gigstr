@@ -1,10 +1,8 @@
-import {Avatar, Box, Flex, Image, Text} from '@chakra-ui/react'
+import { Avatar, Box, Flex, Text } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
 
 export default function Header() {
-  const {
-    data,
-  } = useSession()
+  const { data } = useSession()
 
   return (
     <Box mt="auto">

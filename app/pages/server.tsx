@@ -1,9 +1,8 @@
-import { unstable_getServerSession } from "next-auth/next"
-import { authOptions } from "./api/auth/[...nextauth]"
-import Layout from "../components/layout"
+import type { GetServerSidePropsContext } from 'next'
+import type { Session } from 'next-auth'
+import { unstable_getServerSession } from 'next-auth/next'
 
-import type { GetServerSidePropsContext } from "next"
-import type { Session } from "next-auth"
+import { authOptions } from './api/auth/[...nextauth]'
 
 export default function ServerSidePage({ session }: { session: Session }) {
   // As this page uses Server Side Rendering, the `session` will be already
@@ -12,22 +11,14 @@ export default function ServerSidePage({ session }: { session: Session }) {
     <>
       <h1>Server Side Rendering</h1>
       <p>
-        This page uses the <strong>unstable_getServerSession()</strong> method
-        in <strong>getServerSideProps()</strong>.
+        This page uses the <strong>unstable_getServerSession()</strong> method in <strong>getServerSideProps()</strong>.
       </p>
       <p>
-        Using <strong>unstable_getServerSession()</strong> in{" "}
-        <strong>getServerSideProps()</strong> is the recommended approach if you
-        need to support Server Side Rendering with authentication.
+        Using <strong>unstable_getServerSession()</strong> in <strong>getServerSideProps()</strong> is the recommended
+        approach if you need to support Server Side Rendering with authentication.
       </p>
-      <p>
-        The advantage of Server Side Rendering is this page does not require
-        client side JavaScript.
-      </p>
-      <p>
-        The disadvantage of Server Side Rendering is that this page is slower to
-        render.
-      </p>
+      <p>The advantage of Server Side Rendering is this page does not require client side JavaScript.</p>
+      <p>The disadvantage of Server Side Rendering is that this page is slower to render.</p>
       <pre>{JSON.stringify(session, null, 2)}</pre>
     </>
   )
@@ -37,11 +28,7 @@ export default function ServerSidePage({ session }: { session: Session }) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
-      session: await unstable_getServerSession(
-        context.req,
-        context.res,
-        authOptions
-      ),
+      session: await unstable_getServerSession(context.req, context.res, authOptions),
     },
   }
 }

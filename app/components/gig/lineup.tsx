@@ -1,6 +1,5 @@
 import { Badge, Button, Flex, Icon, Popover, PopoverBody, PopoverContent, PopoverTrigger } from '@chakra-ui/react'
-
-import { LineupIcon } from '../../theme/icons'
+import { LineupIcon } from '@theme/icons'
 
 interface Props {
   lineup: Record<string, any>

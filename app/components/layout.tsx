@@ -1,13 +1,13 @@
 import type { ReactNode } from 'react'
 
-import { Box, Flex, Text } from '@chakra-ui/react'
-
-import Header from './header'
 import { useQuery } from '@apollo/react-hooks'
-import { GigsDocument, GigsQuery } from '../gql/graphql'
+import { Box, Flex, Text } from '@chakra-ui/react'
+import Location from '@components/gig/location'
+import Header from '@components/header'
+import { GigsDocument, GigsQuery } from '@gql/graphql'
+import { gigStartDate } from '@utils/gigs'
+
 import QueryHandler from './query-handler'
-import { gigStartDate } from '../utils/gigs'
-import Location from './gig/location'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { loading, error, data } = useQuery<GigsQuery>(GigsDocument)

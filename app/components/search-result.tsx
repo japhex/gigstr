@@ -2,11 +2,10 @@ import { useContext } from 'react'
 
 import { useMutation } from '@apollo/react-hooks'
 import { Flex, Box, Text, Icon, Button, Center } from '@chakra-ui/react'
+import { AppContext } from '@context/app/context'
+import { CreateGigDocument, Gig, GigsDocument } from '@gql/graphql'
 import { format, parseISO } from 'date-fns'
 import { MdAddCircleOutline, MdOutlineCalendarToday, MdOutlineLocationOn } from 'react-icons/md'
-
-import { AppContext } from '../context/app/context'
-import { CreateGigDocument, Gig, GigsDocument } from '../gql/graphql'
 
 interface Props {
   gig: Gig

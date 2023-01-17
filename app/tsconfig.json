@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+	"paths": {
+		"@components/*": ["components/*"],
+		"@context/*": ["context/*"],
+		"@api/*": ["api/*"],
+		"@utils/*": ["utils/*"],
+		"@gql/*": ["gql/*"],
+		"@theme/*": ["theme/*"]
+	},
     "target": "es5",
     "lib": [
       "dom",

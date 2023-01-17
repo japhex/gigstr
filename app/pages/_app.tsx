@@ -1,13 +1,13 @@
 import { ApolloProvider } from '@apollo/client'
 import { ChakraProvider } from '@chakra-ui/react'
+import Layout from '@components/layout'
+import AppProvider from '@context/app/context'
+import { theme } from '@theme/index'
 import type { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 
 import client from '../apollo-client'
-import AppProvider from '../context/app/context'
-import { theme } from '../theme'
-import Layout from "../components/layout";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
   return (
@@ -15,7 +15,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <SessionProvider session={session}>
         <ChakraProvider theme={theme}>
           <AppProvider>
-            <Layout><Component {...pageProps} /></Layout>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </AppProvider>
         </ChakraProvider>
       </SessionProvider>

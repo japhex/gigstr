@@ -40,6 +40,7 @@ export const theme = extendTheme({
     GREY3: '#181818',
     GREY4: '#121212',
     GREYGRAD: 'linear-gradient(270deg, rgba(23,23,23,1) 0%, rgba(22,22,22,1) 35%, rgba(23,23,23,1) 100%);',
+    RED: '#E53E3E',
   },
   styles: {
     global: {
@@ -85,6 +86,15 @@ export const theme = extendTheme({
           _hover: {
             background: '#111',
           },
+        },
+        delete: {
+          bg: 'RED',
+          padding: 2,
+          minWidth: 'auto',
+          width: 'auto',
+          height: 'auto',
+          color: 'WHITE',
+          border: '1px solid #000',
         },
       },
       defaultProps: {

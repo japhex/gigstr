@@ -56,6 +56,7 @@ const schemaString = `
     signup(username: String!, password: String!): String
     login(username: String!, password: String!): String
     createGig(id: String!, ticketmasterId: String! artist: JSONObject, info: String, date: JSONObject, venue: JSONObject, lineup: [JSONObject], festival: JSONObject): Gig!
+    deleteGig(id: ID!): JSONObject
     rateGig(id: ID!, rating: Int!): Int
   }
 `

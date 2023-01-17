@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   callbacks: {
-    async redirect({ url, baseUrl }) {
+    async redirect({ baseUrl }) {
       return baseUrl
     },
     async jwt({ token, account, profile }) {
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
 
       return token
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       const encodedToken = jwt.sign(token, process.env.SECRET, { algorithm: 'HS256' })
 
       session.accessToken = token.accessToken

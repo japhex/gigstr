@@ -1,16 +1,14 @@
 import { useQuery } from '@apollo/react-hooks'
 import { Box, Flex, Icon, Text } from '@chakra-ui/react'
+import Genres from '@components/gig/genres'
+import Lineup from '@components/gig/lineup'
+import Location from '@components/gig/location'
+import Rating from '@components/gig/rating'
+import QueryHandler from '@components/query-handler'
+import { GigsDocument, GigsQuery } from '@gql/graphql'
+import { SHADOWS } from '@theme/shadows'
 import { format } from 'date-fns'
 import { MdOutlineFestival } from 'react-icons/md'
-
-import { GigsDocument, GigsQuery } from '../gql/graphql'
-import { SHADOWS } from '../theme/shadows'
-
-import Genres from './gig/genres'
-import Lineup from './gig/lineup'
-import Location from './gig/location'
-import Rating from './gig/rating'
-import QueryHandler from './query-handler'
 
 const PastGigs = () => {
   const { loading, error, data } = useQuery<GigsQuery>(GigsDocument, { variables: { past: true } })
