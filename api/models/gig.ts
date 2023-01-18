@@ -21,7 +21,12 @@ const gigSchema = new Schema({
     city: { type: String },
     country: { type: String },
   },
-  lineup: { type: SchemaTypes.Mixed },
+  lineup: {
+    name: { type: String },
+    image: { type: String },
+    genre: { type: String },
+    subGenre: { type: String },
+  },
   festival: {
     start_date: { type: String },
     end_date: { type: String },

@@ -26,6 +26,7 @@ const Rating = ({ id, ratings }: Props) => {
     <Flex cursor="pointer">
       {ratingsSteps.map(step => (
         <Icon
+          key={step}
           as={rating >= step ? AiFillStar : AiOutlineStar}
           onClick={() => rate(step)}
           onMouseEnter={() => setRating(step)}

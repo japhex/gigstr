@@ -23,15 +23,36 @@ const schemaString = `
     gigs: [Gig]
   }
   
+  type Artist {
+    name: String!
+    image: String
+    genre: String
+    subGenre: String
+  }
+  
+  type Venue {
+    location: JSONObject
+    name: String
+    latitude: String
+    longitude: String
+    city: String
+    country: String
+  }
+  
+  type Festival {
+    start_date: String
+    end_date: String
+  }
+  
   type Gig {
     _id: ID
     ticketmasterId: String
-    artist: JSONObject
+    artist: Artist!
     date: JSONObject
     info: String
-    venue: JSONObject
-    lineup: [JSONObject]
-    festival: JSONObject
+    venue: Venue
+    lineup: [Artist]
+    festival: Festival
     userId: String
     ratings: [JSONObject]
     attending: Boolean
@@ -39,7 +60,6 @@ const schemaString = `
   
   type Query {
     users: [User!]!
-    loggedInUser: User
     user(username: String!): UserWithGigs
     userGigs(userId: ID!): UserWithGigs
     searchUsers(username: String!): [User]

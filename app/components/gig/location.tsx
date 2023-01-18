@@ -1,8 +1,9 @@
 import { Box, Flex, Icon, Text } from '@chakra-ui/react'
+import { Gig } from '@gql/graphql'
 import { MdOutlineLocationOn } from 'react-icons/md'
 
 interface Props {
-  venue: Record<string, string>
+  venue: Pick<Gig, 'venue'>
 }
 
 const Location = ({ venue }: Props) => {

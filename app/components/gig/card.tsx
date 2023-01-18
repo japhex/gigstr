@@ -18,7 +18,7 @@ const Card = ({ gig }: Props) => {
   const { _id: id, artist, date, venue, lineup, festival, info } = gig
 
   return (
-    <Flex key={id} gap={2} position="relative">
+    <Flex gap={2} position="relative">
       <Flex direction="column" w="100%" color="#cecece" bg="GREYGRAD" boxShadow={SHADOWS.default}>
         <Box h="150px" w="100%" bgImg={artist.image} bgSize="cover" bgPosition="top" />
         <Box p={4}>
@@ -27,7 +27,7 @@ const Card = ({ gig }: Props) => {
             <Lineup lineup={lineup} />
             <Delete id={id} />
           </Flex>
-          <Box py={2} pb={0} mt={4}>
+          <Box py={2} pb={0} mt={2}>
             <Flex w="100%">
               <Box>
                 <Text fontSize="lg" noOfLines={1} color="#fff" fontWeight="bold">

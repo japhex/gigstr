@@ -31,8 +31,7 @@ const Lineup = ({ lineup }: Props) => {
           <ModalCloseButton />
           <ModalBody p={10}>
             <Flex gap={2} wrap="wrap">
-              {/* needs typing properly in api response */}
-              {lineup?.map((band: Record<string, string>) => (
+              {lineup?.map(band => (
                 <Badge colorScheme="orange" key={band.name}>
                   {band.name}
                 </Badge>

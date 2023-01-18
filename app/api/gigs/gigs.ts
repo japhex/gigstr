@@ -20,7 +20,12 @@ export const getGigs = gql`
         city
         country
       }
-      lineup
+      lineup {
+        name
+        image
+        genre
+        subGenre
+      }
       festival {
         start_date
         end_date
@@ -68,7 +73,12 @@ export const createGigMutation = gql`
         city
         country
       }
-      lineup
+      lineup {
+        name
+        image
+        genre
+        subGenre
+      }
       festival {
         start_date
         end_date

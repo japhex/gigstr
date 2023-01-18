@@ -11,7 +11,6 @@ export const apiGetGigs = async ({ past = false }, user) => {
   const today = new Date()
   const dateFormatted = format(today, 'yyyy-MM-dd')
   const filter = past ? { $lt: dateFormatted } : { $gte: dateFormatted }
-  // const gigstrUser = await User.findOne({ providerId: user.id })
 
   try {
     return await Gig.aggregate([
@@ -24,7 +23,6 @@ export const apiGetGigs = async ({ past = false }, user) => {
           pipeline: [
             {
               $match: {
-                // $and: [{ userId: { $eq: new mongoose.Types.ObjectId(gigstrUser.id) } }],
                 $and: [{ userId: { $eq: user.id } }],
               },
             },

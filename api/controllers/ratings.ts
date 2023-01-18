@@ -3,7 +3,6 @@ import { Ratings } from '../models/ratings'
 // Rate gig
 export const apiCreateGigRating = async ({ id, rating }, user) => {
   try {
-    // const dbUser = await User.findOne({ providerId: user.id })
     await Ratings.updateOne({ gigId: id }, { rating, userId: user.id }, { upsert: true })
   } catch (err) {
     throw new Error(`Error: ${err}`)

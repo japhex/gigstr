@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { Box, Flex, Text } from '@chakra-ui/react'
 import Location from '@components/gig/location'
 import Header from '@components/header'
+import Title from '@components/ui/title'
 import { GigsDocument, GigsQuery } from '@gql/graphql'
 import { gigStartDate } from '@utils/gigs'
 
@@ -30,9 +31,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             </Text>
           </Box>
           <Flex direction="column" mt={4} gap={4}>
-            <Text fontSize="xl" noOfLines={1} color="#fff" fontWeight="bold">
-              next gig
-            </Text>
+            <Title title="next gig" filter={false} />
             {loading || error ? (
               <QueryHandler loading={loading} error={error} />
             ) : (

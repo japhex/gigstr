@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
+import Title from '@components/ui/title'
 import { getSession, GetSessionParams } from 'next-auth/react'
 import Head from 'next/head'
 
@@ -19,23 +20,17 @@ export default function IndexPage() {
       </Head>
       <Flex direction="column" gap={8}>
         <Flex direction="column" gap={4}>
-          <Text fontSize="xl" noOfLines={1} color="#fff" fontWeight="bold">
-            find gigs
-          </Text>
+          <Title title="find gigs" filter={false} />
           <SearchGigs />
         </Flex>
         {!searchActive && (
           <>
             <Flex direction="column" gap={4}>
-              <Text fontSize="xl" noOfLines={1} color="#fff" fontWeight="bold">
-                past gigs
-              </Text>
+              <Title title="past gigs" />
               <PastGigs />
             </Flex>
             <Flex direction="column" gap={4}>
-              <Text fontSize="xl" noOfLines={1} color="#fff" fontWeight="bold">
-                upcoming gigs
-              </Text>
+              <Title title="upcoming gigs" />
               <DisplayGigs />
             </Flex>
           </>

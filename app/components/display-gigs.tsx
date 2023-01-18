@@ -13,7 +13,7 @@ const Gigs = () => {
   return (
     <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr 1fr' }} gridGap={6} w="100%">
       {gigs?.length > 0 ? (
-        gigs?.map(gig => <Card gig={gig} />)
+        gigs?.map(gig => <Card key={gig._id} gig={gig || {}} />)
       ) : (
         <>you haven't added any gigs yet, try searching for some!</>
       )}

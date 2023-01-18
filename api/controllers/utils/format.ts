@@ -28,7 +28,7 @@ export const formatTicketmasterGigData = (artist, event, gigIds) => ({
     start: event?.dates?.start?.localDate || event?.dates?.start?.dateTime,
     end: event?.dates?.end?.localDate || event?.dates?.end?.dateTime,
   },
-  info: event?.info,
+  info: `${event?.info} ${event?.pleaseNote}`,
   ...(event?._embedded?.venues && {
     venue: {
       location: event?._embedded?.venues[0]?.location,
