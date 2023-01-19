@@ -21,7 +21,7 @@ export default {
     searchGig: (_parent, args, { user }) => apiSearchGig(args, user),
     gigs: (_parent, args, { user }) => apiGetGigs(args, user),
     filterGigsByDate: (_parent, args, { user }) => apiFilterGigsByDate(args, user),
-    filterGigsByProperty: (_parent, { property }, { user }) => apiFilterGigsByProperty(property, user),
+    filterGigsByProperty: (_parent, { filters }, { user }) => apiFilterGigsByProperty(filters, user),
   },
   Mutation: {
     createGig: (_parent, args, { user }) => apiCreateGig(args, user),

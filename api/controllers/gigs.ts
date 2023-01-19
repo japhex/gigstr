@@ -5,15 +5,22 @@ import { API } from '../types'
 import { getFilteredByMonthGigs, getFilteredByYearGigs } from './utils'
 import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
 
-export const apiGetGigs = async ({ past = false, startFilter = true }, user, params = {}) => {
+export const apiGetGigs = async ({ past = false, startFilter = true, dateFilter = true }, user, params = null) => {
   const today = new Date()
   const filter = past ? { $lt: today } : { $gte: today }
+  const paramQuery = dateFilter
+    ? { $match: { $and: [{ ...(startFilter && { 'date.start': filter }), userId: user.id, ...params }] } }
+    : {
+        $match: {
+          $and: [{ ...(startFilter && { 'date.start': filter }) }, { userId: user.id }, { $or: params }],
+        },
+      }
 
   try {
     return await Gig.aggregate([
       { $addFields: { month: { $month: '$date.start' } } },
       { $addFields: { year: { $year: '$date.start' } } },
-      { $match: { ...(startFilter && { 'date.start': filter }), userId: user.id, ...params } },
+      paramQuery,
       {
         $lookup: {
           from: 'ratings',
@@ -49,9 +56,9 @@ export const apiFilterGigsByDate = async ({ month, year }, user) => {
   }
 }
 
-export const apiFilterGigsByProperty = async (params, user) => {
+export const apiFilterGigsByProperty = async (filters, user) => {
   try {
-    return await apiGetGigs({ past: false }, user, params)
+    return await apiGetGigs({ past: false, dateFilter: false }, user, filters)
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }

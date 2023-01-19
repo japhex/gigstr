@@ -1,4 +1,4 @@
-import { getGigs, getGigsFilteredByDate } from '@api/gigs/gigs'
+import { getGigs, getGigsFilteredByDate, getGigsFilteredByProperty } from '@api/gigs/gigs'
 import { useQuery, useLazyQuery } from '@apollo/react-hooks'
 import { Flex, Text } from '@chakra-ui/react'
 import FilterGroup from '@components/ui/filter-group'
@@ -15,6 +15,7 @@ interface Props {
 const Filters = ({ past = false }: Props) => {
   const { data } = useQuery<GigsQuery>(GigsDocument, { variables: { past } })
   const [filterGigs] = useLazyQuery(getGigsFilteredByDate)
+  const [filterGigsByProperty] = useLazyQuery(getGigsFilteredByProperty)
   const gigs: Gig[] = data?.gigs || []
   const months = getGigMonthFilters(gigs)
   const years = getGigYearFilters(gigs)
@@ -31,6 +32,21 @@ const Filters = ({ past = false }: Props) => {
       client.writeQuery({
         query: getGigs,
         data: { gigs: data.filterGigsByDate },
+      })
+    }
+  }
+
+  const handleFilterByProperty = async filters => {
+    if (filters[0]['artist.genre'] === '') {
+      client.writeQuery({
+        query: getGigs,
+        data: { gigs },
+      })
+    } else {
+      const { data } = await filterGigsByProperty({ variables: { filters } })
+      client.writeQuery({
+        query: getGigs,
+        data: { gigs: data.filterGigsByProperty },
       })
     }
   }
@@ -56,12 +72,7 @@ const Filters = ({ past = false }: Props) => {
         name="genre"
         group={genres}
         onClick={async genre => {
-          // Need to filter by property in different filter query
-          // const { data } = await filterGigs({ variables: { genre } })
-          // client.writeQuery({
-          //   query: getGigs,
-          //   data: { gigs: data.filterGigsByDate },
-          // })
+          await handleFilterByProperty([{ 'artist.genre': genre }, { 'artist.subGenre': genre }])
         }}
       />
     </Flex>

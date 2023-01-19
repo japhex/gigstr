@@ -141,3 +141,40 @@ export const getGigsFilteredByDate = gql`
     }
   }
 `
+
+export const getGigsFilteredByProperty = gql`
+  query filterGigsByProperty($filters: JSONObject!) {
+    filterGigsByProperty(filters: $filters) {
+      _id
+      artist {
+        name
+        image
+        genre
+        subGenre
+      }
+      date {
+        start
+        end
+      }
+      info
+      venue {
+        location
+        name
+        latitude
+        longitude
+        city
+        country
+      }
+      lineup {
+        name
+        image
+        genre
+        subGenre
+      }
+      festival {
+        start_date
+        end_date
+      }
+    }
+  }
+`
