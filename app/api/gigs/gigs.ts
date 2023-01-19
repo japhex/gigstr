@@ -105,8 +105,45 @@ export const searchGigQuery = gql`
   }
 `
 
+export const getFilteredGigs = gql`
+  query filterGigs($filters: JSONObject!) {
+    filterGigs(filters: $filters) {
+      _id
+      artist {
+        name
+        image
+        genre
+        subGenre
+      }
+      date {
+        start
+        end
+      }
+      info
+      venue {
+        location
+        name
+        latitude
+        longitude
+        city
+        country
+      }
+      lineup {
+        name
+        image
+        genre
+        subGenre
+      }
+      festival {
+        start_date
+        end_date
+      }
+    }
+  }
+`
+
 export const getGigsFilteredByDate = gql`
-  query filterGigsByDate($month: String, $year: String) {
+  query filterGigsByDate($month: Int, $year: Int) {
     filterGigsByDate(month: $month, year: $year) {
       _id
       artist {

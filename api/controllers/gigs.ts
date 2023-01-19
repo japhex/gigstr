@@ -39,28 +39,16 @@ export const apiGetGigs = async ({ past = false }, user, params = null) => {
   }
 }
 
-// TODO: Write generic filter method that just accepts ALL filters from the FE, fucking banging.
+export const apiFilterGigs = async ({ filters }, user) => {
+  const filterObject = Object.assign(
+    {},
+    ...filters.map(item => {
+      return item
+    })
+  )
 
-export const apiFilterGigsByDate = async ({ month, year }, user) => {
   try {
-    if (year) {
-      return apiGetGigs({ past: false }, user, {
-        year: parseInt(year),
-      })
-    }
-    if (month) {
-      return apiGetGigs({ past: false }, user, {
-        month: parseInt(month),
-      })
-    }
-  } catch (err) {
-    throw new Error(`Error: ${err}`)
-  }
-}
-
-export const apiFilterGigsByProperty = async (filters, user) => {
-  try {
-    return await apiGetGigs({ past: false }, user, filters)
+    return await apiGetGigs({ past: false }, user, filterObject)
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }

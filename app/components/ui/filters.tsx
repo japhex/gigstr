@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { getGigs, getGigsFilteredByDate, getGigsFilteredByProperty } from '@api/gigs/gigs'
+import { getFilteredGigs, getGigs } from '@api/gigs/gigs'
 import { useQuery, useLazyQuery } from '@apollo/react-hooks'
 import { Flex, Text } from '@chakra-ui/react'
 import FilterGroup from '@components/ui/filter-group'
@@ -17,34 +17,15 @@ interface Props {
 
 const Filters = ({ past = false }: Props) => {
   const { data } = useQuery<GigsQuery>(GigsDocument, { variables: { past } })
-  const [filterGigs] = useLazyQuery(getGigsFilteredByDate)
-  const [filterGigsByProperty] = useLazyQuery(getGigsFilteredByProperty)
+  const [filterGigs] = useLazyQuery(getFilteredGigs)
   const [activeFilters, setActiveFilters] = useState<Record<string, any>[]>([])
   const gigs: Gig[] = data?.gigs || []
   const months = getGigMonthFilters(gigs)
   const years = getGigYearFilters(gigs)
   const genres = getGenreFilters(gigs)
 
-  const handleFilter = async (value, filters) => {
-    handleFilters(value, filters)
-    const { data } = await filterGigs({ variables: { ...filters } })
-    client.writeQuery({
-      query: getGigs,
-      data: { gigs: data.filterGigsByDate },
-    })
-  }
-
-  const handleFilterByProperty = async (value, filters) => {
-    handleFilters(value, filters)
-    const { data } = await filterGigsByProperty({ variables: { filters } })
-    client.writeQuery({
-      query: getGigs,
-      data: { gigs: data.filterGigsByProperty },
-    })
-  }
-
   const handleFilters = (value, filters) => {
-    if (value === '') {
+    if (value === '' && activeFilters.length === 0) {
       client.writeQuery({
         query: getGigs,
         data: { gigs },
@@ -66,9 +47,21 @@ const Filters = ({ past = false }: Props) => {
     }
   }
 
+  // NEED TO FIX WHEN SELECTING BLANK VALUE AND CLEARING SINGLE FILTER
+
   useEffect(() => {
-    console.log(activeFilters)
-  }, [activeFilters])
+    const activateFilters = async () => {
+      if (activeFilters.length > 0) {
+        const { data } = await filterGigs({ variables: { filters: activeFilters } })
+        client.writeQuery({
+          query: getGigs,
+          data: { gigs: data.filterGigs },
+        })
+      }
+    }
+
+    activateFilters()
+  }, [activeFilters, filterGigs])
 
   return (
     <Flex gap={4} align="center">
@@ -77,21 +70,21 @@ const Filters = ({ past = false }: Props) => {
         name="month"
         group={months}
         onClick={async (month: string) => {
-          await handleFilter(month, { month })
+          await handleFilters(month, { month: parseInt(month) })
         }}
       />
       <FilterGroup
         name="year"
         group={years}
         onClick={async (year: string) => {
-          await handleFilter(year, { year })
+          await handleFilters(year, { year: parseInt(year) })
         }}
       />
       <FilterGroup
         name="genre"
         group={genres}
         onClick={async genre => {
-          await handleFilterByProperty(genre, { $or: [{ 'artist.genre': genre }, { 'artist.subGenre': genre }] })
+          await handleFilters(genre, { $or: [{ 'artist.genre': genre }, { 'artist.subGenre': genre }] })
         }}
       />
     </Flex>

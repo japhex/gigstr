@@ -70,8 +70,7 @@ const schemaString = `
     searchUsers(username: String!): [User]
     searchGig(artist: String!, date: String, type: String): JSONObject
     gigs(past: Boolean): [Gig]
-    filterGigsByDate(month: String, year: String): [Gig]
-    filterGigsByProperty(filters: JSONObject!): [Gig]
+    filterGigs(filters: JSONObject!): [Gig]
     gig(id: ID!): Gig
   }
   

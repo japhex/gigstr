@@ -1,11 +1,4 @@
-import {
-  apiCreateGig,
-  apiDeleteGig,
-  apiFilterGigsByProperty,
-  apiFilterGigsByDate,
-  apiGetGigs,
-  apiSearchGig,
-} from './controllers/gigs'
+import { apiCreateGig, apiDeleteGig, apiGetGigs, apiSearchGig, apiFilterGigs } from './controllers/gigs'
 import { apiCreateGigRating } from './controllers/ratings'
 import { apiGetUserByUsername, apiGetUsers, apiSearchUsersByUsername, apiGetGigsByUser } from './controllers/users'
 
@@ -20,8 +13,7 @@ export default {
     searchUsers: (_parent, { username }) => apiSearchUsersByUsername(username),
     searchGig: (_parent, args, { user }) => apiSearchGig(args, user),
     gigs: (_parent, args, { user }) => apiGetGigs(args, user),
-    filterGigsByDate: (_parent, args, { user }) => apiFilterGigsByDate(args, user),
-    filterGigsByProperty: (_parent, { filters }, { user }) => apiFilterGigsByProperty(filters, user),
+    filterGigs: (_parent, args, { user }) => apiFilterGigs(args, user),
   },
   Mutation: {
     createGig: (_parent, args, { user }) => apiCreateGig(args, user),
