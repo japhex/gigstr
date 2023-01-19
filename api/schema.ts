@@ -39,6 +39,11 @@ const schemaString = `
     country: String
   }
   
+  type GigDate {
+    start: Date
+    end: Date
+  }
+  
   type Festival {
     start_date: String
     end_date: String
@@ -48,7 +53,7 @@ const schemaString = `
     _id: ID
     ticketmasterId: String
     artist: Artist!
-    date: JSONObject
+    date: GigDate
     info: String
     venue: Venue
     lineup: [Artist]
@@ -65,10 +70,8 @@ const schemaString = `
     searchUsers(username: String!): [User]
     searchGig(artist: String!, date: String, type: String): JSONObject
     gigs(past: Boolean): [Gig]
-    gigsUnfiltered: [Gig]
-    gigsFestivalFilter: [Gig]
-    gigsMonthFilter(month: Int!): [Gig]
-    gigsYearFilter(year: Int!): [Gig] 
+    filterGigsByDate(month: String, year: String): [Gig]
+    filterGigsByProperty(property: JSONObject!): [Gig]
     gig(id: ID!): Gig
   }
   

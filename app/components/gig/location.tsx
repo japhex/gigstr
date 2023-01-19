@@ -6,20 +6,16 @@ interface Props {
   venue: Pick<Gig, 'venue'>
 }
 
-const Location = ({ venue }: Props) => {
-  const { name, city, country } = venue
-
-  return (
-    <Flex gap={2} align="center" color="#888">
-      <Icon as={MdOutlineLocationOn} boxSize={5} />
-      <Box>
-        <Text fontSize="sm">{name}</Text>
-        <Text fontSize="xs">
-          {city}, {country}
-        </Text>
-      </Box>
-    </Flex>
-  )
-}
+const Location = ({ venue }: Props) => (
+  <Flex gap={2} align="center" color="#888">
+    <Icon as={MdOutlineLocationOn} boxSize={5} />
+    <Box>
+      <Text fontSize="sm">{venue?.name}</Text>
+      <Text fontSize="xs">
+        {venue?.city}, {venue?.country}
+      </Text>
+    </Box>
+  </Flex>
+)
 
 export default Location

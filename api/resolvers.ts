@@ -1,10 +1,9 @@
 import {
   apiCreateGig,
   apiDeleteGig,
-  apiGetFestivalFilteredGigs,
+  apiFilterGigsByProperty,
+  apiFilterGigsByDate,
   apiGetGigs,
-  apiGetMonthFilteredGigs,
-  apiGetYearFilteredGigs,
   apiSearchGig,
 } from './controllers/gigs'
 import { apiCreateGigRating } from './controllers/ratings'
@@ -21,10 +20,8 @@ export default {
     searchUsers: (_parent, { username }) => apiSearchUsersByUsername(username),
     searchGig: (_parent, args, { user }) => apiSearchGig(args, user),
     gigs: (_parent, args, { user }) => apiGetGigs(args, user),
-    gigsUnfiltered: (_parent, args, { user }) => apiGetGigs(args, user),
-    gigsFestivalFilter: (_parent, _args, { user }) => apiGetFestivalFilteredGigs(user),
-    gigsMonthFilter: (_parent, { month }, { user }) => apiGetMonthFilteredGigs(user, month),
-    gigsYearFilter: (_parent, { year }, { user }) => apiGetYearFilteredGigs(user, year),
+    filterGigsByDate: (_parent, args, { user }) => apiFilterGigsByDate(args, user),
+    filterGigsByProperty: (_parent, { property }, { user }) => apiFilterGigsByProperty(property, user),
   },
   Mutation: {
     createGig: (_parent, args, { user }) => apiCreateGig(args, user),

@@ -1,20 +1,19 @@
-import { format } from 'date-fns'
-
 import { ticketmasterApi } from '../apis/ticketmaster'
 import { Gig } from '../models/gig'
 import { API } from '../types'
 
-import { getFilteredByFestivalGigs, getFilteredByMonthGigs, getFilteredByYearGigs } from './utils'
+import { getFilteredByMonthGigs, getFilteredByYearGigs } from './utils'
 import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
 
-export const apiGetGigs = async ({ past = false }, user) => {
+export const apiGetGigs = async ({ past = false, startFilter = true }, user, params = {}) => {
   const today = new Date()
-  const dateFormatted = format(today, 'yyyy-MM-dd')
-  const filter = past ? { $lt: dateFormatted } : { $gte: dateFormatted }
+  const filter = past ? { $lt: today } : { $gte: today }
 
   try {
     return await Gig.aggregate([
-      { $match: { 'date.start': filter, userId: user.id } },
+      { $addFields: { month: { $month: '$date.start' } } },
+      { $addFields: { year: { $year: '$date.start' } } },
+      { $match: { ...(startFilter && { 'date.start': filter }), userId: user.id, ...params } },
       {
         $lookup: {
           from: 'ratings',
@@ -37,25 +36,22 @@ export const apiGetGigs = async ({ past = false }, user) => {
   }
 }
 
-export const apiGetFestivalFilteredGigs = async user => {
+export const apiFilterGigsByDate = async ({ month, year }, user) => {
   try {
-    return await getFilteredByFestivalGigs(user)
+    if (year) {
+      return await getFilteredByYearGigs(user, year)
+    }
+    if (month) {
+      return await getFilteredByMonthGigs(user, month)
+    }
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }
 }
 
-export const apiGetMonthFilteredGigs = async (user, month) => {
+export const apiFilterGigsByProperty = async (params, user) => {
   try {
-    return await getFilteredByMonthGigs(user, month)
-  } catch (err) {
-    throw new Error(`Error: ${err}`)
-  }
-}
-
-export const apiGetYearFilteredGigs = async (user, year) => {
-  try {
-    return await getFilteredByYearGigs(user, year)
+    return await apiGetGigs({ past: false }, user, params)
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }

@@ -11,7 +11,7 @@ const Gigs = () => {
   if (loading || error) return <QueryHandler loading={loading} error={error} />
 
   return (
-    <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr 1fr' }} gridGap={6} w="100%">
+    <Grid templateColumns={{ base: '1fr', md: 'auto auto auto auto' }} gridGap={6} w="100%">
       {gigs?.length > 0 ? (
         gigs?.map(gig => <Card key={gig._id} gig={gig || {}} />)
       ) : (

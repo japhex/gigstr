@@ -6,7 +6,8 @@
 		"@api/*": ["api/*"],
 		"@utils/*": ["utils/*"],
 		"@gql/*": ["gql/*"],
-		"@theme/*": ["theme/*"]
+		"@theme/*": ["theme/*"],
+		"@types/*": ["types/*"]
 	},
     "target": "es6",
     "lib": [

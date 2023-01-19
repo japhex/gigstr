@@ -1,14 +1,12 @@
 import { Gig } from '@gql/graphql'
 import { format, getMonth, getYear } from 'date-fns'
 
-import { MONTHS } from '../types/gig'
-
 export const gigStartDate = (date: Pick<Gig, 'date'>) => format(new Date(date?.start), 'MMM do yyyy')
 
 export const getGigMonthFilters = (gigs: Gig[]) => {
   const months = gigs
     .map(gig => {
-      return MONTHS[getMonth(new Date(gig.date.start))]
+      return getMonth(new Date(gig.date.start)) + 1
     })
     .filter(month => !!month)
 

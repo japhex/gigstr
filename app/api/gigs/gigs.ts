@@ -10,7 +10,10 @@ export const getGigs = gql`
         genre
         subGenre
       }
-      date
+      date {
+        start
+        end
+      }
       info
       venue {
         location
@@ -63,7 +66,10 @@ export const createGigMutation = gql`
         genre
         subGenre
       }
-      date
+      date {
+        start
+        end
+      }
       info
       venue {
         location
@@ -99,54 +105,39 @@ export const searchGigQuery = gql`
   }
 `
 
-// export const getGigsFilteredByFestival = gql`
-//   query gigsFestivalFilter {
-//     gigsFestivalFilter {
-//       id
-//       artist
-//       date
-//       venue
-//       lineup
-//       festival
-//     }
-//   }
-// `
-//
-// export const getGigsFilteredByMonth = gql`
-//   query gigsMonthFilter($month: Int!) {
-//     gigsMonthFilter(month: $month) {
-//       id
-//       artist
-//       date
-//       venue
-//       lineup
-//       festival
-//     }
-//   }
-// `
-//
-// export const getGigsFilteredByYear = gql`
-//   query gigsYearFilter($year: Int!) {
-//     gigsYearFilter(year: $year) {
-//       id
-//       artist
-//       date
-//       venue
-//       lineup
-//       festival
-//     }
-//   }
-// `
-//
-// export const getGigsUnfiltered = gql`
-//   query gigsUnfiltered {
-//     gigsUnfiltered {
-//       id
-//       artist
-//       date
-//       venue
-//       lineup
-//       festival
-//     }
-//   }
-// `
+export const getGigsFilteredByDate = gql`
+  query filterGigsByDate($month: String, $year: String) {
+    filterGigsByDate(month: $month, year: $year) {
+      _id
+      artist {
+        name
+        image
+        genre
+        subGenre
+      }
+      date {
+        start
+        end
+      }
+      info
+      venue {
+        location
+        name
+        latitude
+        longitude
+        city
+        country
+      }
+      lineup {
+        name
+        image
+        genre
+        subGenre
+      }
+      festival {
+        start_date
+        end_date
+      }
+    }
+  }
+`

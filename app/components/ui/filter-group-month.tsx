@@ -1,4 +1,5 @@
 import { Flex, Select } from '@chakra-ui/react'
+import { MONTHS } from '@types/gig'
 
 interface Props {
   name: string
@@ -6,13 +7,13 @@ interface Props {
   group: string[] | number[]
 }
 
-const FilterGroup = ({ name, onClick, group }: Props) => {
+const FilterGroupMonth = ({ name, onClick, group }: Props) => {
   return (
     <Flex gap={2}>
       <Select placeholder={name} onChange={e => onClick(e.target.value)}>
         {group.map((item, index) => (
           <option value={item} key={index}>
-            {item}
+            {MONTHS[item as number]}
           </option>
         ))}
       </Select>
@@ -20,4 +21,4 @@ const FilterGroup = ({ name, onClick, group }: Props) => {
   )
 }
 
-export default FilterGroup
+export default FilterGroupMonth
