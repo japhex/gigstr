@@ -2,25 +2,21 @@ import { ticketmasterApi } from '../apis/ticketmaster'
 import { Gig } from '../models/gig'
 import { API } from '../types'
 
-import { getFilteredByMonthGigs, getFilteredByYearGigs } from './utils'
 import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
 
-export const apiGetGigs = async ({ past = false, startFilter = true, dateFilter = true }, user, params = null) => {
+export const apiGetGigs = async ({ past = false }, user, params = null) => {
   const today = new Date()
   const filter = past ? { $lt: today } : { $gte: today }
-  const paramQuery = dateFilter
-    ? { $match: { $and: [{ ...(startFilter && { 'date.start': filter }), userId: user.id, ...params }] } }
-    : {
-        $match: {
-          $and: [{ ...(startFilter && { 'date.start': filter }) }, { userId: user.id }, { $or: params }],
-        },
-      }
 
   try {
     return await Gig.aggregate([
       { $addFields: { month: { $month: '$date.start' } } },
       { $addFields: { year: { $year: '$date.start' } } },
-      paramQuery,
+      {
+        $match: {
+          $and: [{ 'date.start': filter, userId: user.id, ...params }],
+        },
+      },
       {
         $lookup: {
           from: 'ratings',
@@ -43,13 +39,19 @@ export const apiGetGigs = async ({ past = false, startFilter = true, dateFilter 
   }
 }
 
+// TODO: Write generic filter method that just accepts ALL filters from the FE, fucking banging.
+
 export const apiFilterGigsByDate = async ({ month, year }, user) => {
   try {
     if (year) {
-      return await getFilteredByYearGigs(user, year)
+      return apiGetGigs({ past: false }, user, {
+        year: parseInt(year),
+      })
     }
     if (month) {
-      return await getFilteredByMonthGigs(user, month)
+      return apiGetGigs({ past: false }, user, {
+        month: parseInt(month),
+      })
     }
   } catch (err) {
     throw new Error(`Error: ${err}`)
@@ -58,7 +60,7 @@ export const apiFilterGigsByDate = async ({ month, year }, user) => {
 
 export const apiFilterGigsByProperty = async (filters, user) => {
   try {
-    return await apiGetGigs({ past: false, dateFilter: false }, user, filters)
+    return await apiGetGigs({ past: false }, user, filters)
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }
