@@ -25,25 +25,22 @@ const Filters = ({ past = false }: Props) => {
   const genres = getGenreFilters(gigs)
 
   const handleFilters = (value, filters) => {
-    if (value === '' && activeFilters.length === 0) {
-      client.writeQuery({
-        query: getGigs,
-        data: { gigs },
-      })
-      return
-    }
-
     const filterExists = activeFilters.some(filter => {
       return Object.keys(filter)[0] === Object.keys(filters)[0]
     })
 
     if (!filterExists) {
       setActiveFilters([...activeFilters, filters])
-    } else {
+    } else if (value !== '') {
       const newFilters = activeFilters.filter(filter => {
         return Object.keys(filter)[0] !== Object.keys(filters)[0]
       })
       setActiveFilters([...newFilters, filters])
+    } else {
+      const newFilters = activeFilters.filter(filter => {
+        return Object.keys(filter)[0] !== Object.keys(filters)[0]
+      })
+      setActiveFilters([...newFilters])
     }
   }
 
@@ -61,7 +58,7 @@ const Filters = ({ past = false }: Props) => {
     }
 
     activateFilters()
-  }, [activeFilters, filterGigs])
+  }, [activeFilters])
 
   return (
     <Flex gap={4} align="center">
