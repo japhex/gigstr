@@ -25,11 +25,9 @@ export default function IndexPage() {
         {!searchActive && (
           <>
             <Flex direction="column" gap={4}>
-              <Title title="past gigs" past />
               <PastGigs />
             </Flex>
             <Flex direction="column" gap={4}>
-              <Title title="upcoming gigs" />
               <DisplayGigs />
             </Flex>
           </>

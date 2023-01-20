@@ -17,7 +17,7 @@ interface Props {
 
 const Filters = ({ past = false }: Props) => {
   const { data } = useQuery<GigsQuery>(GigsDocument, { variables: { past } })
-  const [filterGigs] = useLazyQuery(getFilteredGigs)
+  const [filterGigs, { called }] = useLazyQuery(getFilteredGigs)
   const [activeFilters, setActiveFilters] = useState<Record<string, any>[]>([])
   const gigs: Gig[] = data?.gigs || []
   const months = getGigMonthFilters(gigs)
@@ -44,8 +44,6 @@ const Filters = ({ past = false }: Props) => {
     }
   }
 
-  // NEED TO FIX WHEN SELECTING BLANK VALUE AND CLEARING SINGLE FILTER
-
   useEffect(() => {
     const activateFilters = async () => {
       if (activeFilters.length > 0) {
@@ -54,6 +52,13 @@ const Filters = ({ past = false }: Props) => {
           query: getGigs,
           data: { gigs: data.filterGigs },
         })
+      } else {
+        if (called) {
+          client.writeQuery({
+            query: getGigs,
+            data: { gigs },
+          })
+        }
       }
     }
 
