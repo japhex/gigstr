@@ -22,43 +22,47 @@ const PastGigs = () => {
       <Title title="past gigs" past filter={gigs.length > 0} />
       <Box w="100%" overflowX="scroll">
         <Flex gap={4} w="100%">
-          {gigs.map(({ _id, artist, date, venue, lineup, festival, ratings }) => (
-            <Flex key={_id} gap={2} bg="GREYGRAD" flex="0 0 calc(400px + 16px)" h="150px" boxShadow={SHADOWS.default}>
-              <Box h="100%" w="200px" bgImg={artist.image} bgSize="cover" bgPosition="top" filter="grayscale(80%)">
-                <Flex ml="auto" gap={2}>
-                  <Lineup lineup={lineup} />
-                </Flex>
-                {festival?.start_date && <Icon as={MdOutlineFestival} ml="auto" />}
-              </Box>
-              <Flex direction="column" w="100%" color="#cecece" p={4}>
-                <Box>
-                  <Box>
-                    <Flex direction="column">
-                      <Flex>
-                        <Box>
-                          <Text fontSize="lg" noOfLines={1} color="#fff" fontWeight="bold">
-                            {artist.name}
-                          </Text>
-
-                          <Box pb={2}>
-                            <Text fontSize="sm">
-                              {date?.start && format(new Date(date?.start), 'MMM do yyyy')}{' '}
-                              {date?.end &&
-                                date?.start !== date?.end &&
-                                `- ${format(new Date(date?.end), 'MMM do yyyy')}`}
-                            </Text>
-                          </Box>
-                        </Box>
-                      </Flex>
-                      <Rating id={_id} ratings={ratings} />
-                    </Flex>
-                  </Box>
-                  <Location venue={venue} />
+          {gigs?.length > 0 ? (
+            gigs.map(({ _id, artist, date, venue, lineup, festival, ratings }) => (
+              <Flex key={_id} gap={2} bg="GREYGRAD" flex="0 0 calc(400px + 16px)" h="150px" boxShadow={SHADOWS.default}>
+                <Box h="100%" w="200px" bgImg={artist.image} bgSize="cover" bgPosition="top" filter="grayscale(80%)">
+                  <Flex ml="auto" gap={2}>
+                    <Lineup lineup={lineup} />
+                  </Flex>
+                  {festival?.start_date && <Icon as={MdOutlineFestival} ml="auto" />}
                 </Box>
-                <Genres artist={artist} />
+                <Flex direction="column" w="100%" color="#cecece" p={4}>
+                  <Box>
+                    <Box>
+                      <Flex direction="column">
+                        <Flex>
+                          <Box>
+                            <Text fontSize="lg" noOfLines={1} color="#fff" fontWeight="bold">
+                              {artist.name}
+                            </Text>
+
+                            <Box pb={2}>
+                              <Text fontSize="sm">
+                                {date?.start && format(new Date(date?.start), 'MMM do yyyy')}{' '}
+                                {date?.end &&
+                                  date?.start !== date?.end &&
+                                  `- ${format(new Date(date?.end), 'MMM do yyyy')}`}
+                              </Text>
+                            </Box>
+                          </Box>
+                        </Flex>
+                        <Rating id={_id} ratings={ratings} />
+                      </Flex>
+                    </Box>
+                    <Location venue={venue} />
+                  </Box>
+                  <Genres artist={artist} />
+                </Flex>
               </Flex>
-            </Flex>
-          ))}
+            ))
+          ) : (
+            <>You haven't been to any gigs yet!</>
+          )}
         </Flex>
       </Box>
     </>

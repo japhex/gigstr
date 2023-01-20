@@ -9,7 +9,7 @@ interface Props {
 const FilterGroup = ({ name, onClick, group }: Props) => {
   return (
     <Flex gap={2}>
-      <Select placeholder={name} onChange={e => onClick(e.target.value)}>
+      <Select placeholder={name} onChange={e => onClick(e.target.value)} borderColor="GREY4">
         {group.map((item, index) => (
           <option value={item} key={index}>
             {item}
