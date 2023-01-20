@@ -4,12 +4,10 @@ import { getFilteredGigs, getGigs } from '@api/gigs/gigs'
 import { useQuery, useLazyQuery } from '@apollo/react-hooks'
 import { Flex, Text } from '@chakra-ui/react'
 import FilterGroup from '@components/ui/filter-group'
+import FilterGroupMonth from '@components/ui/filter-group-month'
 import { Gig, GigsDocument, GigsQuery } from '@gql/graphql'
+import client from '@utils/apollo-client'
 import { getGenreFilters, getGigMonthFilters, getGigYearFilters } from '@utils/gigs'
-
-import client from '../../apollo-client'
-
-import FilterGroupMonth from './filter-group-month'
 
 interface Props {
   past?: boolean
