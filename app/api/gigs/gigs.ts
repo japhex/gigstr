@@ -100,88 +100,14 @@ export const deleteGigMutation = gql`
 `
 
 export const searchGigQuery = gql`
-  query searchGig($artist: String!, $date: String) {
-    searchGig(artist: $artist, date: $date)
+  query searchGig($artist: String!, $page: Int, $date: String) {
+    searchGig(artist: $artist, page: $page, date: $date)
   }
 `
 
 export const getFilteredGigs = gql`
   query filterGigs($filters: JSONObject!) {
     filterGigs(filters: $filters) {
-      _id
-      artist {
-        name
-        image
-        genre
-        subGenre
-      }
-      date {
-        start
-        end
-      }
-      info
-      venue {
-        location
-        name
-        latitude
-        longitude
-        city
-        country
-      }
-      lineup {
-        name
-        image
-        genre
-        subGenre
-      }
-      festival {
-        start_date
-        end_date
-      }
-    }
-  }
-`
-
-export const getGigsFilteredByDate = gql`
-  query filterGigsByDate($month: Int, $year: Int) {
-    filterGigsByDate(month: $month, year: $year) {
-      _id
-      artist {
-        name
-        image
-        genre
-        subGenre
-      }
-      date {
-        start
-        end
-      }
-      info
-      venue {
-        location
-        name
-        latitude
-        longitude
-        city
-        country
-      }
-      lineup {
-        name
-        image
-        genre
-        subGenre
-      }
-      festival {
-        start_date
-        end_date
-      }
-    }
-  }
-`
-
-export const getGigsFilteredByProperty = gql`
-  query filterGigsByProperty($filters: JSONObject!) {
-    filterGigsByProperty(filters: $filters) {
       _id
       artist {
         name

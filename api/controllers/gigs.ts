@@ -70,17 +70,17 @@ export const apiDeleteGig = async ({ id }, user) => {
   }
 }
 
-export const apiSearchGig = async ({ artist, type = 'Ticketmaster' }, user) => {
+export const apiSearchGig = async ({ artist, page, type = 'Ticketmaster' }, user) => {
   if (type === API.TICKET_MASTER) {
-    return apiSearchGigTicketmaster({ artist }, user)
+    return apiSearchGigTicketmaster({ artist, page }, user)
   }
 }
 
-export const apiSearchGigTicketmaster = async ({ artist }, user) => {
+export const apiSearchGigTicketmaster = async ({ artist, page }, user) => {
   try {
     const gigs = await Gig.find({ userId: user.id }, 'ticketmasterId -_id')
     const gigIds = gigs.map(gig => gig.ticketmasterId || '').filter(gig => gig !== '')
-    const { data } = await ticketmasterApi.eventSearch(artist)
+    const { data } = await ticketmasterApi.eventSearch(artist, page)
     const apiArtist = await formatTicketmasterArtistData(data)
 
     return data?._embedded?.events?.map(event => formatTicketmasterGigData(apiArtist, event, gigIds))

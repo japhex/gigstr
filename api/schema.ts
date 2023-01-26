@@ -68,7 +68,7 @@ const schemaString = `
     user(username: String!): UserWithGigs
     userGigs(userId: ID!): UserWithGigs
     searchUsers(username: String!): [User]
-    searchGig(artist: String!, date: String, type: String): JSONObject
+    searchGig(artist: String!, page: Int, date: String, type: String): JSONObject
     gigs(past: Boolean): [Gig]
     filterGigs(filters: JSONObject!): [Gig]
     gig(id: ID!): Gig
