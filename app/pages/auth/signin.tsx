@@ -1,6 +1,10 @@
-import { getProviders, signIn } from 'next-auth/react'
+import { ClientSafeProvider, getProviders, signIn } from 'next-auth/react'
 
-export default function SignIn({ providers }) {
+interface Props {
+  providers: ClientSafeProvider[]
+}
+
+export default function SignIn({ providers }: Props) {
   return (
     <>
       {Object.values(providers).map(provider => (

@@ -4,6 +4,7 @@ import Layout from '@components/layout'
 import AppProvider from '@context/app/context'
 import { theme } from '@theme/index'
 import client from '@utils/apollo-client'
+// @ts-ignore
 import type { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
