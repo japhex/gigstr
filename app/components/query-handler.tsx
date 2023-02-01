@@ -5,7 +5,7 @@ import alertCircle from 'react-useanimations/lib/alertCircle'
 interface Props {
   loading: any
   error: any
-  strikeColor?: any
+  strokeColor?: any
 }
 
 const QueryHandler = ({ loading, error, strokeColor }: Props) => {

@@ -18,7 +18,9 @@ const Info = ({ info }: Props) => {
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalBody p={10}>{info}</ModalBody>
+          <ModalBody p={10}>
+            <>{info}</>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>

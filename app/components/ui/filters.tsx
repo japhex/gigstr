@@ -5,7 +5,7 @@ import { useQuery, useLazyQuery } from '@apollo/react-hooks'
 import { Flex } from '@chakra-ui/react'
 import FilterGroup from '@components/ui/filter-group'
 import FilterGroupMonth from '@components/ui/filter-group-month'
-import { Gig, GigsDocument, GigsQuery } from '@gql/graphql'
+import { GigsDocument, GigsQuery } from '@gql/graphql'
 import client from '@utils/apollo-client'
 import { getGenreFilters, getGigMonthFilters, getGigYearFilters } from '@utils/gigs'
 
@@ -17,12 +17,12 @@ const Filters = ({ past = false }: Props) => {
   const { data } = useQuery<GigsQuery>(GigsDocument, { variables: { past } })
   const [filterGigs, { called }] = useLazyQuery(getFilteredGigs)
   const [activeFilters, setActiveFilters] = useState<Record<string, any>[]>([])
-  const gigs: Gig[] = data?.gigs || []
+  const gigs = data?.gigs || []
   const months = getGigMonthFilters(gigs)
   const years = getGigYearFilters(gigs)
   const genres = getGenreFilters(gigs)
 
-  const handleFilters = (value, filters) => {
+  const handleFilters = (value: string, filters: Record<any, any>) => {
     const filterExists = activeFilters.some(filter => {
       return Object.keys(filter)[0] === Object.keys(filters)[0]
     })
@@ -67,21 +67,21 @@ const Filters = ({ past = false }: Props) => {
     <Flex gap={4} align="center">
       <FilterGroupMonth
         name="month"
-        group={months}
+        group={months as string[]}
         onClick={async (month: string) => {
           await handleFilters(month, { month: parseInt(month) })
         }}
       />
       <FilterGroup
         name="year"
-        group={years}
+        group={years as string[]}
         onClick={async (year: string) => {
           await handleFilters(year, { year: parseInt(year) })
         }}
       />
       <FilterGroup
         name="genre"
-        group={genres}
+        group={genres as string[]}
         onClick={async genre => {
           await handleFilters(genre, { $or: [{ 'artist.genre': genre }, { 'artist.subGenre': genre }] })
         }}

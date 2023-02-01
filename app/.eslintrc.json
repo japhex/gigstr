@@ -4,7 +4,7 @@
     "es2020": true,
     "node": true
   },
-  "extends": ["react-app", "eslint:recommended"],
+  "extends": ["react-app", "eslint:recommended", "plugin:@next/next/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 11,

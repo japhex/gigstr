@@ -12,12 +12,14 @@ const authLink = setContext(async (_, { headers }) => {
   return {
     headers: {
       ...headers,
+      // @ts-ignore
       Authorization: `Bearer ${session?.token}`,
     },
   }
 })
 
 export const client = new ApolloClient({
+  // @ts-ignore
   link: authLink.concat(api),
   cache: new InMemoryCache(),
 })

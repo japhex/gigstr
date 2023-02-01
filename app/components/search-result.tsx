@@ -19,6 +19,7 @@ const GigResult = ({ gig }: Props) => {
 
   const saveGig = async () => {
     await createGig({
+      // @ts-ignore
       variables: { ...gig },
     })
     setSearchActive(false)
@@ -33,7 +34,7 @@ const GigResult = ({ gig }: Props) => {
           shrink={0}
           h="100px"
           w="100px"
-          bgImg={gig.artist.image}
+          bgImg={gig.artist.image || ''}
           bgSize="cover"
           bgPosition="top"
           borderRadius="50px"
@@ -45,8 +46,8 @@ const GigResult = ({ gig }: Props) => {
               <Flex gap={2} align="center">
                 <Icon as={MdOutlineCalendarToday} boxSize={4} />
                 <Box>
-                  {gig.date.start && format(parseISO(gig.date.start), 'MMMM do yyyy')}
-                  {gig.date.end && `- ${format(parseISO(gig.date.end), 'MMMM do yyyy')}`}
+                  {gig?.date?.start && format(parseISO(gig.date.start), 'MMMM do yyyy')}
+                  {gig?.date?.end && `- ${format(parseISO(gig.date.end), 'MMMM do yyyy')}`}
                 </Box>
               </Flex>
               {gig.venue && (
