@@ -10,11 +10,11 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { Gig } from '@gql/graphql'
+import { Artist } from '@gql/graphql'
 import { LineupIcon } from '@theme/icons'
 
 interface Props {
-  lineup: Pick<Gig, 'lineup'>
+  lineup: Artist[]
 }
 
 const Lineup = ({ lineup }: Props) => {
