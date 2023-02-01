@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+          cache-dependency-path: 'app/yarn.lock'
       - run: yarn install
       - run: yarn lint:check
   prettier:
@@ -23,5 +24,6 @@ jobs:
           with:
             node-version: 16
             cache: 'yarn'
+            cache-dependency-path: 'app/yarn.lock'
         - run: yarn install
         - run: yarn prettier:check
