@@ -15,18 +15,19 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'yarn'
-          cache-dependency-path: 'app/yarn.lock'
+          cache: "yarn"
       - run: yarn install
       - run: yarn lint
   prettier:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
-          with:
-            node-version: 16
-            cache: 'yarn'
-            cache-dependency-path: 'app/yarn.lock'
-        - run: yarn install
-        - run: yarn prettier:check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+      - run: yarn install
+      - run: yarn prettier:check
