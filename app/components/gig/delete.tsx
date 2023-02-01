@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 
-import { deleteGigMutation } from '@api/gigs/gigs'
 import { useMutation } from '@apollo/react-hooks'
 import {
   AlertDialogBody,
@@ -16,6 +15,8 @@ import {
 } from '@chakra-ui/react'
 import { Gig } from '@gql/graphql'
 import { MdOutlineDelete } from 'react-icons/md'
+
+import { deleteGigMutation } from '../../api-routes/gigs/gigs'
 
 interface Props {
   id: Pick<Gig, '_id'>

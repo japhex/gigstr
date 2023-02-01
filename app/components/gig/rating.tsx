@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
-import { rateGigMutation } from '@api/ratings/ratings'
 import { useMutation } from '@apollo/client'
 import { Flex, Icon } from '@chakra-ui/react'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
+
+import { rateGigMutation } from '../../api-routes/ratings/ratings'
 
 interface Props {
   id: string

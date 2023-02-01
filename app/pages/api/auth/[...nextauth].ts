@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
     // @ts-ignore
     async session(message) {
       // in session event update user after they initially auth for the first time and save their id
-      // for jwt linking through api
+      // for jwt linking through api-routes
       const client = await clientPromise
       const usersCollection = client.db().collection('users')
 
