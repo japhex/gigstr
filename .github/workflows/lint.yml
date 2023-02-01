@@ -7,15 +7,15 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-      defaults:
-        run:
-          working-directory: ./app
+    defaults:
+      run:
+        working-directory: ./app
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'yarn'
+          cache: "yarn"
       - run: yarn install
       - run: yarn lint
       - run: yarn prettier:check
