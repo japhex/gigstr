@@ -11,7 +11,7 @@ import { format } from 'date-fns'
 import { MdOutlineFestival } from 'react-icons/md'
 
 interface Props {
-  gig: Gig
+  gig: Gig | Record<any, any>
 }
 
 const Card = ({ gig }: Props) => {

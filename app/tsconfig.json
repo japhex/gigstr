@@ -7,7 +7,7 @@
 		"@utils/*": ["utils/*"],
 		"@gql/*": ["gql/*"],
 		"@theme/*": ["theme/*"],
-		"@types/*": ["types/*"]
+		"@gqltypes/*": ["types/*"]
 	},
     "target": "es6",
     "lib": [

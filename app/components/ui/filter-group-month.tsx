@@ -1,5 +1,5 @@
 import { Flex, Select } from '@chakra-ui/react'
-import { MONTHS } from '@types/gig'
+import { MONTHS } from '@gqltypes/gig'
 
 interface Props {
   name: string

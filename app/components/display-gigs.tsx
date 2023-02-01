@@ -16,7 +16,7 @@ const Gigs = () => {
       <Title title="upcoming gigs" />
       <Grid templateColumns={{ base: '1fr', md: 'repeat(4, minmax(0, 1fr))' }} gridGap={6} w="100%">
         {gigs?.length > 0 ? (
-          gigs?.map(gig => <Card key={gig._id} gig={gig || {}} />)
+          gigs?.map(gig => <Card key={gig?._id} gig={gig || {}} />)
         ) : (
           <>you haven't added any gigs yet, try searching for some!</>
         )}
