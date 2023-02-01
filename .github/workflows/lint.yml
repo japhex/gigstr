@@ -13,9 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - name: yarn cache
         with:
           node-version: 16
           cache: "yarn"
-			- run: yarn install
-			-	run: yarn lint
-			-	run: yarn prettier:check
+
+			- name: install deps
+				run: yarn install
+
+			- name: eslint
+				run: yarn lint
+
+			- name: prettier
+				run: yarn prettier:check
