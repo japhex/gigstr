@@ -17,11 +17,11 @@ jobs:
           node-version: 16
           cache: "yarn"
 
-	    - name: install deps
+			- name: install deps
 				run: yarn install
 
-		  - name: eslint
-	      run: yarn lint
+			- name: eslint
+				run: yarn lint
 
-	    - name: prettier
-	      run: yarn prettier:check
+			- name: prettier
+				run: yarn prettier:check
