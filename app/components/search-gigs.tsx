@@ -102,6 +102,7 @@ const Search = () => {
                   <GigResult gig={gig} key={gig._id} />
                 </Box>
               ))}
+              {/* MAYBE FULL SCREEN LOADER THAT BLOCKS UI? */}
               {loading && <Spinner />}
               {!data.searchGig && <>No gigs found for {getValues('artist')}! Maybe they're taking a break!?</>}
             </Grid>

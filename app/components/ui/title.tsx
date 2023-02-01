@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import Filters from '@components/ui/filters'
 
 interface Props {
@@ -12,7 +12,11 @@ const Title = ({ title, filter = true, past }: Props) => (
     <Text fontSize="xl" noOfLines={1} color="WHITE" fontWeight="bold">
       {title}
     </Text>
-    {filter && <Filters past={past} />}
+    {filter && (
+      <Box ml="auto">
+        <Filters past={past} />
+      </Box>
+    )}
   </Flex>
 )
 

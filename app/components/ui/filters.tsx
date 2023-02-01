@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { getFilteredGigs, getGigs } from '@api/gigs/gigs'
 import { useQuery, useLazyQuery } from '@apollo/react-hooks'
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import FilterGroup from '@components/ui/filter-group'
 import FilterGroupMonth from '@components/ui/filter-group-month'
 import { Gig, GigsDocument, GigsQuery } from '@gql/graphql'
@@ -65,7 +65,6 @@ const Filters = ({ past = false }: Props) => {
 
   return (
     <Flex gap={4} align="center">
-      <Text>filter by:</Text>
       <FilterGroupMonth
         name="month"
         group={months}
