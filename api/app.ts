@@ -7,14 +7,20 @@ import mongoose from 'mongoose'
 import resolvers from './resolvers'
 import typeDefs from './schema'
 import { RequestWithProps } from './types'
+import { getSecrets } from './utils/aws'
 
 dotenv.config()
 const PORT = process.env.PORT || 3001
 const app = express()
 
 // Mongo connection
-mongoose.connect('mongodb://localhost:27017/gigstr')
-mongoose.set('debug', true)
+setTimeout(async () => {
+  const secrets = await getSecrets()
+  const MONGO_URL = secrets.MONGO_URI
+
+  await mongoose.connect(MONGO_URL)
+  mongoose.set('debug', true)
+}, 1)
 
 // Set CORS headers
 app.use((_req, res, next) => {
@@ -23,9 +29,9 @@ app.use((_req, res, next) => {
   next()
 })
 
-// Create api route
+// Create api-routes route
 app.use(
-  '/api',
+  '/api-routes',
   jwt({
     secret: 'gigstr',
     credentialsRequired: false,
@@ -51,7 +57,7 @@ const server = new ApolloServer({
 })
 
 // Apply middleware
-server.applyMiddleware({ app, path: '/api' })
+server.applyMiddleware({ app, path: '/api-routes' })
 
 // Create app service
 app.listen(PORT)

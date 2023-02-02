@@ -1,7 +1,7 @@
-FROM node:12
+FROM node:16-alpine
 WORKDIR /api
 COPY package.json /api
-RUN npm install
+RUN yarn install
 COPY . /api
 #EXPOSE 3006
-CMD npm start
+CMD yarn start
