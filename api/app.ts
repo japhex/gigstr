@@ -8,6 +8,7 @@ import resolvers from './resolvers'
 import typeDefs from './schema'
 import { RequestWithProps } from './types'
 import { getSecrets } from './utils/aws'
+import { isProduction } from './utils/constants'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Redis = require('ioredis')
@@ -29,7 +30,7 @@ export const redisClient = new Redis({
 // Mongo connection
 setTimeout(async () => {
   const secrets = await getSecrets()
-  const MONGO_URL = secrets.MONGO_URI
+  const MONGO_URL = isProduction ? secrets.MONGO_URI : secrets.MONGO_URI
 
   await mongoose.connect(MONGO_URL)
   mongoose.set('debug', true)
