@@ -7,33 +7,27 @@ import SearchGigs from '@components/search-gigs'
 import Title from '@components/ui/title'
 import { AppContext } from '@context/app/context'
 import { getSession, GetSessionParams } from 'next-auth/react'
-import Head from 'next/head'
 
 export default function IndexPage() {
   const { searchActive } = useContext(AppContext)
 
   return (
-    <>
-      <Head>
-        <title>Gigstr</title>
-      </Head>
-      <Flex direction="column" gap={8}>
-        <Flex direction="column" gap={4}>
-          <Title title="find gigs" filter={false} />
-          <SearchGigs />
-        </Flex>
-        {!searchActive && (
-          <>
-            <Flex direction="column" gap={4}>
-              <PastGigs />
-            </Flex>
-            <Flex direction="column" gap={4}>
-              <DisplayGigs />
-            </Flex>
-          </>
-        )}
+    <Flex direction="column" gap={8}>
+      <Flex direction="column" gap={4}>
+        <Title title="find gigs" filter={false} />
+        <SearchGigs />
       </Flex>
-    </>
+      {!searchActive && (
+        <>
+          <Flex direction="column" gap={4}>
+            <PastGigs />
+          </Flex>
+          <Flex direction="column" gap={4}>
+            <DisplayGigs />
+          </Flex>
+        </>
+      )}
+    </Flex>
   )
 }
 

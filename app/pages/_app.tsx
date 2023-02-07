@@ -8,6 +8,7 @@ import client from '@utils/apollo-client'
 import type { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
   return (
@@ -15,7 +16,10 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <SessionProvider session={session}>
         <ChakraProvider theme={theme}>
           <AppProvider>
-            <Layout>
+            <Layout auth={session}>
+              <Head>
+                <title>Gigstr</title>
+              </Head>
               <Component {...pageProps} />
             </Layout>
           </AppProvider>

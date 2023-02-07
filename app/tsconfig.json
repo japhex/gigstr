@@ -1,34 +1,63 @@
 {
-  "compilerOptions": {
-	"paths": {
-		"@components/*": ["components/*"],
-		"@context/*": ["context/*"],
-		"@api/*": ["api/*"],
-		"@utils/*": ["utils/*"],
-		"@gql/*": ["gql/*"],
-		"@theme/*": ["theme/*"],
-		"@gqltypes/*": ["types/*"]
+	"compilerOptions": {
+		"paths": {
+			"@components/*": [
+				"components/*"
+			],
+			"@context/*": [
+				"context/*"
+			],
+			"@api/*": [
+				"api/*"
+			],
+			"@utils/*": [
+				"utils/*"
+			],
+			"@gql/*": [
+				"gql/*"
+			],
+			"@theme/*": [
+				"theme/*"
+			],
+			"@gqltypes/*": [
+				"types/*"
+			]
+		},
+		"target": "es6",
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
+		"baseUrl": "./",
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
 	},
-    "target": "es6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "baseUrl": "./",
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true
-  },
-  "include": ["process.d.ts", "next-env.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+	"include": [
+		"process.d.ts",
+		"next-env.d.ts",
+		"next-auth.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"pages/api/graphql.ts"
+	]
 }
