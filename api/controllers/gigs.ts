@@ -1,15 +1,21 @@
 import { ticketmasterApi } from '../apis/ticketmaster'
+import { redisClient } from '../app'
 import { Gig } from '../models/gig'
 import { API } from '../types'
 
 import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
 
 export const apiGetGigs = async ({ past = false }, user, params = null) => {
+  const cacheKey = `${user.id}|gigs|${past ? 'past' : 'upcoming'}`
+  const cachedGigs = await redisClient.get(cacheKey)
+
+  if (cachedGigs) return JSON.parse(cachedGigs)
+
   const today = new Date()
   const filter = past ? { $lt: today } : { $gte: today }
 
   try {
-    return await Gig.aggregate([
+    const gigs = await Gig.aggregate([
       { $addFields: { month: { $month: '$date.start' } } },
       { $addFields: { year: { $year: '$date.start' } } },
       {
@@ -34,6 +40,9 @@ export const apiGetGigs = async ({ past = false }, user, params = null) => {
       },
       { $sort: { date: 1 } },
     ])
+
+    await redisClient.set(cacheKey, JSON.stringify(gigs))
+    return gigs
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }

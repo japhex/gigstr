@@ -9,17 +9,19 @@ The concept is simple, search for a gig you're going to and add it. Ever want to
 
 We lean heavily on the Ticketmaster API which is excellent and most importantly free.
 
-For sure its something that has a primary use on an individual basis, but how interesting would it be if over time it built its own unique dataset based on the enjoyment of all the people using it? That's my goal.
+For sure it's something that has a primary use on an individual basis, but how interesting would it be if over time it built its own unique dataset based on the enjoyment of all the people using it? That's my goal.
 
 ## Tech stack
 
-So this project started as a NextJS app alongside a NodeJS api server and then I just thought why not try and stick everything inside 1 fullstack Next app, so that's now where we are..! In the interest of the NextJS ecosystem the api layer authentication standards of passport are long gone and we're embracing NextAuth here, too. This *should* be as singular principle, SSR single application focused as possible. The point is to shift everything onto Vercel and be able to manage even domains in one place, so we keep plugging away 💪🏼.
+So this project started as a NextJS app alongside a NodeJS api server, and then I just thought why not try and stick everything inside 1 fullstack Next app!? I actually soon found out why not and its because of Vercel's edge functions and the cold starts. Its a shame but given the low latency traffic the app will get those lambda's will never be warm and it'll look like the app is slow on all requests. So we're back to a separately hosted api server! In the interest of the NextJS ecosystem the api layer authentication standards of passport are long gone, and we're embracing NextAuth here, too. This *should* be as singular principle, SSR single application focused as possible. The point is to shift everything we can onto Vercel and be able to manage even domains in one place, so we keep plugging away 💪🏼.
 
 - NextJS
 - NextAuth
 - MongoDB
 - GraphQL (Apollo Client/Apollo Server)
 - NodeJS
+- Redis
+- Docker (we use docker-compose to run our api and redis containers)
 
 ### Frontend specifics:
 - Chakra UI

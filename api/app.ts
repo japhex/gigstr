@@ -9,9 +9,19 @@ import typeDefs from './schema'
 import { RequestWithProps } from './types'
 import { getSecrets } from './utils/aws'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Redis = require('ioredis')
+
 dotenv.config()
 const PORT = process.env.PORT || 3001
 const app = express()
+
+// Redis connection
+export const redisClient = new Redis({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  password: process.env.REDIS_PASSWORD,
+})
 
 // Mongo connection
 setTimeout(async () => {
