@@ -1,7 +1,6 @@
 import { ticketmasterApi } from '../apis/ticketmaster'
 import { redisClient } from '../app'
 import { Gig } from '../models/gig'
-import { API } from '../types'
 
 import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
 
@@ -92,11 +91,7 @@ export const apiDeleteGig = async ({ id }, user) => {
   }
 }
 
-export const apiSearchGig = async ({ artist, page, type = 'Ticketmaster' }, user) => {
-  if (type === API.TICKET_MASTER) {
-    return apiSearchGigTicketmaster({ artist, page }, user)
-  }
-}
+export const apiSearchGig = async ({ artist, page }, user) => apiSearchGigTicketmaster({ artist, page }, user)
 
 export const apiSearchGigTicketmaster = async ({ artist, page }, user) => {
   try {
