@@ -3,7 +3,7 @@ import { setContext } from 'apollo-link-context'
 import { getSession } from 'next-auth/react'
 
 const api = createHttpLink({
-  uri: process.env.API_URL,
+  uri: process.env.NEXT_PUBLIC_API_URL,
 })
 
 const authLink = setContext(async (_, { headers }) => {
