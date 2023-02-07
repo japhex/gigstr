@@ -22,6 +22,9 @@ export const redisClient = new Redis({
   port: process.env.REDIS_PORT,
   password: process.env.REDIS_PASSWORD,
 })
+;(async () => {
+  await redisClient.flushall()
+})()
 
 // Mongo connection
 setTimeout(async () => {

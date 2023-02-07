@@ -9,7 +9,7 @@ export const apiGetGigs = async ({ past = false }, user, params = null) => {
   const cacheKey = `${user.id}|gigs|${past ? 'past' : 'upcoming'}`
   const cachedGigs = await redisClient.get(cacheKey)
 
-  if (cachedGigs) return JSON.parse(cachedGigs)
+  if (cachedGigs && params === null) return JSON.parse(cachedGigs)
 
   const today = new Date()
   const filter = past ? { $lt: today } : { $gte: today }
@@ -41,7 +41,8 @@ export const apiGetGigs = async ({ past = false }, user, params = null) => {
       { $sort: { date: 1 } },
     ])
 
-    await redisClient.set(cacheKey, JSON.stringify(gigs))
+    if (params === null) await redisClient.set(cacheKey, JSON.stringify(gigs))
+
     return gigs
   } catch (err) {
     throw new Error(`Error: ${err}`)
@@ -56,6 +57,7 @@ export const apiFilterGigs = async ({ filters }, user) => {
     })
   )
 
+  // At this point it would be nice to just query the cache instead of making a DB request
   try {
     return await apiGetGigs({ past: false }, user, filterObject)
   } catch (err) {
@@ -64,8 +66,19 @@ export const apiFilterGigs = async ({ filters }, user) => {
 }
 
 export const apiCreateGig = async (gig, user) => {
+  const cacheKey = `${user.id}|gigs|upcoming`
+  const cachedGigs = await redisClient.get(cacheKey)
+
   try {
-    return await Gig.create({ ...gig, userId: user.id, festival: gig.festival || {} })
+    const newGig = await Gig.create({ ...gig, userId: user.id, festival: gig.festival || {} })
+
+    if (cachedGigs) {
+      const gigs = JSON.parse(cachedGigs)
+      gigs.push(newGig)
+      await redisClient.set(cacheKey, JSON.stringify(gigs))
+    }
+
+    return newGig
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }
