@@ -1,7 +1,20 @@
-FROM node:16-alpine
+FROM node:16.18 AS alpine
+
 WORKDIR /api
-COPY package.json /api
-RUN yarn install
-COPY . /api
-#EXPOSE 3006
+
+COPY package.json .
+
+RUN yarn
+
+COPY . .
+
+EXPOSE 4000
+
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+ENV AWS_REGION='us-east-1'
+ENV NODE_ENV production
+
 CMD yarn start

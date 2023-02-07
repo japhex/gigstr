@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^9.0.13",
-    "apollo": "2.34.0",
-    "apollo-codegen-core": "0.40.3",
-    "apollo-language-server": "1.26.3",
+    "apollo": "^2.34.0",
+    "apollo-codegen-core": "^0.40.9",
+    "apollo-language-server": "^1.26.9",
     "apollo-server-express": "2.4.8",
     "aws-sdk": "^2.1307.0",
     "axios": "^0.27.2",

@@ -31,7 +31,7 @@ app.use((_req, res, next) => {
 
 // Create api-routes route
 app.use(
-  '/api-routes',
+  '/api',
   jwt({
     secret: 'gigstr',
     credentialsRequired: false,
@@ -57,7 +57,7 @@ const server = new ApolloServer({
 })
 
 // Apply middleware
-server.applyMiddleware({ app, path: '/api-routes' })
+server.applyMiddleware({ app, path: '/api' })
 
 // Create app service
 app.listen(PORT)
