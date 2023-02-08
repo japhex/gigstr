@@ -5,6 +5,7 @@ import Info from '@components/gig/info'
 import Lineup from '@components/gig/lineup'
 import Location from '@components/gig/location'
 import { Gig } from '@gql/graphql'
+import { fonts } from '@theme/index'
 import { SHADOWS } from '@theme/shadows'
 import { gigStartDate } from '@utils/gigs'
 import { format } from 'date-fns'
@@ -30,15 +31,15 @@ const Card = ({ gig }: Props) => {
           <Box py={2} pb={0} mt={2}>
             <Flex w="100%">
               <Box>
-                <Text fontSize="lg" noOfLines={1} color="#fff" fontWeight="bold">
+                <Text fontSize="lg" noOfLines={1} color="#fff" className={fonts.poppins}>
                   {artist.name}
                 </Text>
               </Box>
               {festival?.start_date && <Icon as={MdOutlineFestival} ml="auto" />}
             </Flex>
           </Box>
-          <Box pb={2}>
-            <Text fontSize="sm" color="#888">
+          <Box pb={6}>
+            <Text fontSize="sm" color="#888" className={fonts.poppinsBold}>
               {date?.start && gigStartDate(date)}{' '}
               {date?.end && date?.start !== date?.end && `- ${format(new Date(date?.end), 'MMM do yyyy')}`}
             </Text>

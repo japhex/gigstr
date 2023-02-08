@@ -17,11 +17,16 @@ So this project started as a NextJS app alongside a NodeJS api server, and then 
 
 - NextJS
 - NextAuth
-- MongoDB
 - GraphQL (Apollo Client/Apollo Server)
 - NodeJS
 - Redis
-- Docker (we use docker-compose to run our api and redis containers)
+- MongoDB
+- Docker/Docker compose
+
+Docker compose setup:
+- **mongo** service to host DB
+- **api** service to host graphql api
+- **cache** service to host redis cache
 
 ### Frontend specifics:
 - Chakra UI

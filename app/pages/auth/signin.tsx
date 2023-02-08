@@ -1,6 +1,8 @@
 import { ReactElement } from 'react'
 
-import { Box, Button, Center } from '@chakra-ui/react'
+import { Box, Button, Center, Text } from '@chakra-ui/react'
+import { fonts } from '@theme/index'
+import { SHADOWS } from '@theme/shadows'
 import { ClientSafeProvider, getProviders, signIn } from 'next-auth/react'
 import { BsGoogle, BsSpotify } from 'react-icons/bs'
 
@@ -15,14 +17,24 @@ const getLogo: Record<string, ReactElement> = {
 
 export default function SignIn({ providers }: Props) {
   return (
-    <Center top="0" left="0" position="absolute" flexDir="column" w="100vw" h="100vh" gap={4}>
-      {Object.values(providers).map(provider => (
-        <Box key={provider.name}>
-          <Button leftIcon={getLogo[provider.name.toLowerCase()]} onClick={() => signIn(provider.id)}>
-            Login with {provider.name}
-          </Button>
-        </Box>
-      ))}
+    <Center w="100vw" h="100vh">
+      <Center w="50vw" h="50vh" bg="GREY3" flexDir="column" gap={4} boxShadow={SHADOWS.default} position="relative">
+        <Text fontSize="3xl" color="#fff" fontWeight="bold" className={fonts.poppins} position="absolute" top="6vh">
+          Gigstr
+        </Text>
+        {Object.values(providers).map(provider => (
+          <Box key={provider.name}>
+            <Button
+              leftIcon={getLogo[provider.name.toLowerCase()]}
+              onClick={() => signIn(provider.id)}
+              className={fonts.poppins}
+              boxShadow={SHADOWS.default}
+            >
+              Login with {provider.name}
+            </Button>
+          </Box>
+        ))}
+      </Center>
     </Center>
   )
 }

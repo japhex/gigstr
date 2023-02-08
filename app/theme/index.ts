@@ -1,14 +1,22 @@
-import { tagAnatomy } from '@chakra-ui/anatomy'
+import { inputAnatomy, tagAnatomy } from '@chakra-ui/anatomy'
 import { extendTheme, createMultiStyleConfigHelpers } from '@chakra-ui/react'
 import type { StyleFunctionProps } from '@chakra-ui/styled-system'
+import { Poppins } from '@next/font/google'
 
 import { FONT_SIZES } from './fonts'
 import { SHADOWS } from './shadows'
 import { SPACING } from './spacing'
 
-const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(tagAnatomy.keys)
+const poppins = Poppins({ weight: '400', subsets: ['latin'] })
+const poppinsLight = Poppins({ weight: '200', subsets: ['latin'] })
+const poppinsBold = Poppins({ weight: '600', subsets: ['latin'] })
 
-const baseStyle = definePartsStyle({
+const { definePartsStyle: definePartsStyleTag, defineMultiStyleConfig: defineMultiStyleConfigTag } =
+  createMultiStyleConfigHelpers(tagAnatomy.keys)
+const { definePartsStyle: definePartsStyleInput, defineMultiStyleConfig: defineMultiStyleConfigInput } =
+  createMultiStyleConfigHelpers(inputAnatomy.keys)
+
+const baseTagStyle = definePartsStyleTag({
   container: {
     textTransform: 'uppercase',
     bg: 'WHITE',
@@ -20,20 +28,36 @@ const baseStyle = definePartsStyle({
   },
 })
 
-export const tagTheme = defineMultiStyleConfig({
-  baseStyle,
+const baseInputStyle = definePartsStyleInput({
+  field: {
+    border: 0,
+    outline: 0,
+    background: 'GREY4',
+  },
+})
+
+export const tagTheme = defineMultiStyleConfigTag({
+  baseStyle: baseTagStyle,
   defaultProps: {
     variant: 'none',
   },
 })
 
+export const inputTheme = defineMultiStyleConfigInput({
+  baseStyle: baseInputStyle,
+  variants: { base: baseInputStyle },
+  defaultProps: { variant: 'base' },
+})
+
 export const theme = extendTheme({
   space: SPACING,
   fontSizes: FONT_SIZES,
-  shadows: SHADOWS,
   fonts: {
-    clash: `"Clash"`,
+    poppins: poppins.className,
+    poppinsLight: poppinsLight.className,
+    poppinsBold: poppinsBold.className,
   },
+  shadows: SHADOWS,
   colors: {
     GREY1: '#171717',
     GREY2: '#AAAAAA',
@@ -63,6 +87,7 @@ export const theme = extendTheme({
   },
   components: {
     Tag: tagTheme,
+    Input: inputTheme,
     Button: {
       baseStyle: {},
       sizes: {
@@ -118,3 +143,5 @@ export const theme = extendTheme({
     },
   },
 })
+
+export const fonts = theme.fonts

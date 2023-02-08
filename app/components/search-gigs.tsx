@@ -15,6 +15,7 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import GigResult from '@components/search-result'
+import Title from '@components/ui/title'
 import { AppContext } from '@context/app/context'
 import { Gig, SearchGigDocument, SearchGigQuery } from '@gql/graphql'
 import { useForm } from 'react-hook-form'
@@ -78,8 +79,9 @@ const Search = () => {
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Flex gap={4}>
-          <FormControl w="30%">
+        <Flex gap={4} bg="GREY3" p={8}>
+          <Title title="search for upcoming gigs" filter={false} />
+          <FormControl>
             <Center h="100%">
               <InputGroup size="md">
                 <Input placeholder="Artist name..." {...register('artist')} onKeyUp={onKeyup} />

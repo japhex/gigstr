@@ -84,8 +84,19 @@ export const apiCreateGig = async (gig, user) => {
 }
 
 export const apiDeleteGig = async ({ id }, user) => {
+  const cacheKey = `${user.id}|gigs|upcoming`
+  const cachedGigs = await redisClient.get(cacheKey)
+
   try {
-    return await Gig.deleteOne({ userId: user.id, _id: id })
+    const deletedGig = await Gig.deleteOne({ userId: user.id, _id: id })
+
+    if (cachedGigs) {
+      const gigs = JSON.parse(cachedGigs)
+      const newGigs = gigs.filter(gig => gig._id !== id)
+      await redisClient.set(cacheKey, JSON.stringify(newGigs))
+    }
+
+    return deletedGig
   } catch (err) {
     throw new Error(`Error: ${err}`)
   }
