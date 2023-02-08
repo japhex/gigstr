@@ -6,7 +6,7 @@ import { fonts } from '@theme/index'
 // @ts-ignore
 import { Session } from 'next-auth'
 
-export default function Layout({ auth, children }: { auth: Session; children: ReactNode }) {
+export default function Main({ auth, children }: { auth: Session; children: ReactNode }) {
   return (
     <Box w="100vw" minH="100vh" p={4} bg="GREY4" color="GREY2">
       <Flex>

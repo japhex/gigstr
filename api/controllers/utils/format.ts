@@ -28,7 +28,9 @@ export const formatTicketmasterGigData = (artist, event, gigIds) => ({
     start: new Date(event?.dates?.start?.localDate) || new Date(event?.dates?.start?.dateTime),
     end: new Date(event?.dates?.end?.localDate) || new Date(event?.dates?.end?.dateTime),
   },
-  info: `${event?.info} ${event?.pleaseNote}`,
+  ...((event.info || event.pleaseNote) && {
+    info: `${event?.info} ${event?.pleaseNote}`,
+  }),
   ...(event?._embedded?.venues && {
     venue: {
       location: event?._embedded?.venues[0]?.location,
@@ -37,12 +39,15 @@ export const formatTicketmasterGigData = (artist, event, gigIds) => ({
       country: event?._embedded?.venues[0]?.country?.name,
     },
   }),
-  lineup: event?._embedded?.attractions?.slice(0, 10).map(support => ({
-    name: support?.name,
-    image: support?.images[0]?.url,
-    genre: support?.classifications[0]?.genre?.name,
-    subGenre: support?.classifications[0]?.subGenre?.name,
-  })),
+  ...(event?._embedded?.attractions &&
+    event?._embedded?.attractions.length > 0 && {
+      lineup: event?._embedded?.attractions?.slice(0, 10).map(support => ({
+        name: support?.name,
+        image: support?.images[0]?.url,
+        genre: support?.classifications[0]?.genre?.name,
+        subGenre: support?.classifications[0]?.subGenre?.name,
+      })),
+    }),
   festival: {
     start_date: event?.festival_start_date || '',
     end_date: event?.festival_end_date || '',

@@ -22,7 +22,7 @@ const Lineup = ({ lineup }: Props) => {
 
   return (
     <>
-      <Button variant="iconButton" size="sm" onClick={onOpen} isDisabled={lineup === null}>
+      <Button variant="iconButton" size="sm" onClick={onOpen} isDisabled={lineup === null || lineup.length === 0}>
         <Icon as={LineupIcon} />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
