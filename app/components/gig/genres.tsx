@@ -8,7 +8,7 @@ const Genres = ({ artist }: Props) => {
   const { genre, subGenre } = artist
 
   return (
-    <Flex gap={2}>
+    <Flex gap={2} justify="center">
       {genre && (
         <Tag size="sm" colorScheme="gray" bg="#000">
           {genre}

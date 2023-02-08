@@ -4,6 +4,7 @@ import Genres from '@components/gig/genres'
 import Info from '@components/gig/info'
 import Lineup from '@components/gig/lineup'
 import Location from '@components/gig/location'
+import Maps from '@components/gig/maps'
 import { Gig } from '@gql/graphql'
 import { fonts } from '@theme/index'
 import { SHADOWS } from '@theme/shadows'
@@ -23,9 +24,10 @@ const Card = ({ gig }: Props) => {
       <Flex direction="column" w="100%" color="#cecece" bg="GREYGRAD" boxShadow={SHADOWS.default}>
         <Box h="150px" w="100%" bgImg={artist.image} bgSize="cover" bgPosition="top" />
         <Box p={4}>
-          <Flex gap={2}>
+          <Flex gap={2} justify="center">
             <Info info={info} />
             <Lineup lineup={lineup} />
+            <Maps lat={venue.location.latitude} lng={venue.location.longitude} />
             <Delete id={id} />
           </Flex>
           <Box py={2} pb={0} mt={2}>
