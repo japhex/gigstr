@@ -21,6 +21,7 @@ services:
       REDIS_HOST: cache
       REDIS_PORT: 6379
       REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      MONGO_URI: mongodb://mongo:27017/gigstr
     links:
       - cache
   cache:
