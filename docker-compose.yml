@@ -1,6 +1,12 @@
 version: "3.8"
 
 services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data_container:/data/db
   api:
     build:
       context: ./api
@@ -29,3 +35,4 @@ services:
 volumes:
   cache:
     driver: local
+  mongodb_data_container:

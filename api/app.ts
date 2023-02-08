@@ -30,7 +30,7 @@ export const redisClient = new Redis({
 // Mongo connection
 setTimeout(async () => {
   const secrets = await getSecrets()
-  const MONGO_URL = isProduction ? secrets.MONGO_URI : secrets.MONGO_URI
+  const MONGO_URL = isProduction ? secrets.MONGO_URI : process.env.MONGO_URI
 
   await mongoose.connect(MONGO_URL)
   mongoose.set('debug', true)
