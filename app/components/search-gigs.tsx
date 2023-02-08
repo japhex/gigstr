@@ -29,7 +29,7 @@ type FormValues = {
 
 const Search = () => {
   const lastMessageRef = useRef(null)
-  const { searchActive, setSearchActive } = useContext(AppContext)
+  const { searchActive, setSearchActive, setSearchLoading } = useContext(AppContext)
   const [noMoreResults, setNoMoreResults] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const { register, handleSubmit, getValues, setValue } = useForm<FormValues>()
@@ -56,6 +56,10 @@ const Search = () => {
       setSearchActive(false)
     }
   }
+
+  useEffect(() => {
+    setSearchLoading(loading)
+  }, [loading])
 
   useEffect(() => {
     const getNewMessages = async () => {

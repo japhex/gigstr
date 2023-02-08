@@ -26,7 +26,7 @@ const Lineup = ({ lineup }: Props) => {
         <Icon as={LineupIcon} />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
+        <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
         <ModalContent>
           <ModalCloseButton />
           <ModalBody p={10}>
