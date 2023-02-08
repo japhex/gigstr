@@ -27,7 +27,7 @@ const Card = ({ gig }: Props) => {
           <Flex gap={2} justify="center">
             <Info info={info} />
             <Lineup lineup={lineup} />
-            <Maps lat={venue.location.latitude} lng={venue.location.longitude} />
+            <Maps lat={venue?.location?.latitude} lng={venue?.location?.longitude} />
             <Delete id={id} />
           </Flex>
           <Box py={2} pb={0} mt={2}>
