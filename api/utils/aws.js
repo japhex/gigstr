@@ -7,7 +7,7 @@ export const getSecrets = async () => {
   try {
     const result = await client
       .getSecretValue({
-        SecretId: 'pixels',
+        SecretId: 'gigstr',
       })
       .promise()
     return JSON.parse(result.SecretString)
