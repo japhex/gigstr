@@ -47,9 +47,9 @@ const Delete = ({ id }: Props) => {
       >
         <AlertDialogOverlay />
         <AlertDialogContent>
-          <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
+          <AlertDialogHeader>Delete did?</AlertDialogHeader>
           <AlertDialogCloseButton />
-          <AlertDialogBody>Are you sure you want to discard this gig?</AlertDialogBody>
+          <AlertDialogBody>Are you sure you want to delete this gig?</AlertDialogBody>
           <AlertDialogFooter>
             <Flex gap={4}>
               <Button ref={cancelRef} onClick={onClose}>
