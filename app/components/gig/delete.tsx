@@ -26,7 +26,7 @@ const Delete = ({ id }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef(null)
 
-  const [deleteGig] = useMutation(deleteGigMutation)
+  const [deleteGig, { loading }] = useMutation(deleteGigMutation)
 
   const handleDelete = async () => {
     await deleteGig({ variables: { id }, refetchQueries: ['gigs'] })
@@ -55,7 +55,9 @@ const Delete = ({ id }: Props) => {
               <Button ref={cancelRef} onClick={onClose}>
                 No
               </Button>
-              <Button onClick={() => handleDelete()}>Yes</Button>
+              <Button onClick={() => handleDelete()} isLoading={loading}>
+                Yes
+              </Button>
             </Flex>
           </AlertDialogFooter>
         </AlertDialogContent>

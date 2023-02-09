@@ -4,7 +4,7 @@ import Lineup from '@components/gig/lineup'
 import Location from '@components/gig/location'
 import Rating from '@components/gig/rating'
 import { Gig } from '@gql/graphql'
-import { SHADOWS } from '@theme/shadows'
+import { SHADOWS } from '@theme/utils/shadows'
 import { format } from 'date-fns'
 import { MdOutlineFestival } from 'react-icons/md'
 

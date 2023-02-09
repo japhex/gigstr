@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 
-import { Box, Center, Flex, Text } from '@chakra-ui/react'
+import { Box, Center, Flex } from '@chakra-ui/react'
 import Header from '@components/header'
-import { fonts } from '@theme/index'
 // @ts-ignore
+import Logo from '@components/shared/logo'
 import { Session } from 'next-auth'
 
 export default function Main({ auth, children }: { auth: Session; children: ReactNode }) {
@@ -21,9 +21,7 @@ export default function Main({ auth, children }: { auth: Session; children: Reac
               w={{ base: '100vw', lg: '25vw' }}
             >
               <Box>
-                <Text fontSize="3xl" noOfLines={1} color="#fff" fontWeight="bold" className={fonts.poppins}>
-                  Gigstr
-                </Text>
+                <Logo />
               </Box>
               <Header />
             </Flex>

@@ -13,7 +13,7 @@ interface Props {
 
 const GigResult = ({ gig }: Props) => {
   const { setSearchActive } = useContext(AppContext)
-  const [createGig] = useMutation(CreateGigDocument, {
+  const [createGig, { loading }] = useMutation(CreateGigDocument, {
     refetchQueries: [{ query: GigsDocument }],
   })
 
@@ -63,7 +63,7 @@ const GigResult = ({ gig }: Props) => {
       {gig.attending ? (
         <Center p={4}>You're already going!</Center>
       ) : (
-        <Button leftIcon={<MdAddCircleOutline />} onClick={saveGig} mt="auto" variant="primary">
+        <Button isLoading={loading} leftIcon={<MdAddCircleOutline />} onClick={saveGig} mt="auto" variant="primary">
           Add gig
         </Button>
       )}

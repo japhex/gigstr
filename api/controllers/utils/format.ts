@@ -29,7 +29,7 @@ export const formatTicketmasterGigData = (artist, event, gigIds) => ({
     end: new Date(event?.dates?.end?.localDate) || new Date(event?.dates?.end?.dateTime),
   },
   ...((event.info || event.pleaseNote) && {
-    info: `${event?.info} ${event?.pleaseNote}`,
+    info: `${event.info && event?.info} ${event.pleaseNote && event?.pleaseNote}`,
   }),
   ...(event?._embedded?.venues && {
     venue: {
