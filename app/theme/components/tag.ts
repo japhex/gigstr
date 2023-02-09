@@ -31,4 +31,8 @@ const clearTagStyle = definePartsStyleTag({
 export const tagTheme = defineMultiStyleConfigTag({
   baseStyle: baseTagStyle,
   variants: { clear: clearTagStyle },
+  defaultProps: {
+    // @ts-ignore
+    variant: 'none',
+  },
 })
