@@ -9,7 +9,7 @@ import { UseFormSetValue } from 'react-hook-form'
 
 interface Props {
   gig: Gig
-  setValue: UseFormSetValue<Record<string, string>>
+  setValue: UseFormSetValue<Record<'artist', string>>
 }
 
 const GigResult = ({ gig, setValue }: Props) => {

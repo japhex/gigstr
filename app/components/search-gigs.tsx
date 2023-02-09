@@ -32,7 +32,7 @@ const Search = () => {
   const { searchActive, setSearchActive, setSearchLoading } = useContext(AppContext)
   const [noMoreResults, setNoMoreResults] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
-  const { register, handleSubmit, getValues, setValue } = useForm<FormValues>()
+  const { register, handleSubmit, getValues, setValue, resetField } = useForm<FormValues>()
   const [searchGigAction, { data, loading, fetchMore }] = useLazyQuery<SearchGigQuery>(SearchGigDocument)
   const lastMessageInView = useInView(lastMessageRef, {
     root: null,
@@ -51,6 +51,7 @@ const Search = () => {
   const onKeyup = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Escape') {
       setValue('artist', '')
+      resetField('artist')
     }
     if ((e.target as HTMLInputElement).value === '') {
       setSearchActive(false)
