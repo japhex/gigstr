@@ -107,7 +107,7 @@ const Search = () => {
             <Grid templateColumns="repeat(5, minmax(0, 1fr))" gap={4} py={4} autoRows="1fr">
               {data?.searchGig?.map((gig: Gig, index: number) => (
                 <Box ref={index === data?.searchGig.length - 1 ? lastMessageRef : null}>
-                  <GigResult gig={gig} key={gig._id} />
+                  <GigResult gig={gig} key={gig._id} setValue={setValue} />
                 </Box>
               ))}
               {/* MAYBE FULL SCREEN LOADER THAT BLOCKS UI? */}

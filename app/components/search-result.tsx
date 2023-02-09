@@ -5,12 +5,14 @@ import { Flex, Button, Center } from '@chakra-ui/react'
 import Card from '@components/gig/card'
 import { AppContext } from '@context/app/context'
 import { CreateGigDocument, Gig, GigsDocument } from '@gql/graphql'
+import { UseFormSetValue } from 'react-hook-form'
 
 interface Props {
   gig: Gig
+  setValue: UseFormSetValue<Record<string, string>>
 }
 
-const GigResult = ({ gig }: Props) => {
+const GigResult = ({ gig, setValue }: Props) => {
   const { setSearchActive } = useContext(AppContext)
   const [createGig, { loading }] = useMutation(CreateGigDocument, {
     refetchQueries: [{ query: GigsDocument }],
@@ -21,6 +23,7 @@ const GigResult = ({ gig }: Props) => {
       // @ts-ignore
       variables: { ...gig },
     })
+    setValue('artist', '')
     setSearchActive(false)
   }
 

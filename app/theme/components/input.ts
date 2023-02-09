@@ -9,6 +9,9 @@ const baseInputStyle = definePartsStyleInput({
     border: 0,
     outline: 0,
     background: 'GREY4',
+    _focus: {
+      outline: '1px solid #000',
+    },
   },
 })
 
