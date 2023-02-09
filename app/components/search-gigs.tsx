@@ -37,7 +37,7 @@ const Search = () => {
   const lastMessageInView = useInView(lastMessageRef, {
     root: null,
     rootMargin: '100px',
-    threshold: 0.1,
+    threshold: 1,
   })
   const gigs = useMemo(() => data?.searchGig || [], [data])
 

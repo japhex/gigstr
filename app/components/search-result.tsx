@@ -5,7 +5,6 @@ import { Flex, Button, Center } from '@chakra-ui/react'
 import Card from '@components/gig/card'
 import { AppContext } from '@context/app/context'
 import { CreateGigDocument, Gig, GigsDocument } from '@gql/graphql'
-import { MdAddCircleOutline } from 'react-icons/md'
 
 interface Props {
   gig: Gig
@@ -34,14 +33,7 @@ const GigResult = ({ gig }: Props) => {
           gig.attending ? (
             <Center p={3}>You're already going!</Center>
           ) : (
-            <Button
-              borderBottomRadius={0}
-              isLoading={loading}
-              leftIcon={<MdAddCircleOutline />}
-              onClick={saveGig}
-              mt="auto"
-              variant="primary"
-            >
+            <Button borderBottomRadius={0} isLoading={loading} onClick={saveGig} mt="auto" variant="primary">
               Add gig
             </Button>
           )

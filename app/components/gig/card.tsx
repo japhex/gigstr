@@ -48,8 +48,9 @@ const Card = ({ gig, icons = true, footer = null }: Props) => {
           </Box>
           <Box pb={6}>
             <Text fontSize="sm" color="#888" className={fonts.poppinsBold}>
-              {date?.start && gigStartDate(date)}{' '}
-              {date?.end && date?.start !== date?.end && `- ${format(new Date(date?.end), 'MMM do yyyy')}`}
+              {date?.end && date?.start !== date?.end
+                ? `${format(new Date(date?.start), 'MMM do')} - ${format(new Date(date?.end), 'MMM do yyyy')}`
+                : gigStartDate(date)}
             </Text>
           </Box>
           {venue && <Location venue={venue} />}
