@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { Box, Flex, Icon, Text } from '@chakra-ui/react'
 import Delete from '@components/gig/delete'
 import Genres from '@components/gig/genres'
@@ -14,9 +16,11 @@ import { MdOutlineFestival } from 'react-icons/md'
 
 interface Props {
   gig: Gig | Record<any, any>
+  icons?: boolean
+  footer?: ReactNode
 }
 
-const Card = ({ gig }: Props) => {
+const Card = ({ gig, icons = true, footer = null }: Props) => {
   const { _id: id, artist, date, venue, lineup, festival, info } = gig
 
   return (
@@ -24,12 +28,14 @@ const Card = ({ gig }: Props) => {
       <Flex direction="column" w="100%" color="#cecece" bg="GREYGRAD" boxShadow={SHADOWS.default}>
         <Box h="150px" w="100%" bgImg={artist.image} bgSize="cover" bgPosition="top" />
         <Box p={4}>
-          <Flex gap={2} justify="center">
-            <Info info={info} />
-            <Lineup lineup={lineup} />
-            <Maps lat={venue?.location?.latitude} lng={venue?.location?.longitude} />
-            <Delete id={id} />
-          </Flex>
+          {icons && (
+            <Flex gap={2} justify="center">
+              <Info info={info} />
+              <Lineup lineup={lineup} />
+              <Maps lat={venue?.location?.latitude} lng={venue?.location?.longitude} />
+              <Delete id={id} />
+            </Flex>
+          )}
           <Box py={2} pb={0} mt={2}>
             <Flex w="100%">
               <Box>
@@ -51,6 +57,7 @@ const Card = ({ gig }: Props) => {
         <Box p={4} mt="auto">
           <Genres artist={artist} />
         </Box>
+        {footer && footer}
       </Flex>
     </Flex>
   )

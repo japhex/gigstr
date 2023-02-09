@@ -84,7 +84,9 @@ const Search = () => {
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex gap={4} bg="GREY3" p={8}>
-          <Title title="search for upcoming gigs" filter={false} />
+          <Flex w="30%">
+            <Title title="search for upcoming gigs" filter={false} />
+          </Flex>
           <FormControl>
             <Center h="100%">
               <InputGroup size="md">
@@ -102,7 +104,7 @@ const Search = () => {
       {data && !loading && searchActive && (
         <Fade in={data && !loading && searchActive}>
           <Box bg="GREY4">
-            <Grid templateColumns="1fr 1fr 1fr" gap={4} py={4}>
+            <Grid templateColumns="repeat(5, minmax(0, 1fr))" gap={4} py={4} autoRows="1fr">
               {data?.searchGig?.map((gig: Gig, index: number) => (
                 <Box ref={index === data?.searchGig.length - 1 ? lastMessageRef : null}>
                   <GigResult gig={gig} key={gig._id} />

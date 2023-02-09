@@ -18,14 +18,14 @@ export default function Main({ auth, children }: { auth: Session; children: Reac
               h="calc(100vh - 32px)"
               position="sticky"
               top={4}
-              w={{ base: '100vw', lg: '25vw' }}
+              w={{ base: '100vw', lg: '15vw' }}
             >
               <Box>
                 <Logo />
               </Box>
               <Header />
             </Flex>
-            <Box w={{ base: '100vw', lg: '75vw' }}>{children}</Box>
+            <Box w={{ base: '100vw', lg: '85vw' }}>{children}</Box>
           </>
         ) : (
           <Center flexDir="column" w="100vw">

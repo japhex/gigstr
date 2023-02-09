@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { Box, Flex, Grid, Skeleton, SkeletonCircle } from '@chakra-ui/react'
+import { Box, Flex, Grid, Skeleton } from '@chakra-ui/react'
 import DisplayGigs from '@components/display-gigs'
 import PastGigs from '@components/display-past-gigs'
 import SearchGigs from '@components/search-gigs'
@@ -9,7 +9,7 @@ import { getSession, GetSessionParams } from 'next-auth/react'
 
 export default function IndexPage() {
   const { searchActive, searchLoading } = useContext(AppContext)
-  const loop = 9
+  const loop = 12
 
   return (
     <Flex direction="column" gap={16}>
@@ -26,11 +26,11 @@ export default function IndexPage() {
       )}
       {searchLoading && (
         <Box bg="GREY4">
-          <Grid templateColumns="1fr 1fr 1fr" gap={4} py={4}>
+          <Grid templateColumns="repeat(5, minmax(0, 1fr))" gap={4} py={4}>
             {[...Array(loop)].map(() => (
-              <Flex bg="GREY3" p={4} borderRadius={4} gap={4} w="100%">
-                <SkeletonCircle h="100px" w="100px" startColor="GREY3" endColor="GREY4" />
-                <Flex direction="column" gap={2} w="60%">
+              <Flex bg="GREY3" borderRadius={4} gap={4} w="100%" direction="column">
+                <Skeleton startColor="GREY3" endColor="GREY4" width="100%" height="150px" />
+                <Flex direction="column" gap={2} p={4}>
                   <Skeleton startColor="GREY3" endColor="GREY4" width="100%" height="20px" />
                   <Skeleton startColor="GREY3" endColor="GREY4" width="100%" height="10px" />
                   <Skeleton startColor="GREY3" endColor="GREY4" width="100%" height="5px" />
