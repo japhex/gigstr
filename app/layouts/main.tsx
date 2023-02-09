@@ -2,8 +2,8 @@ import type { ReactNode } from 'react'
 
 import { Box, Center, Flex } from '@chakra-ui/react'
 import Header from '@components/header'
-// @ts-ignore
 import Logo from '@components/shared/logo'
+// @ts-ignore
 import { Session } from 'next-auth'
 
 export default function Main({ auth, children }: { auth: Session; children: ReactNode }) {
