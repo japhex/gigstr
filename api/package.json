@@ -4,7 +4,7 @@
   "private": true,
   "author": "Japhex",
   "scripts": {
-    "start": "nodemon -r esm app.ts",
+    "start": "nodemon -r esm-wallaby app.ts",
     "start-test": "NODE_ENV=test nodemon --transpile-only app.ts",
     "postinstall": "rm -r node_modules/apollo-language-server/node_modules/graphql"
   },
@@ -21,6 +21,7 @@
     "date-fns": "^2.19.0",
     "dotenv": "^16.0.3",
     "esm": "^3.2.25",
+    "esm-wallaby": "^3.2.26",
     "express": "4.16.4",
     "express-jwt": "^5.3.1",
     "express-session": "^1.15.6",
@@ -34,7 +35,7 @@
     "mongoose": "^6.8.3",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.20",
-    "redis": "^4.5.1",
+    "redis": "^4.6.4",
     "request": "2.88.0",
     "request-promise": "4.2.4",
     "ts-node": "^10.9.1",

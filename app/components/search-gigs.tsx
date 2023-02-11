@@ -18,6 +18,7 @@ import GigResult from '@components/search-result'
 import Title from '@components/ui/title'
 import { AppContext } from '@context/app/context'
 import { Gig, SearchGigDocument, SearchGigQuery } from '@gql/graphql'
+import { SHADOWS } from '@theme/utils/shadows'
 import { useForm } from 'react-hook-form'
 import { MdSearch } from 'react-icons/md'
 
@@ -82,43 +83,47 @@ const Search = () => {
   }, [lastMessageInView, noMoreResults, fetchMore, gigs])
 
   return (
-    <Box>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Flex gap={4} bg="GREY3" p={8}>
-          <Flex w="30%">
-            <Title title="search for upcoming gigs" filter={false} />
+    <>
+      <Box position="sticky" top={4} ml="auto" zIndex="1" boxShadow={SHADOWS.default} w="50%">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Flex gap={4} bg="GREY3" p={8}>
+            <Flex w="30%">
+              <Title title="search for upcoming gigs" filter={false} />
+            </Flex>
+            <FormControl>
+              <Center h="100%">
+                <InputGroup size="md">
+                  <Input placeholder="Artist name..." {...register('artist')} onKeyUp={onKeyup} />
+                  <InputRightElement>
+                    <Button isLoading={loading} type="submit" variant="with-input">
+                      <MdSearch size="25px" />
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </Center>
+            </FormControl>
           </Flex>
-          <FormControl>
-            <Center h="100%">
-              <InputGroup size="md">
-                <Input placeholder="Artist name..." {...register('artist')} onKeyUp={onKeyup} />
-                <InputRightElement>
-                  <Button isLoading={loading} type="submit" variant="with-input">
-                    <MdSearch size="25px" />
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-            </Center>
-          </FormControl>
-        </Flex>
-      </form>
+        </form>
+      </Box>
       {data && !loading && searchActive && (
-        <Fade in={data && !loading && searchActive}>
-          <Box bg="GREY4">
-            <Grid templateColumns="repeat(5, minmax(0, 1fr))" gap={4} py={4} autoRows="1fr">
-              {data?.searchGig?.map((gig: Gig, index: number) => (
-                <Box ref={index === data?.searchGig.length - 1 ? lastMessageRef : null}>
-                  <GigResult gig={gig} key={gig._id} setValue={setValue} />
-                </Box>
-              ))}
-              {/* MAYBE FULL SCREEN LOADER THAT BLOCKS UI? */}
-              {loading && <Spinner />}
-              {!data.searchGig && <>No gigs found for {getValues('artist')}! Maybe they're taking a break!?</>}
-            </Grid>
-          </Box>
-        </Fade>
+        <Box>
+          <Fade in={data && !loading && searchActive}>
+            <Box bg="GREY4">
+              <Grid templateColumns="repeat(5, minmax(0, 1fr))" gap={4} py={4} autoRows="1fr">
+                {data?.searchGig?.map((gig: Gig, index: number) => (
+                  <Box ref={index === data?.searchGig.length - 1 ? lastMessageRef : null}>
+                    <GigResult gig={gig} key={gig._id} setValue={setValue} />
+                  </Box>
+                ))}
+                {/* MAYBE FULL SCREEN LOADER THAT BLOCKS UI? */}
+                {loading && <Spinner />}
+                {!data.searchGig && <>No gigs found for {getValues('artist')}! Maybe they're taking a break!?</>}
+              </Grid>
+            </Box>
+          </Fade>
+        </Box>
       )}
-    </Box>
+    </>
   )
 }
 

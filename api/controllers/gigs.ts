@@ -6,9 +6,9 @@ import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils
 
 export const apiGetGigs = async ({ past = false }, user, params = null) => {
   const cacheKey = `${user.id}|gigs|${past ? 'past' : 'upcoming'}`
-  const cachedGigs = await redisClient.get(cacheKey)
+  const cachedGigs = await redisClient.json.get(cacheKey)
 
-  if (cachedGigs && params === null) return JSON.parse(cachedGigs)
+  if (cachedGigs && params === null) return cachedGigs
 
   const today = new Date()
   const filter = past ? { $lt: today } : { $gte: today }
@@ -40,7 +40,7 @@ export const apiGetGigs = async ({ past = false }, user, params = null) => {
       { $sort: { date: 1 } },
     ])
 
-    if (params === null) await redisClient.set(cacheKey, JSON.stringify(gigs))
+    if (params === null) await redisClient.json.set(cacheKey, '$', gigs)
 
     return gigs
   } catch (err) {

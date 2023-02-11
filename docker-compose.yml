@@ -7,6 +7,17 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data_container:/data/db
+
+  cache:
+    image: redis/redis-stack-server:latest
+    environment:
+      - REDIS_ARGS=--save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-stack-server
+    volumes:
+      - cache:/data
   api:
     build:
       context: ./api
@@ -15,6 +26,7 @@ services:
     container_name: backend
     depends_on:
       - cache
+      - mongo
     ports:
       - "4000:4000"
     environment:
@@ -24,14 +36,6 @@ services:
       MONGO_URI: mongodb://mongo:27017/gigstr
     links:
       - cache
-  cache:
-    image: redis:6.2-alpine
-    restart: always
-    ports:
-      - "6379:6379"
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-    volumes:
-      - cache:/data
 
 volumes:
   cache:

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { Box, Flex, Icon, Text } from '@chakra-ui/react'
+import { Box, Flex, Icon, Image, Text } from '@chakra-ui/react'
 import Delete from '@components/gig/delete'
 import Genres from '@components/gig/genres'
 import Info from '@components/gig/info'
@@ -26,7 +26,15 @@ const Card = ({ gig, icons = true, footer = null }: Props) => {
   return (
     <Flex gap={2} position="relative">
       <Flex direction="column" w="100%" color="#cecece" bg="GREYGRAD" boxShadow={SHADOWS.default}>
-        <Box h="150px" w="100%" bgImg={artist.image} bgSize="cover" bgPosition="top" />
+        <Image
+          loading="lazy"
+          role="presentation"
+          h="150px"
+          w="100%"
+          src={artist.image}
+          objectFit="cover"
+          bgPosition="top"
+        />
         <Box p={4}>
           {icons && (
             <Flex gap={2} justify="center">
