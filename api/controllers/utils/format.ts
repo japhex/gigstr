@@ -1,3 +1,5 @@
+import { getUnixTime } from 'date-fns'
+
 const sortedImages = data =>
   data?._embedded?.events[0]?.images?.sort((a, b) => {
     return a.width > b.width ? -1 : 1
@@ -27,6 +29,8 @@ export const formatTicketmasterGigData = (artist, event, gigIds) => ({
   date: {
     start: new Date(event?.dates?.start?.localDate) || new Date(event?.dates?.start?.dateTime),
     end: new Date(event?.dates?.end?.localDate) || new Date(event?.dates?.end?.dateTime),
+    timestamp:
+      getUnixTime(new Date(event?.dates?.start?.localDate)) || getUnixTime(new Date(event?.dates?.start?.dateTime)),
   },
   ...((event.info || event.pleaseNote) && {
     info: `${event.info && event?.info} ${event.pleaseNote && event?.pleaseNote}`,

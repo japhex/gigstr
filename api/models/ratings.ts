@@ -1,11 +1,16 @@
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 
 const Schema = mongoose.Schema
+
+export interface IRating extends Document {
+  userId: string
+  gigId: string
+  rating: number
+}
 
 const ratingsSchema = new Schema(
   {
     userId: String,
-    // userId: { type: Schema.Types.ObjectId, ref: 'User' },
     gigId: { type: Schema.Types.ObjectId, ref: 'Gig' },
     rating: Number,
   },
@@ -14,4 +19,4 @@ const ratingsSchema = new Schema(
   }
 )
 
-export const Ratings = mongoose.model('Ratings', ratingsSchema)
+export const Ratings = mongoose.model<IRating>('Ratings', ratingsSchema)

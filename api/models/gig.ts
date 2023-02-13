@@ -1,7 +1,44 @@
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 
 const Schema = mongoose.Schema
 const SchemaTypes = mongoose.Schema.Types
+
+export interface IGig extends Document {
+  ticketmasterId: string
+  artist: {
+    name: string
+    image: string
+    genre: string
+    subGenre: string
+  }
+  date: {
+    start: string
+    end: string
+    timestamp: string
+  }
+  info: string
+  venue: {
+    location: Record<string, any>
+    name: string
+    latitude: string
+    longitude: string
+    city: string
+    country: string
+  }
+  lineup: [
+    {
+      name: string
+      image: string
+      genre: string
+      subGenre: string
+    }
+  ]
+  festival: {
+    start_date: string
+    end_date: string
+  }
+  userId: string
+}
 
 const gigSchema = new Schema(
   {
@@ -15,6 +52,7 @@ const gigSchema = new Schema(
     date: {
       start: { type: SchemaTypes.Date },
       end: { type: SchemaTypes.Date },
+      timestamp: { type: SchemaTypes.Number },
     },
     info: { type: String },
     venue: {
@@ -44,4 +82,4 @@ const gigSchema = new Schema(
   }
 )
 
-export const Gig = mongoose.model('Gig', gigSchema)
+export const Gig = mongoose.model<IGig>('Gig', gigSchema)

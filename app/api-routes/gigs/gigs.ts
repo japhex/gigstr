@@ -13,6 +13,7 @@ export const getGigs = gql`
       date {
         start
         end
+        timestamp
       }
       info
       venue {
@@ -69,6 +70,7 @@ export const createGigMutation = gql`
       date {
         start
         end
+        timestamp
       }
       info
       venue {
@@ -118,6 +120,7 @@ export const getFilteredGigs = gql`
       date {
         start
         end
+        timestamp
       }
       info
       venue {

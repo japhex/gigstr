@@ -10,6 +10,7 @@ const resolveFunctions = {
 const schemaString = `
   scalar Date
   scalar JSONObject
+  scalar DATETIME
 
   type User {
     id: ID!
@@ -42,6 +43,7 @@ const schemaString = `
   type GigDate {
     start: Date
     end: Date
+    timestamp: Int
   }
   
   type Festival {

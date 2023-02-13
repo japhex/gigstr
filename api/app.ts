@@ -14,6 +14,8 @@ import { isProduction } from './utils/constants'
 export const redisClient = createClient({ url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}` })
 ;(async () => {
   await redisClient.connect()
+  // for testing
+  await redisClient.flushAll()
 })()
 
 dotenv.config()

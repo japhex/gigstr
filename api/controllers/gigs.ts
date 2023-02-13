@@ -1,51 +1,34 @@
+import { getUnixTime, isAfter, isBefore } from 'date-fns'
+
 import { ticketmasterApi } from '../apis/ticketmaster'
 import { redisClient } from '../app'
 import { Gig } from '../models/gig'
 
+import { createGigsIndex, getValue } from './utils/cache'
 import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
+import { gigsWithRatings } from './utils/queries'
 
 export const apiGetGigs = async ({ past = false }, user, params = null) => {
-  const cacheKey = `${user.id}|gigs|${past ? 'past' : 'upcoming'}`
-  const cachedGigs = await redisClient.json.get(cacheKey)
+  await createGigsIndex()
+  const today = getUnixTime(new Date())
+  const index = await redisClient.ft.search(`idx:gigs`, `@userId:(${user.id})`)
 
-  if (cachedGigs && params === null) return cachedGigs
+  console.log(await redisClient.ft.search(`idx:gigs`, `@genre:(Pop)`))
+  console.log(await redisClient.ft.search(`idx:gigs`, `@userId:(${user.id}) @genre:(Pop)`))
 
-  const today = new Date()
-  const filter = past ? { $lt: today } : { $gte: today }
+  if (index?.total > 0 && params === null) {
+    const cachedGigs = getValue({ index })
 
-  try {
-    const gigs = await Gig.aggregate([
-      { $addFields: { month: { $month: '$date.start' } } },
-      { $addFields: { year: { $year: '$date.start' } } },
-      {
-        $match: {
-          $and: [{ 'date.start': filter, userId: user.id, ...params }],
-        },
-      },
-      {
-        $lookup: {
-          from: 'ratings',
-          localField: '_id',
-          foreignField: 'gigId',
-          pipeline: [
-            {
-              $match: {
-                $and: [{ userId: { $eq: user.id } }],
-              },
-            },
-          ],
-          as: 'ratings',
-        },
-      },
-      { $sort: { date: 1 } },
-    ])
-
-    if (params === null) await redisClient.json.set(cacheKey, '$', gigs)
-
-    return gigs
-  } catch (err) {
-    throw new Error(`Error: ${err}`)
+    return past
+      ? cachedGigs.filter(gig => isBefore(gig.date.timestamp, today))
+      : cachedGigs.filter(gig => isAfter(gig.date.timestamp, today))
   }
+
+  const dbGigs = await gigsWithRatings(user.id)
+
+  return past
+    ? dbGigs.filter(gig => isBefore(gig.date.timestamp, today))
+    : dbGigs.filter(gig => isAfter(gig.date.timestamp, today))
 }
 
 export const apiFilterGigs = async ({ filters }, user) => {
@@ -56,6 +39,13 @@ export const apiFilterGigs = async ({ filters }, user) => {
     })
   )
 
+  // try {
+  //  const searchResult = await redisClient.ft.search(`idx:gigs`, '@genre:(Rock)')
+  //  console.log(searchResult?.documents[0]?.value)
+  // } catch (e) {
+  // 	console.log(e)
+  // }
+
   // At this point it would be nice to just query the cache instead of making a DB request
   try {
     return await apiGetGigs({ past: false }, user, filterObject)
@@ -65,18 +55,9 @@ export const apiFilterGigs = async ({ filters }, user) => {
 }
 
 export const apiCreateGig = async (gig, user) => {
-  const cacheKey = `${user.id}|gigs|upcoming`
-  const cachedGigs = await redisClient.get(cacheKey)
-
   try {
     const newGig = await Gig.create({ ...gig, userId: user.id, festival: gig.festival || {} })
-
-    if (cachedGigs) {
-      const gigs = JSON.parse(cachedGigs)
-      gigs.push(newGig)
-      await redisClient.set(cacheKey, JSON.stringify(gigs))
-    }
-
+    await redisClient.json.set(`GIGS:${gig._id}`, '$', gig)
     return newGig
   } catch (err) {
     throw new Error(`Error: ${err}`)
@@ -84,18 +65,9 @@ export const apiCreateGig = async (gig, user) => {
 }
 
 export const apiDeleteGig = async ({ id }, user) => {
-  const cacheKey = `${user.id}|gigs|upcoming`
-  const cachedGigs = await redisClient.get(cacheKey)
-
   try {
     const deletedGig = await Gig.deleteOne({ userId: user.id, _id: id })
-
-    if (cachedGigs) {
-      const gigs = JSON.parse(cachedGigs)
-      const newGigs = gigs.filter(gig => gig._id !== id)
-      await redisClient.set(cacheKey, JSON.stringify(newGigs))
-    }
-
+    await redisClient.json.del(`GIGS:${id}`, '$')
     return deletedGig
   } catch (err) {
     throw new Error(`Error: ${err}`)
