@@ -1,8 +1,9 @@
-import { getUnixTime, isAfter, isBefore } from 'date-fns'
+import { isAfter, isBefore } from 'date-fns'
 
 import { ticketmasterApi } from '../apis/ticketmaster'
 import { redisClient } from '../app'
 import { Gig } from '../models/gig'
+import { today } from '../utils/constants'
 
 import { createGigsIndex, getValue } from './utils/cache'
 import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
@@ -10,7 +11,6 @@ import { gigsWithRatings } from './utils/queries'
 
 export const apiGetGigs = async ({ past = false }, user, params = null) => {
   await createGigsIndex()
-  const today = getUnixTime(new Date())
   const index = await redisClient.ft.search(`idx:gigs`, `@userId:(${user.id})`)
 
   if (index?.total > 0 && params === null) {
@@ -35,16 +35,17 @@ export const apiFilterGigs = async ({ filters }, user) => {
       return item
     })
   )
+  let filterString = ''
 
-  // console.log(await redisClient.ft.search(`idx:gigs`, `@genre:(Pop)`))
-  // console.log(await redisClient.ft.search(`idx:gigs`, `@userId:(${user.id}) @genre:(Pop)`))
+  Object.values(filterObject).forEach(value => {
+    filterString += ` ${value}`
+  })
 
-  // At this point it would be nice to just query the cache instead of making a DB request
-  try {
-    return await apiGetGigs({ past: false }, user, filterObject)
-  } catch (err) {
-    throw new Error(`Error: ${err}`)
-  }
+  const index = await redisClient.ft.search(`idx:gigs`, `@userId:(${user.id}) ${filterString}`)
+  const cachedGigs = getValue({ index })
+
+  // Need to add param for past/future filtering
+  return cachedGigs.filter(gig => isAfter(gig.date.timestamp, today))
 }
 
 export const apiCreateGig = async (gig, user) => {

@@ -6,7 +6,7 @@ export const gigStartDate = (date: GigDate) => format(new Date(date?.start), 'MM
 export const getGigMonthFilters = (gigs: Gig[] | Record<any, any>) => {
   const months = gigs
     .map((gig: Gig) => {
-      return getMonth(new Date(gig?.date?.start)) + 1
+      return getMonth(new Date(gig?.date?.start))
     })
     .filter((month: number) => !!month)
 

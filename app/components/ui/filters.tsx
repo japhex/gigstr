@@ -70,21 +70,21 @@ const Filters = ({ past = false }: Props) => {
         name="month"
         group={months as string[]}
         onClick={async (month: string) => {
-          await handleFilters(month, { month: parseInt(month) })
+          await handleFilters(month, { gigMonth: `@gigMonth:(${month})` })
         }}
       />
       <FilterGroup
         name="year"
         group={years as string[]}
         onClick={async (year: string) => {
-          await handleFilters(year, { year: parseInt(year) })
+          await handleFilters(year, { gigYear: `@gigYear:(${year})` })
         }}
       />
       <FilterGroup
         name="genre"
         group={genres as string[]}
         onClick={async genre => {
-          await handleFilters(genre, { $or: [{ 'artist.genre': genre }, { 'artist.subGenre': genre }] })
+          await handleFilters(genre, { genre: `@genre:(${genre})` })
         }}
       />
     </Flex>

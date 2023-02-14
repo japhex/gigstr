@@ -1,3 +1,5 @@
+import { getMonth, getYear } from 'date-fns'
+
 import { redisClient } from '../../app'
 import { Gig } from '../../models/gig'
 
@@ -27,7 +29,11 @@ export const gigsWithRatings = async userId => {
   ])
 
   for (const gig of gigs) {
-    await redisClient.json.set(`GIGS:${gig._id}`, '$', gig)
+    await redisClient.json.set(`GIGS:${gig._id}`, '$', {
+      ...gig,
+      gigMonth: `${getMonth(gig.date.start)}`,
+      gigYear: `${getYear(gig.date.start)}`,
+    })
   }
 
   return gigs
