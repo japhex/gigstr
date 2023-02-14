@@ -13,9 +13,6 @@ export const apiGetGigs = async ({ past = false }, user, params = null) => {
   const today = getUnixTime(new Date())
   const index = await redisClient.ft.search(`idx:gigs`, `@userId:(${user.id})`)
 
-  console.log(await redisClient.ft.search(`idx:gigs`, `@genre:(Pop)`))
-  console.log(await redisClient.ft.search(`idx:gigs`, `@userId:(${user.id}) @genre:(Pop)`))
-
   if (index?.total > 0 && params === null) {
     const cachedGigs = getValue({ index })
 
@@ -39,12 +36,8 @@ export const apiFilterGigs = async ({ filters }, user) => {
     })
   )
 
-  // try {
-  //  const searchResult = await redisClient.ft.search(`idx:gigs`, '@genre:(Rock)')
-  //  console.log(searchResult?.documents[0]?.value)
-  // } catch (e) {
-  // 	console.log(e)
-  // }
+  // console.log(await redisClient.ft.search(`idx:gigs`, `@genre:(Pop)`))
+  // console.log(await redisClient.ft.search(`idx:gigs`, `@userId:(${user.id}) @genre:(Pop)`))
 
   // At this point it would be nice to just query the cache instead of making a DB request
   try {
