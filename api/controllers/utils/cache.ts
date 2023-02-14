@@ -1,3 +1,4 @@
+import { getMonth, getYear } from 'date-fns'
 import { SchemaFieldTypes } from 'redis'
 
 import { redisClient } from '../../app'
@@ -45,3 +46,11 @@ export const createGigsIndex = async () => {
 }
 
 export const getValue = ({ index }) => index?.documents.map(doc => doc.value)
+
+export const insertGig = async gig => {
+  await redisClient.json.set(`GIGS:${gig._id}`, '$', {
+    ...gig,
+    gigMonth: `${getMonth(gig.date.start)}`,
+    gigYear: `${getYear(gig.date.start)}`,
+  })
+}

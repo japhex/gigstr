@@ -5,7 +5,7 @@ import { redisClient } from '../app'
 import { Gig } from '../models/gig'
 import { today } from '../utils/constants'
 
-import { createGigsIndex, getValue } from './utils/cache'
+import { createGigsIndex, getValue, insertGig } from './utils/cache'
 import { formatTicketmasterArtistData, formatTicketmasterGigData } from './utils/format'
 import { gigsWithRatings } from './utils/queries'
 
@@ -51,7 +51,8 @@ export const apiFilterGigs = async ({ filters }, user) => {
 export const apiCreateGig = async (gig, user) => {
   try {
     const newGig = await Gig.create({ ...gig, userId: user.id, festival: gig.festival || {} })
-    await redisClient.json.set(`GIGS:${gig._id}`, '$', gig)
+    // @ts-ignore
+    await insertGig(newGig._doc)
     return newGig
   } catch (err) {
     throw new Error(`Error: ${err}`)
