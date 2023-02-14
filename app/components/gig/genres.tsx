@@ -14,11 +14,12 @@ const Genres = ({ artist }: Props) => {
           {genre}
         </Tag>
       )}
-      {subGenre && subGenre !== genre && (
-        <Tag size="sm" colorScheme="gray" bg="#000">
-          {subGenre}
-        </Tag>
-      )}
+      {/*do we really need sub genres...*/}
+      {/*{subGenre && subGenre !== genre && (*/}
+      {/*  <Tag size="sm" colorScheme="gray" bg="#000">*/}
+      {/*    {subGenre}*/}
+      {/*  </Tag>*/}
+      {/*)}*/}
     </Flex>
   )
 }

@@ -23,7 +23,9 @@ export const getGigYearFilters = (gigs: Gig[] | Record<any, any>) => {
 
 export const getGenreFilters = (gigs: Gig[] | Record<any, any>) => {
   const genres = gigs.flatMap((gig: Gig) => {
-    return [gig.artist.genre, gig.artist.subGenre]
+    // sub-filtering on subGenre doesn't work in Redis, would need to combine all into single array field
+    // return [gig.artist.genre, gig.artist.subGenre]
+    return [gig.artist.genre]
   })
   return [...new Set(genres)]
 }
