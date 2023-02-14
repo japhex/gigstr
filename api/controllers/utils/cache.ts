@@ -13,10 +13,6 @@ export const createGigsIndex = async () => {
           type: SchemaFieldTypes.TEXT,
           AS: 'genre',
         },
-        '$.artist.subGenre': {
-          type: SchemaFieldTypes.TEXT,
-          AS: 'subGenre',
-        },
         '$.gigYear': {
           type: SchemaFieldTypes.TEXT,
           AS: 'gigYear',

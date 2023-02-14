@@ -84,7 +84,7 @@ const Filters = ({ past = false }: Props) => {
         name="genre"
         group={genres as string[]}
         onClick={async genre => {
-          await handleFilters(genre, { genre: `@genre:(${genre}) @subGenre:(${genre})` })
+          await handleFilters(genre, { genre: `@genre:(${genre})` })
         }}
       />
     </Flex>
