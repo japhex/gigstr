@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps<{ session: Sessio
             <Main auth={pageProps.session}>
               <Head>
                 <title>Gigstr</title>
-                <meta name="description">Gigstr</meta>
+                <meta name="description" content="gigster" />
                 <link
                   rel="icon"
                   href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>"
