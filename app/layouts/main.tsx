@@ -1,12 +1,17 @@
 import type { ReactNode } from 'react'
 
-import { Box, Center, Flex } from '@chakra-ui/react'
+import { Box, Center, Flex, useMediaQuery } from '@chakra-ui/react'
 import Header from '@components/header'
 import Logo from '@components/shared/logo'
 // @ts-ignore
+import { theme } from '@theme/index'
 import { Session } from 'next-auth'
 
 export default function Main({ auth, children }: { auth: Session; children: ReactNode }) {
+  const isTablet = useMediaQuery(theme.breakpoints.tabletDown)
+
+  console.log(isTablet[0])
+
   return (
     <Box w="100vw" minH="100vh" p={4} bg="GREY4" color="GREY2">
       <Flex>

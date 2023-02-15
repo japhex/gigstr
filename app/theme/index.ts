@@ -15,6 +15,15 @@ const poppins = Poppins({ weight: '400', subsets: ['latin'] })
 const poppinsLight = Poppins({ weight: '200', subsets: ['latin'] })
 const poppinsBold = Poppins({ weight: '600', subsets: ['latin'] })
 
+const BREAKPOINTS = {
+  desktopUp: `(min-width: 1020px)`,
+  desktopDown: `(max-width: 1020px)`,
+  tabletUp: `(min-width: 720px)`,
+  tabletDown: `(max-width: 720px)`,
+  mobileUp: `(min-width: 420px)`,
+  mobileDown: `(max-width: 420px)`,
+}
+
 export const theme = extendTheme({
   space: SPACING,
   fontSizes: FONT_SIZES,
@@ -25,6 +34,7 @@ export const theme = extendTheme({
   },
   shadows: SHADOWS,
   colors: COLORS,
+  breakpoints: BREAKPOINTS,
   styles: {
     global: GLOBAL,
   },
