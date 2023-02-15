@@ -6,11 +6,17 @@ import PastGigs from '@components/display-past-gigs'
 import SearchGigs from '@components/search-gigs'
 import SkeletonLoader from '@components/ui/skeleton-loader'
 import { AppContext } from '@context/app/context'
+// @ts-ignore
+import { Session } from 'next-auth'
 import { getSession, GetSessionParams } from 'next-auth/react'
 
 import { tokenVar } from './_app'
 
-export default function IndexPage({ session }) {
+interface Props {
+  session: Session
+}
+
+export default function IndexPage({ session }: Props) {
   const { searchActive, searchLoading } = useContext(AppContext)
   const loop = 12
 
@@ -22,10 +28,10 @@ export default function IndexPage({ session }) {
       {!searchActive && !searchLoading && (
         <>
           <Flex direction="column" gap={4}>
-            <PastGigs session={session} />
+            <PastGigs />
           </Flex>
           <Flex direction="column" gap={4}>
-            <DisplayGigs session={session} />
+            <DisplayGigs />
           </Flex>
         </>
       )}

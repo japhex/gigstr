@@ -11,7 +11,7 @@ import Head from 'next/head'
 
 import Main from '../layouts/main'
 
-export const tokenVar = makeVar({})
+export const tokenVar = makeVar<Session | {}>({})
 
 export default function App({ Component, pageProps }: AppProps<{ session: Session }>) {
   return (
