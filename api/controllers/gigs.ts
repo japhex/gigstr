@@ -17,15 +17,17 @@ export const apiGetGigs = async ({ past = false }, user, params = null) => {
     const cachedGigs = getValue({ index })
 
     return past
-      ? cachedGigs.filter(gig => isBefore(gig.date.timestamp, today))
-      : cachedGigs.filter(gig => isAfter(gig.date.timestamp, today))
+      ? cachedGigs
+          .filter(gig => isBefore(gig.date.timestamp, today))
+          .sort((a, b) => a.date.timestamp - b.date.timestamp)
+      : cachedGigs.filter(gig => isAfter(gig.date.timestamp, today)).sort((a, b) => a.date.timestamp - b.date.timestamp)
   }
 
   const dbGigs = await gigsWithRatings(user.id)
 
   return past
-    ? dbGigs.filter(gig => isBefore(gig.date.timestamp, today))
-    : dbGigs.filter(gig => isAfter(gig.date.timestamp, today))
+    ? dbGigs.filter(gig => isBefore(gig.date.timestamp, today)).sort((a, b) => a.date.timestamp - b.date.timestamp)
+    : dbGigs.filter(gig => isAfter(gig.date.timestamp, today)).sort((a, b) => a.date.timestamp - b.date.timestamp)
 }
 
 export const apiFilterGigs = async ({ filters }, user) => {
