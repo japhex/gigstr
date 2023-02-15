@@ -8,9 +8,13 @@ import SkeletonLoader from '@components/ui/skeleton-loader'
 import { AppContext } from '@context/app/context'
 import { getSession, GetSessionParams } from 'next-auth/react'
 
-export default function IndexPage() {
+import { tokenVar } from './_app'
+
+export default function IndexPage({ session }) {
   const { searchActive, searchLoading } = useContext(AppContext)
   const loop = 12
+
+  tokenVar({ ...session })
 
   return (
     <Flex direction="column" gap={16}>
@@ -18,10 +22,10 @@ export default function IndexPage() {
       {!searchActive && !searchLoading && (
         <>
           <Flex direction="column" gap={4}>
-            <PastGigs />
+            <PastGigs session={session} />
           </Flex>
           <Flex direction="column" gap={4}>
-            <DisplayGigs />
+            <DisplayGigs session={session} />
           </Flex>
         </>
       )}

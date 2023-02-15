@@ -1,4 +1,4 @@
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider, makeVar } from '@apollo/client'
 import { ChakraProvider } from '@chakra-ui/react'
 import AppProvider from '@context/app/context'
 import { theme } from '@theme/index'
@@ -11,13 +11,15 @@ import Head from 'next/head'
 
 import Main from '../layouts/main'
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
+export const tokenVar = makeVar({})
+
+export default function App({ Component, pageProps }: AppProps<{ session: Session }>) {
   return (
     <ApolloProvider client={client}>
-      <SessionProvider session={session}>
+      <SessionProvider session={pageProps.session}>
         <ChakraProvider theme={theme}>
           <AppProvider>
-            <Main auth={session}>
+            <Main auth={pageProps.session}>
               <Head>
                 <title>Gigstr</title>
                 <link

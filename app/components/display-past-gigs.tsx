@@ -6,7 +6,9 @@ import Title from '@components/ui/title'
 import { GigsDocument, GigsQuery } from '@gql/graphql'
 
 const PastGigs = () => {
-  const { loading, error, data } = useQuery<GigsQuery>(GigsDocument, { variables: { past: true } })
+  const { loading, error, data } = useQuery<GigsQuery>(GigsDocument, {
+    variables: { past: true },
+  })
   const gigs = data?.gigs || []
 
   return (

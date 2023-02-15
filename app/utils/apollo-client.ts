@@ -1,26 +1,16 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
-import { setContext } from 'apollo-link-context'
-import { getSession } from 'next-auth/react'
+import { ApolloClient, ApolloLink, InMemoryCache, HttpLink } from '@apollo/client'
 
-const api = createHttpLink({
-  uri: process.env.NEXT_PUBLIC_API_URL,
-})
-
-const authLink = setContext(async (_, { headers }) => {
-  const session = await getSession()
-
-  return {
-    headers: {
-      ...headers,
-      // @ts-ignore
-      Authorization: `Bearer ${session?.token}`,
-    },
-  }
-})
+import { tokenVar } from '../pages/_app'
 
 export const client = new ApolloClient({
-  // @ts-ignore
-  link: authLink.concat(api),
+  link: new ApolloLink(operation => {
+    return new HttpLink({
+      uri: process.env.NEXT_PUBLIC_API_URL,
+      headers: {
+        Authorization: `Bearer ${tokenVar().token}`,
+      },
+    }).request(operation)
+  }),
   cache: new InMemoryCache(),
 })
 
