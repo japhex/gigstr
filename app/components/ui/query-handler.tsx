@@ -16,8 +16,8 @@ const QueryHandler = ({ loading, error, strokeColor, loop = 8, loaderStyle = 'de
     <>
       {loading &&
         (loaderStyle === 'default'
-          ? [...Array(loop)].map(() => <SkeletonLoader />)
-          : [...Array(3)].map(() => <SkeletonLoaderThin />))}
+          ? [...Array(loop)].map((number, index) => <SkeletonLoader key={index} />)
+          : [...Array(3)].map((number, index) => <SkeletonLoaderThin key={index} />))}
       {error && <UseAnimations strokeColor={strokeColor} animation={alertCircle} />}
     </>
   )

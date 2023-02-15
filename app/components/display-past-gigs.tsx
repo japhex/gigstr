@@ -19,7 +19,7 @@ const PastGigs = () => {
           {loading || error ? (
             <QueryHandler loaderStyle="thin" loading={loading} error={error} />
           ) : gigs?.length > 0 ? (
-            gigs.map(gig => <PastCard gig={gig || {}} />)
+            gigs.map(gig => <PastCard key={gig?._id} gig={gig || {}} />)
           ) : (
             <>You haven't been to any gigs yet!</>
           )}
