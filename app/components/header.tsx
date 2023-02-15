@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { HiOutlineTicket, HiOutlineUser } from 'react-icons/hi'
@@ -34,7 +34,9 @@ export default function Header() {
       <Box mt="auto">
         {data?.user && (
           <Flex gap={4}>
-            {data?.user.image && <Avatar src={data?.user.image} borderRadius={6} w="60px" />}
+            {data?.user.image && (
+              <Image src={data?.user.image} alt={data?.user.name || data?.user.email || ''} borderRadius={6} w="60px" />
+            )}
             <Flex direction="column" justify="center">
               <Text size="sm">{data?.user.name || data?.user.email}</Text>
               <Box
