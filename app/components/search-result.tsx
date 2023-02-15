@@ -36,7 +36,14 @@ const GigResult = ({ gig, setValue }: Props) => {
           gig.attending ? (
             <Center p={3}>You're already going!</Center>
           ) : (
-            <Button borderBottomRadius={0} isLoading={loading} onClick={saveGig} mt="auto" variant="primary">
+            <Button
+              aria-label="add gig"
+              borderBottomRadius={0}
+              isLoading={loading}
+              onClick={saveGig}
+              mt="auto"
+              variant="primary"
+            >
               Add gig
             </Button>
           )

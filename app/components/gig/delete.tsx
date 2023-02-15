@@ -35,7 +35,7 @@ const Delete = ({ id }: Props) => {
 
   return (
     <>
-      <Button variant="iconButton" size="sm" onClick={onOpen}>
+      <Button aria-label="delete" variant="iconButton" size="sm" onClick={onOpen}>
         <MdOutlineDelete />
       </Button>
       <AlertDialog
@@ -52,10 +52,10 @@ const Delete = ({ id }: Props) => {
           <AlertDialogBody>Are you sure you want to delete this gig?</AlertDialogBody>
           <AlertDialogFooter>
             <Flex gap={4}>
-              <Button ref={cancelRef} onClick={onClose}>
+              <Button aria-label="no" ref={cancelRef} onClick={onClose}>
                 No
               </Button>
-              <Button onClick={() => handleDelete()} isLoading={loading}>
+              <Button aria-label="yes" onClick={() => handleDelete()} isLoading={loading}>
                 Yes
               </Button>
             </Flex>

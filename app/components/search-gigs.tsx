@@ -95,7 +95,7 @@ const Search = () => {
                 <InputGroup size="md">
                   <Input placeholder="Artist name..." {...register('artist')} onKeyUp={onKeyup} />
                   <InputRightElement>
-                    <Button isLoading={loading} type="submit" variant="with-input">
+                    <Button aria-label="search" isLoading={loading} type="submit" variant="with-input">
                       <MdSearch size="25px" />
                     </Button>
                   </InputRightElement>

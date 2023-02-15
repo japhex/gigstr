@@ -24,6 +24,7 @@ export default function SignIn({ providers }: Props) {
         {Object.values(providers).map(provider => (
           <Box key={provider.name}>
             <Button
+              aria-label={`login with ${provider.name}`}
               leftIcon={getLogo[provider.name.toLowerCase()]}
               onClick={() => signIn(provider.id)}
               className={fonts.poppins}

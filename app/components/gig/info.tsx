@@ -11,7 +11,7 @@ const Info = ({ info }: Props) => {
 
   return (
     <>
-      <Button size="sm" variant="iconButton" onClick={onOpen} isDisabled={info === null}>
+      <Button aria-label="info" size="sm" variant="iconButton" onClick={onOpen} isDisabled={info === null}>
         <MdInfoOutline />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
