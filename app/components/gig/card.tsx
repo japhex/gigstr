@@ -34,6 +34,7 @@ const Card = ({ gig, icons = true, footer = null }: Props) => {
           src={artist.image}
           objectFit="cover"
           bgPosition="top"
+          alt={artist.name}
         />
         <Box p={4}>
           {icons && (
