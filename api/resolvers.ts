@@ -1,16 +1,11 @@
 import { apiCreateGig, apiDeleteGig, apiGetGigs, apiSearchGig, apiFilterGigs } from './controllers/gigs'
 import { apiCreateGigRating } from './controllers/ratings'
-import { apiGetUserByUsername, apiGetUsers, apiSearchUsersByUsername, apiGetGigsByUser } from './controllers/users'
 
 export default {
   User: {
     gigs: parent => parent.getGigs(),
   },
   Query: {
-    users: () => apiGetUsers(),
-    user: (_parent, { username }) => apiGetUserByUsername(username),
-    userGigs: (_parent, { userId }) => apiGetGigsByUser(userId),
-    searchUsers: (_parent, { username }) => apiSearchUsersByUsername(username),
     searchGig: (_parent, args, { user }) => apiSearchGig(args, user),
     gigs: (_parent, args, { user }) => apiGetGigs(args, user),
     filterGigs: (_parent, args, { user }) => apiFilterGigs(args, user),

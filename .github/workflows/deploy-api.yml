@@ -1,5 +1,11 @@
 name: Deploy EC2
-on: [push]
+
+on:
+	push:
+		branches:
+			- main
+		paths: ['api/**/*']
+
 jobs:
   api:
     name: api
