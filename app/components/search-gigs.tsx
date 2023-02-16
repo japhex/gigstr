@@ -88,7 +88,7 @@ const Search = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Flex gap={4} bg="GREY3" p={8}>
             <Flex w="30%">
-              <Title title="search for upcoming gigs" filter={false} />
+              <Title title="gig search" filter={false} />
             </Flex>
             <FormControl>
               <Center h="100%">

@@ -1,12 +1,14 @@
+import mongoose from 'mongoose'
+
 import { Gig } from '../../models/gig'
 
 import { insertGig } from './cache'
 
-export const gigsWithRatings = async userId => {
+export const gigsWithRatings = async ({ gigId = null, userId }: { gigId?: string; userId: string }) => {
   const gigs = await Gig.aggregate([
     {
       $match: {
-        $and: [{ userId }],
+        $and: [{ userId, ...(gigId && { _id: new mongoose.Types.ObjectId(gigId) }) }],
       },
     },
     {

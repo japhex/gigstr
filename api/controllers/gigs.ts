@@ -23,7 +23,7 @@ export const apiGetGigs = async ({ past = false }, user, params = null) => {
       : cachedGigs.filter(gig => isAfter(gig.date.timestamp, today)).sort((a, b) => a.date.timestamp - b.date.timestamp)
   }
 
-  const dbGigs = await gigsWithRatings(user.id)
+  const dbGigs = await gigsWithRatings({ userId: user.id })
 
   return past
     ? dbGigs.filter(gig => isBefore(gig.date.timestamp, today)).sort((a, b) => a.date.timestamp - b.date.timestamp)
