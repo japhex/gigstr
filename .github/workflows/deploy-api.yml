@@ -6,8 +6,6 @@ on:
       - main
     paths:
       - "api/**/*"
-    paths-ignore:
-      - "app/**/*"
 
 jobs:
   api:
