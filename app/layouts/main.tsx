@@ -3,8 +3,8 @@ import type { ReactNode } from 'react'
 import { Box, Center, Flex, useMediaQuery } from '@chakra-ui/react'
 import Header from '@components/header'
 import Logo from '@components/shared/logo'
-// @ts-ignore
 import { theme } from '@theme/index'
+// @ts-ignore
 import { Session } from 'next-auth'
 
 export default function Main({ auth, children }: { auth: Session; children: ReactNode }) {

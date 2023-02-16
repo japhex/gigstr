@@ -33,3 +33,7 @@ Docker compose setup:
 
 
 I mean...this thing is powerful, can do anything within reason and is light as balls. Check out the package file, its got the essentials and a couple of nice to haves, the other point of this project is to prove not only to myself but others that you don't need to go crazy, you can build a fullstack application in 1 place utilising a few bits. Don't ever take that for granted.
+
+Also trying to consciously keep this as high as possible:
+
+<img alt="lighthouse" src="app/assets/images/lighthouse.png" width="400" />
