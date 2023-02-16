@@ -84,7 +84,7 @@ const Search = () => {
 
   return (
     <>
-      <Box position="sticky" top={4} ml="auto" zIndex="1" boxShadow={SHADOWS.default} w="50%">
+      <Box position="sticky" top={4} ml="auto" zIndex="1" boxShadow={SHADOWS.default} w={{ base: '100%', md: '50%' }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Flex gap={4} bg="GREY3" p={8}>
             <Flex w="30%">
@@ -109,7 +109,7 @@ const Search = () => {
         <Box>
           <Fade in={data && !loading && searchActive}>
             <Box bg="GREY4">
-              <Grid templateColumns="repeat(5, minmax(0, 1fr))" gap={4} py={4} autoRows="1fr">
+              <Grid templateColumns={{ base: '1fr', md: 'repeat(5, minmax(0, 1fr))' }} gap={4} py={4} autoRows="1fr">
                 {data?.searchGig?.map((gig: Gig, index: number) => (
                   <Box ref={index === data?.searchGig.length - 1 ? lastMessageRef : null}>
                     <GigResult gig={gig} key={gig._id} setValue={setValue} />

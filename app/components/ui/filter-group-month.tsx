@@ -10,7 +10,12 @@ interface Props {
 const FilterGroupMonth = ({ name, onClick, group }: Props) => {
   return (
     <Flex gap={2}>
-      <Select placeholder={name} onChange={e => onClick(e.target.value)} borderColor="GREY4" w="150px">
+      <Select
+        placeholder={name}
+        onChange={e => onClick(e.target.value)}
+        borderColor="GREY4"
+        w={{ base: 'auto', md: '150px' }}
+      >
         {group.map((item, index) => (
           <option value={item} key={index}>
             {MONTHS[item as number]}

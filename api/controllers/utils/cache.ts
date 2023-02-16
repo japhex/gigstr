@@ -6,7 +6,6 @@ import { redisClient } from '../../app'
 export const createGigsIndex = async () => {
   try {
     await redisClient.ft.create(
-      // @ts-ignore
       `idx:gigs`,
       {
         '$.artist.genre': {
@@ -21,11 +20,6 @@ export const createGigsIndex = async () => {
           type: SchemaFieldTypes.TEXT,
           AS: 'gigMonth',
         },
-        '$.timestamp': {
-          type: SchemaFieldTypes.NUMERIC,
-          sortable: true,
-          AS: 'timestamp',
-        },
         '$.userId': {
           type: SchemaFieldTypes.TEXT,
           AS: 'userId',
@@ -37,7 +31,7 @@ export const createGigsIndex = async () => {
       }
     )
   } catch (e) {
-    // console.log(e)
+    console.error('Could not create index idx:gigs')
   }
 }
 

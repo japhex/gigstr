@@ -8,29 +8,36 @@ import { theme } from '@theme/index'
 import { Session } from 'next-auth'
 
 export default function Main({ auth, children }: { auth: Session; children: ReactNode }) {
-  const isTablet = useMediaQuery(theme.breakpoints.tabletDown)
-
-  console.log(isTablet[0])
+  const isMobile = useMediaQuery(theme.breakpoints.mobileDown)
 
   return (
     <Box w="100vw" minH="100vh" p={4} bg="GREY4" color="GREY2">
       <Flex>
         {auth ? (
           <>
-            <Flex
-              pr={4}
-              direction="column"
-              h="calc(100vh - 32px)"
-              position="sticky"
-              top={4}
-              w={{ base: '100vw', lg: '15vw' }}
-            >
-              <Box>
-                <Logo />
-              </Box>
-              <Header />
-            </Flex>
-            <Box w={{ base: '100vw', lg: '85vw' }}>{children}</Box>
+            {!isMobile && (
+              <Flex
+                pr={4}
+                direction="column"
+                h="calc(100vh - 32px)"
+                position={{ base: 'static', md: 'sticky' }}
+                top={4}
+                w={{ base: '100vw', lg: '15vw' }}
+              >
+                <Box>
+                  <Logo />
+                </Box>
+                <Header />
+              </Flex>
+            )}
+            <Box w={{ base: 'calc(100vw - 16px)', lg: '85vw' }}>
+              {isMobile && (
+                <Box mb={8}>
+                  <Logo />
+                </Box>
+              )}
+              <Box>{children}</Box>
+            </Box>
           </>
         ) : (
           <Center flexDir="column" w="100vw">
