@@ -13,6 +13,6 @@ export const GLOBAL = {
   '-webkit-scrollbar-thumb': {
     background: COLORS.GREY6,
     borderRadius: '10px',
-    border: '0px solid #ffffff',
+    border: '0px solid WHITE',
   },
 }

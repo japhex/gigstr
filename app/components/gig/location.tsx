@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Location = ({ venue }: Props) => (
-  <Flex gap={2} align="center" color="#888" className={fonts.poppinsLight}>
+  <Flex gap={2} align="center" color="#888" className={fonts.poppinsLight} justify={{ base: 'center', md: 'left' }}>
     <Icon as={MdOutlineLocationOn} boxSize={5} />
     <Box>
       <Text fontSize="sm" noOfLines={1}>

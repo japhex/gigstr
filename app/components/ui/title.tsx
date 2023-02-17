@@ -9,12 +9,12 @@ interface Props {
 }
 
 const Title = ({ title, filter = true, past }: Props) => (
-  <Flex align="center" gap={4}>
+  <Flex align="center" gap={4} direction={{ base: 'column', md: 'row' }} minH="50px">
     <Text fontSize="xl" noOfLines={1} color="WHITE" fontWeight="bold" className={fonts.poppins}>
       {title}
     </Text>
     {filter && (
-      <Box ml="auto">
+      <Box ml={{ base: 'none', md: 'auto' }}>
         <Filters past={past} />
       </Box>
     )}

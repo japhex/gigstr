@@ -17,17 +17,17 @@ export const buttonTheme = {
       bg: props.colorMode === 'dark' ? 'red.300' : 'red.500',
     }),
     primary: {
-      bg: '#000',
-      border: '1px solid #000',
+      bg: 'BLACK',
+      border: '1px solid BLACK',
       fontSize: 'md',
       color: 'WHITE',
       _hover: {
-        background: '#111',
+        background: 'GREY7',
       },
     },
     iconButton: {
-      bg: '#000',
-      border: '1px solid #000',
+      bg: 'BLACK',
+      border: '1px solid BLACK',
       fontSize: 'md',
       color: 'WHITE',
       _disabled: {
@@ -44,7 +44,7 @@ export const buttonTheme = {
       width: 'auto',
       height: 'auto',
       color: 'WHITE',
-      border: '1px solid #000',
+      border: '1px solid BLACK',
     },
   },
   defaultProps: {

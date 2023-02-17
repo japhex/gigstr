@@ -25,7 +25,7 @@ const Card = ({ gig, icons = true, footer = null }: Props) => {
 
   return (
     <Flex gap={2} position="relative">
-      <Flex direction="column" w="100%" color="#cecece" bg="GREYGRAD" boxShadow={SHADOWS.default}>
+      <Flex direction="column" w="100%" color="GREY8" bg="GREYGRAD" boxShadow={SHADOWS.default}>
         <Image
           loading="lazy"
           role="presentation"
@@ -46,22 +46,22 @@ const Card = ({ gig, icons = true, footer = null }: Props) => {
             </Flex>
           )}
           <Box py={2} pb={0} mt={2}>
-            <Flex w="100%">
+            <Flex w="100%" justify={{ base: 'center', md: 'left' }}>
               <Box>
-                <Text fontSize="lg" noOfLines={1} color="#fff" className={fonts.poppins}>
+                <Text fontSize="lg" noOfLines={1} color="WHITE" className={fonts.poppins}>
                   {artist.name}
                 </Text>
               </Box>
               {festival?.start_date && <Icon as={MdOutlineFestival} ml="auto" />}
             </Flex>
           </Box>
-          <Box pb={6}>
-            <Text fontSize="sm" color="#888" className={fonts.poppinsBold}>
+          <Flex pb={6} justify={{ base: 'center', md: 'left' }}>
+            <Text fontSize="sm" color="GREY5" className={fonts.poppinsBold}>
               {date?.end && date?.start !== date?.end
                 ? `${format(new Date(date?.start), 'MMM do')} - ${format(new Date(date?.end), 'MMM do yyyy')}`
                 : gigStartDate(date)}
             </Text>
-          </Box>
+          </Flex>
           {venue && <Location venue={venue} />}
         </Box>
         <Box p={4} mt="auto">
