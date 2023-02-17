@@ -1,5 +1,6 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { HiOutlineTicket, HiOutlineUser } from 'react-icons/hi'
 import { IoIosStats } from 'react-icons/io'
@@ -35,7 +36,12 @@ export default function Header() {
         {data?.user && (
           <Flex gap={4}>
             {data?.user.image && (
-              <Image src={data?.user.image} alt={data?.user.name || data?.user.email || ''} borderRadius={6} w="60px" />
+              <Image
+                src={data?.user.image || ''}
+                alt={data?.user.name || data?.user.email || ''}
+                width="60"
+                height="60"
+              />
             )}
             <Flex direction="column" justify="center">
               <Text size="sm">{data?.user.name || data?.user.email}</Text>

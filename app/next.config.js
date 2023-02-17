@@ -6,7 +6,7 @@ module.exports = {
     defaultLocale: 'en',
   },
   images: {
-    domains: ['gigstr.s3.amazonaws.com'],
+    domains: ['gigstr.s3.amazonaws.com', 'i.scdn.co'],
   },
   async headers() {
     return [
