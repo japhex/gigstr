@@ -1,4 +1,8 @@
+import { S3 } from 'aws-sdk'
 import { getUnixTime } from 'date-fns'
+import Jimp from 'jimp'
+
+const s3 = new S3({ apiVersion: '2006-03-01' })
 
 const sortedImages = data =>
   data?._embedded?.events[0]?.images?.sort((a, b) => {
@@ -7,10 +11,20 @@ const sortedImages = data =>
 
 export const formatTicketmasterArtistData = async data => {
   const images = sortedImages(data)
+  const image = await Jimp.read(images[0]?.url)
+  const optimizedImage = await image.resize(Jimp.AUTO, 400).quality(50).getBufferAsync(Jimp.MIME_JPEG)
+
+  const uploadParams = {
+    Bucket: 'gigstr',
+    Key: `${data?._embedded?.events[0]?.name}.jpg`,
+    Body: optimizedImage,
+  }
+  const result = await s3.upload(uploadParams).promise()
 
   return {
     name: data?._embedded?.events[0]?.name || '',
     image: images[0]?.url || '',
+    imageS3: result?.Location,
     genre:
       data?._embedded?.events[0]?.classifications[0]?.genre?.name === 'Undefined'
         ? ''

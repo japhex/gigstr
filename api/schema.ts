@@ -27,6 +27,7 @@ const schemaString = `
   type Artist {
     name: String!
     image: String
+    imageS3: String
     genre: String
     subGenre: String
   }

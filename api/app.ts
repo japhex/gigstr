@@ -66,7 +66,13 @@ const server = new ApolloServer({
 })
 
 // Apply middleware
-server.applyMiddleware({ app, path: '/api' })
+server.applyMiddleware({
+  app,
+  path: '/api',
+  bodyParserConfig: {
+    limit: '10mb',
+  },
+})
 
 // Create app service
 app.listen(PORT)

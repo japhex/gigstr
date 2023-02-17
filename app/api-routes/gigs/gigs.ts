@@ -7,6 +7,7 @@ export const getGigs = gql`
       artist {
         name
         image
+        imageS3
         genre
         subGenre
       }

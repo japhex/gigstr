@@ -8,6 +8,7 @@ export interface IGig extends Document {
   artist: {
     name: string
     image: string
+    imageS3: string
     genre: string
     subGenre: string
   }
@@ -46,6 +47,7 @@ const gigSchema = new Schema(
     artist: {
       name: { type: String },
       image: { type: String },
+      imageS3: { type: String },
       genre: { type: String },
       subGenre: { type: String },
     },

@@ -31,7 +31,7 @@ const Card = ({ gig, icons = true, footer = null }: Props) => {
           role="presentation"
           h="150px"
           w="100%"
-          src={artist.image}
+          src={artist.imageS3}
           objectFit="cover"
           bgPosition="top"
           alt={artist.name}

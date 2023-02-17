@@ -22,7 +22,7 @@ const PastCard = ({ gig }: Props) => {
         role="presentation"
         h="100%"
         w="125px"
-        src={artist.image}
+        src={artist.imageS3}
         objectFit="cover"
         bgPosition="top"
         alt={artist.name}
