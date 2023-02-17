@@ -5,4 +5,7 @@ module.exports = {
     locales: ['en'],
     defaultLocale: 'en',
   },
+  images: {
+    domains: ['gigstr.s3.amazonaws.com'],
+  },
 }

@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Icon, Text } from '@chakra-ui/react'
 import Genres from '@components/gig/genres'
 import Lineup from '@components/gig/lineup'
 import Location from '@components/gig/location'
@@ -6,6 +6,7 @@ import Rating from '@components/gig/rating'
 import { Gig } from '@gql/graphql'
 import { SHADOWS } from '@theme/utils/shadows'
 import { format } from 'date-fns'
+import Image from 'next/image'
 import { MdOutlineFestival } from 'react-icons/md'
 
 interface Props {
@@ -18,14 +19,11 @@ const PastCard = ({ gig }: Props) => {
   return (
     <Flex key={_id} gap={2} bg="GREYGRAD" flex="0 0 calc(400px + 16px)" h="150px" boxShadow={SHADOWS.default}>
       <Image
-        loading="lazy"
-        role="presentation"
-        h="100%"
-        w="125px"
-        src={artist.imageS3}
-        objectFit="cover"
-        bgPosition="top"
+        height="150"
+        width="125"
+        src={artist?.imageS3 || ''}
         alt={artist.name}
+        style={{ objectFit: 'cover', backgroundPosition: 'top', height: '100%' }}
       />
       <Flex>
         <Box pt={2}>

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { Box, Flex, Icon, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Icon, Text } from '@chakra-ui/react'
 import Delete from '@components/gig/delete'
 import Genres from '@components/gig/genres'
 import Info from '@components/gig/info'
@@ -12,6 +12,7 @@ import { fonts } from '@theme/index'
 import { SHADOWS } from '@theme/utils/shadows'
 import { gigStartDate } from '@utils/gigs'
 import { format } from 'date-fns'
+import Image from 'next/image'
 import { MdOutlineFestival } from 'react-icons/md'
 
 interface Props {
@@ -27,14 +28,11 @@ const Card = ({ gig, icons = true, footer = null }: Props) => {
     <Flex gap={2} position="relative">
       <Flex direction="column" w="100%" color="GREY8" bg="GREYGRAD" boxShadow={SHADOWS.default}>
         <Image
-          loading="lazy"
-          role="presentation"
-          h="150px"
-          w="100%"
-          src={artist.imageS3}
-          objectFit="cover"
-          bgPosition="top"
+          height="150"
+          width="400"
+          src={artist?.imageS3 || ''}
           alt={artist.name}
+          style={{ objectFit: 'cover', backgroundPosition: 'top', width: '100%' }}
         />
         <Box p={4}>
           {icons && (

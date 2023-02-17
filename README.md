@@ -35,6 +35,7 @@ Docker compose setup:
 - FE hosted on Vercel
 - BE hosted on EC2 using docker-compose
 - Auto deploy setup for both FE and BE using Vercel and github action to auto-deploy api on push
+- AWS Services used: EC2, S3
 
 
 I mean...this thing is powerful, can do anything within reason and is light as balls. Check out the package file, its got the essentials and a couple of nice to haves, the other point of this project is to prove not only to myself but others that you don't need to go crazy, you can build a fullstack application in 1 place utilising a few bits. Don't ever take that for granted.
