@@ -8,7 +8,7 @@ import { theme } from '@theme/index'
 import { Session } from 'next-auth'
 
 export default function Main({ auth, children }: { auth: Session; children: ReactNode }) {
-  const [isMobile] = useMediaQuery(theme.breakpoints.mobileDown)
+  const [isMobile] = useMediaQuery(theme.breakpoints.tabletDown)
 
   return (
     <Box w="100vw" minH="100vh" p={4} bg="GREY4" color="GREY2">
