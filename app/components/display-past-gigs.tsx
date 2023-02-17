@@ -12,7 +12,7 @@ const PastGigs = () => {
   const gigs = data?.gigs || []
 
   return (
-    <>
+    <Box minH="200px">
       <Title title="past gigs" past filter={gigs.length > 0} />
       <Box w="100%" overflowX="scroll">
         <Flex gap={4} w="100%">
@@ -25,7 +25,7 @@ const PastGigs = () => {
           )}
         </Flex>
       </Box>
-    </>
+    </Box>
   )
 }
 
