@@ -11,7 +11,8 @@
     "prettier:write": "prettier --write '**/*.{ts,tsx}' --config .prettierrc",
     "lint": "eslint --config .eslintrc.json --ignore-path ./.eslintignore '**/*.{ts,tsx}'",
     "lint:fix": "eslint --config .eslintrc.json --ignore-path ./.eslintignore '**/*.{ts,tsx}' --fix",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts",
+	  "tokengen": "chakra-cli tokens theme/index.ts"
   },
   "author": "Japhex",
   "dependencies": {
@@ -40,6 +41,7 @@
     "react-useanimations": "^2.10.0"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^2.3.0",
     "@graphql-codegen/cli": "2.16.3",
     "@graphql-codegen/client-preset": "^1.2.5",
     "@next/eslint-plugin-next": "^13.1.6",

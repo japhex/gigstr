@@ -11,20 +11,25 @@ const sortedImages = data =>
 
 export const formatTicketmasterArtistData = async data => {
   const images = sortedImages(data)
-  const image = await Jimp.read(images[0]?.url)
-  const optimizedImage = await image.resize(Jimp.AUTO, 400).quality(50).getBufferAsync(Jimp.MIME_JPEG)
+  let result
 
-  const uploadParams = {
-    Bucket: 'gigstr',
-    Key: `${data?._embedded?.events[0]?.name}.jpg`,
-    Body: optimizedImage,
+  if (images.length > 0) {
+    const image = await Jimp.read(images[0]?.url)
+    const optimizedImage = await image.cover(400, 250).quality(50).getBufferAsync(Jimp.MIME_JPEG)
+
+    const uploadParams = {
+      Bucket: 'gigstr',
+      Key: `${data?._embedded?.events[0]?.name}.jpg`,
+      Body: optimizedImage,
+      Metadata: { 'Cache-control': 'max-age=31536000,public,immutable' },
+    }
+    result = await s3.upload(uploadParams).promise()
   }
-  const result = await s3.upload(uploadParams).promise()
 
   return {
     name: data?._embedded?.events[0]?.name || '',
     image: images[0]?.url || '',
-    imageS3: result?.Location,
+    imageS3: result?.Location || '',
     genre:
       data?._embedded?.events[0]?.classifications[0]?.genre?.name === 'Undefined'
         ? ''

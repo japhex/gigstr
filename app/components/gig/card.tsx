@@ -27,13 +27,7 @@ const Card = ({ gig, icons = true, footer = null }: Props) => {
   return (
     <Flex gap={2} position="relative">
       <Flex direction="column" w="100%" color="GREY8" bg="GREYGRAD" boxShadow={SHADOWS.default}>
-        <Image
-          height="150"
-          width="400"
-          src={artist?.imageS3 || ''}
-          alt={artist.name}
-          style={{ objectFit: 'cover', backgroundPosition: 'top', width: '100%' }}
-        />
+        <Image height="150" width="400" src={artist?.imageS3 || ''} alt={artist.name} />
         <Box p={4}>
           {icons && (
             <Flex gap={2} justify="center">
