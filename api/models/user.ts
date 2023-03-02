@@ -10,7 +10,7 @@ export interface IUser extends Document {
   emailVerified: string
 }
 
-const userSchema = new Schema(
+const userSchema = new Schema<IUser>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -23,4 +23,4 @@ const userSchema = new Schema(
   }
 )
 
-export const User = mongoose.model<IUser>('User', userSchema)
+export const User = mongoose.model('User', userSchema)
