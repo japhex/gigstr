@@ -8,7 +8,7 @@ export interface IRating extends Document {
   rating: number
 }
 
-const ratingsSchema = new Schema<IRating>(
+const ratingsSchema = new Schema(
   {
     userId: String,
     gigId: { type: Schema.Types.ObjectId, ref: 'Gig' },
@@ -19,4 +19,4 @@ const ratingsSchema = new Schema<IRating>(
   }
 )
 
-export const Ratings = mongoose.model('Ratings', ratingsSchema)
+export const Ratings = mongoose.model<IRating>('Ratings', ratingsSchema)

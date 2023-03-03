@@ -41,7 +41,7 @@ export interface IGig extends Document {
   userId: string
 }
 
-const gigSchema = new Schema<IGig>(
+const gigSchema = new Schema(
   {
     ticketmasterId: { type: String },
     artist: {
@@ -84,4 +84,4 @@ const gigSchema = new Schema<IGig>(
   }
 )
 
-export const Gig = mongoose.model('Gig', gigSchema)
+export const Gig = mongoose.model<IGig>('Gig', gigSchema)
